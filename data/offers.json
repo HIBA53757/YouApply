@@ -1,0 +1,128 @@
+[
+  {
+    "id": 1,
+    "opp_type": "stage",
+    "company": "Acme Technologies SAS",
+    "location": "Lyon (69002)",
+    "job_title": "Développeur Full-Stack",
+    "schedule": "3j Entreprise / 2j École",
+    "description": "Entreprise spécialisée dans le développement de solutions web innovantes.",
+    "missions": "Développer des fonctionnalités frontend et backend. Participer aux réunions de suivi agile. Corriger les bugs et améliorer les performances.",
+    "profile": "Étudiant en informatique, curieux, autonome et motivé.",
+    "skills": [
+      "JavaScript",
+      "PHP",
+      "MySQL",
+      "Git / GitHub"
+    ],
+    "start_date": "2025-01-09",
+    "duration": "6 mois",
+    "salary": "Selon barème légal",
+    "email": "recrutement@acme-tech.com"
+  },
+  {
+    "id": 2,
+    "opp_type": "alternance",
+    "company": "TechVision",
+    "location": "Paris (75015)",
+    "job_title": "Développeur Front-End",
+    "schedule": "1 Semaine / 1 Semaine",
+    "description": "Startup spécialisée dans les applications web et mobiles.",
+    "missions": "Créer des interfaces modernes et responsives. Intégrer des maquettes Figma. Collaborer avec l'équipe backend.",
+    "profile": "Étudiant passionné par le développement web avec une bonne maîtrise de JavaScript.",
+    "skills": [
+      "JavaScript",
+      "React",
+      "Figma",
+      "Git / GitHub"
+    ],
+    "start_date": "2025-02-03",
+    "duration": "12 mois",
+    "salary": "850 € / mois",
+    "email": "jobs@techvision.fr"
+  },
+  {
+    "id": 3,
+    "opp_type": "stage",
+    "company": "DataCorp",
+    "location": "Casablanca",
+    "job_title": "Développeur Backend PHP",
+    "schedule": "3 Semaines / 1 Semaine",
+    "description": "Entreprise spécialisée dans les solutions de gestion et les plateformes métier.",
+    "missions": "Développer des APIs REST. Concevoir et optimiser les bases de données. Écrire des tests et corriger les anomalies.",
+    "profile": "Étudiant en développement web avec de bonnes bases en PHP et SQL.",
+    "skills": [
+      "PHP",
+      "MySQL",
+      "Laravel",
+      "Git / GitHub"
+    ],
+    "start_date": "2025-03-01",
+    "duration": "4 mois",
+    "salary": "Selon barème légal",
+    "email": "recrutement@datacorp.ma"
+  },
+  {
+    "id": 4,
+    "opp_type": "alternance",
+    "company": "DigitalWave",
+    "location": "Rabat",
+    "job_title": "Développeur JavaScript",
+    "schedule": "Autre",
+    "description": "Agence digitale qui accompagne des entreprises dans leur transformation numérique.",
+    "missions": "Développer des applications web. Participer à la conception technique. Travailler avec une équipe de développeurs.",
+    "profile": "Étudiant sérieux, organisé et intéressé par les technologies modernes du web.",
+    "skills": [
+      "JavaScript",
+      "React",
+      "Node.js",
+      "Git / GitHub"
+    ],
+    "start_date": "2025-04-07",
+    "duration": "24 mois",
+    "salary": "950 € / mois",
+    "email": "talent@digitalwave.ma"
+  },
+  {
+    "id": 5,
+    "opp_type": "stage",
+    "company": "WebFactory",
+    "location": "Toulouse",
+    "job_title": "Intégrateur Web",
+    "schedule": "3j Entreprise / 2j École",
+    "description": "Studio web spécialisé dans la création de sites et d'interfaces digitales.",
+    "missions": "Transformer des maquettes en pages web. Assurer la compatibilité responsive. Optimiser l'expérience utilisateur.",
+    "profile": "Étudiant ayant un intérêt pour le frontend, le design et l'intégration web.",
+    "skills": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "Figma"
+    ],
+    "start_date": "2025-01-20",
+    "duration": "3 mois",
+    "salary": "Selon barème légal",
+    "email": "contact@webfactory.fr"
+  },
+  {
+    "id": 6,
+    "opp_type": "alternance",
+    "company": "CloudSoft",
+    "location": "Lille",
+    "job_title": "Développeur Full-Stack",
+    "schedule": "1 Semaine / 1 Semaine",
+    "description": "Entreprise SaaS développant des solutions cloud pour les professionnels.",
+    "missions": "Développer des fonctionnalités frontend et backend. Consommer et créer des APIs. Participer aux revues de code.",
+    "profile": "Étudiant en développement logiciel souhaitant progresser sur les architectures web.",
+    "skills": [
+      "JavaScript",
+      "React",
+      "PHP",
+      "MySQL"
+    ],
+    "start_date": "2025-09-01",
+    "duration": "12 mois",
+    "salary": "1100 € / mois",
+    "email": "hr@cloudsoft.fr"
+  }
+]
