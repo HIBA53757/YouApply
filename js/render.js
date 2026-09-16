@@ -1,6 +1,6 @@
+import { getData } from "./data.js"
 
-
-fetch('../data/offers.json').then(res => res.json()).then((offers)=>
+const offers = await getData();
 offers.forEach(offer => {
     const Offers_List = document.querySelector("#Offers_List");
 
@@ -390,11 +390,8 @@ offers.forEach(offer => {
     article.appendChild(div_in_article);
 
 
-    Offers_List.appendChild(article);
-
+    Offers_List.appendChild(article)
 })
-)
-    
 
 
 
