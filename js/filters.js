@@ -1,15 +1,15 @@
 import { getData } from "./data.js";
-
+import { disply_offers } from "./render.js";
 let offers = [];
 
 const searchInput = document.getElementById("search-keyword");
 const cityInput = document.getElementById("search-city");
 const searchButton = document.getElementById("search-button");
+const sortSelect = document.getElementById("sort-select");
 
 const offersList = document.getElementById("Offers_List");
 const resultsCount = document.getElementById("results-count");
 const technologyFilters = document.getElementById("technology-filters");
-
 
 async function loadOffers() {
     try {
@@ -20,8 +20,6 @@ async function loadOffers() {
         console.error(error);
     }
 }
-
-
 function displayTechnologies() {
     const technologies = [];
     offers.forEach(function (offer) {
@@ -31,10 +29,10 @@ function displayTechnologies() {
             }
         });
     });
-
     technologies.forEach(function (technology) {
         const label = document.createElement("label");
         label.className = "flex items-center gap-2 cursor-pointer";
+
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
         checkbox.value = technology;
@@ -46,11 +44,9 @@ function displayTechnologies() {
 
         label.appendChild(checkbox);
         label.appendChild(span);
-
         technologyFilters.appendChild(label);
     });
 }
-
 function searchOffers() {
     const keyword = searchInput.value.toLowerCase().trim();
     const city = cityInput.value.toLowerCase().trim();
@@ -67,18 +63,14 @@ function searchOffers() {
         const title = offer.job_title.toLowerCase();
         const company = offer.company.toLowerCase();
         const description = offer.description.toLowerCase();
-
-        const keywordMatch = title.includes(keyword) || company.includes(keyword) || description.includes(keyword);
         const location = offer.location.toLowerCase();
-
-        const cityMatch =
-            location.includes(city);
-
-        const technologyMatch = selectedTechnologies.length === 0 || selectedTechnologies.every(function (technology) {
+        const keywordMatch = title.includes(keyword) || company.includes(keyword) || description.includes(keyword);
+        const cityMatch = location.includes(city);
+        const technologyMatch =
+            selectedTechnologies.length === 0 ||
+            selectedTechnologies.every(function (technology) {
                 return offer.skills.includes(technology);
-
             });
-
         const showOffer = keywordMatch && cityMatch && technologyMatch;
         if (showOffer) {
             articles[index].style.display = "";
@@ -89,7 +81,69 @@ function searchOffers() {
     });
     resultsCount.textContent = visibleOffers;
 }
+function sortOffers() {
+    const sortType = sortSelect.value;
+    offers.sort(function (a, b) {
+        const dateA = new Date(a.published_at);
+        const dateB = new Date(b.published_at);
+        if (sortType === "recent") {
+            return dateB - dateA;
+        }
+        if (sortType === "oldest") {
+            return dateA - dateB;
+        }
+    });
+    offersList.innerHTML = "";
+    disply_offers(offers);
+    searchOffers();
+}
+function resetFilters() {
+    searchInput.value = "";
+    cityInput.value = "";
+
+    document.querySelectorAll(".technology-filter").forEach(function (checkbox) {
+        checkbox.checked = false;
+    });
+
+    document.querySelectorAll(".work-mode-filter").forEach(function (checkbox) {
+        checkbox.checked = false;
+    });
+
+    document.querySelectorAll(".contract-filter").forEach(function (button) {
+        button.classList.remove("bg-white", "text-slate-800", "shadow-sm");
+        button.classList.add("text-slate-600");
+    });
+
+    const allContract = document.querySelector(
+        '.contract-filter[data-contract="all"]'
+    );
+
+    allContract.classList.remove("text-slate-600");
+    allContract.classList.add("bg-white", "text-slate-800", "shadow-sm");
+
+    document.querySelectorAll(".duration-filter").forEach(function (button) {
+        button.classList.remove("bg-blue-700", "text-white");
+        button.classList.add("bg-slate-100", "text-slate-700");
+    });
+
+    sortSelect.value = "recent";
+
+    offers.sort(function (a, b) {
+        return a.id - b.id;
+    });
+
+    offersList.innerHTML = "";
+    disply_offers(offers);
+
+    resultsCount.textContent = offers.length;
+
+}
+
 searchButton.addEventListener("click", searchOffers);
 technologyFilters.addEventListener("change", searchOffers);
-
+sortSelect.addEventListener("change", sortOffers);
+const resetButtons = document.querySelectorAll(".reset-filters");
+resetButtons.forEach(function (button) {
+    button.addEventListener("click", resetFilters);
+});
 loadOffers();
