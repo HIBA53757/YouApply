@@ -1,5 +1,8 @@
+import { getData } from "./data.js";
+
 const title = document.getElementById("job_title");
-const companyName = document.getElementById("companyName");const companyVerified = document.getElementById("company_verified");
+const companyName = document.getElementById("companyName");
+const companyVerified = document.getElementById("company_verified");
 const offerLocation = document.querySelectorAll(".offerLocation");
 const opp_type = document.getElementById("opp_type");
 const publishedAt = document.getElementById("published_at");
@@ -73,8 +76,8 @@ function createCheckItem(text, isCard = false) {
 }
 
 async function loadOffers() {
-  const response = await fetch("../data/offers.json");
-  const offers = await response.json();
+  
+  const offers = await getData();
 
   const offerId = findSelectedId();
   const selectedOffer = findOffer(offers, offerId);
@@ -96,9 +99,9 @@ function displayInfos(selectedOffer) {
     locationElement.textContent = selectedOffer.location;
   });
 
-  opp_type.textContent =
-    offerType + " - " + selectedOffer.job_title;
-  publishedAt.textContent = "Publié le " + formatDate(selectedOffer.published_at);
+  opp_type.textContent = offerType + " - " + selectedOffer.job_title;
+  publishedAt.textContent =
+    "Publié le " + formatDate(selectedOffer.published_at);
   referenceHeader.textContent = "#" + selectedOffer.reference;
   duration.textContent = offerType + " · " + selectedOffer.duration;
   profile.textContent = selectedOffer.profile;
@@ -163,7 +166,6 @@ function displayInfos(selectedOffer) {
   recruiterRole.textContent = selectedOffer.recruiter_role;
   hrEmail.href = "mailto:" + selectedOffer.email;
   hrEmailText.textContent = selectedOffer.email;
-
 }
 loadOffers();
 
