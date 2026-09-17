@@ -1,6 +1,4 @@
-import { getData } from "./data.js"
-
-const offers = await getData();
+export function disply_offers(offers){
 offers.forEach(offer => {
     const Offers_List = document.querySelector("#Offers_List");
 
@@ -392,6 +390,6 @@ offers.forEach(offer => {
 
     Offers_List.appendChild(article)
 })
-
+}
 
 
