@@ -18,7 +18,27 @@
     "start_date": "2025-01-09",
     "duration": "6 mois",
     "salary": "Selon barème légal",
-    "email": "recrutement@acme-tech.com"
+    "email": "recrutement@acme-tech.com",
+    "reference": "STG-2025-001",
+    "published_at": "2024-12-05",
+    "status": "published",
+    "company_verified": true,
+    "team_size": "24 développeurs",
+    "work_method": "Agile / Scrum",
+    "remote_policy": "2 jours / semaine",
+    "soft_skills": [
+      "Curiosité",
+      "Autonomie",
+      "Esprit d'équipe"
+    ],
+    "health_insurance": "Mutuelle prise en charge à 60% par l'employeur.",
+    "transport_and_meals": "Abonnement TCL à 50% et titres-restaurant.",
+    "applications_count": 18,
+    "response_time": "Sous 5 jours ouvrés",
+    "recruiter_name": "Camille Martin",
+    "recruiter_role": "Responsable recrutement Tech",
+    "work_address": "42 rue de la République, 69002 Lyon",
+    "access_info": "Accessible via le métro A, arrêt Cordeliers."
   },
   {
     "id": 2,
@@ -39,7 +59,27 @@
     "start_date": "2025-02-03",
     "duration": "12 mois",
     "salary": "850 € / mois",
-    "email": "jobs@techvision.fr"
+    "email": "jobs@techvision.fr",
+    "reference": "ALT-2025-002",
+    "published_at": "2025-01-10",
+    "status": "published",
+    "company_verified": true,
+    "team_size": "16 développeurs",
+    "work_method": "Scrum",
+    "remote_policy": "2 jours / semaine",
+    "soft_skills": [
+      "Créativité",
+      "Communication",
+      "Rigueur"
+    ],
+    "health_insurance": "Mutuelle prise en charge à 100% par l'employeur.",
+    "transport_and_meals": "Pass Navigo à 50% et carte restaurant.",
+    "applications_count": 27,
+    "response_time": "Sous 4 jours ouvrés",
+    "recruiter_name": "Sophie Bernard",
+    "recruiter_role": "Talent Acquisition Manager",
+    "work_address": "18 rue de la Convention, 75015 Paris",
+    "access_info": "Accessible via le métro 8, arrêt Boucicaut."
   },
   {
     "id": 3,
@@ -60,7 +100,27 @@
     "start_date": "2025-03-01",
     "duration": "4 mois",
     "salary": "Selon barème légal",
-    "email": "recrutement@datacorp.ma"
+    "email": "recrutement@datacorp.ma",
+    "reference": "STG-2025-003",
+    "published_at": "2025-01-22",
+    "status": "published",
+    "company_verified": true,
+    "team_size": "12 développeurs",
+    "work_method": "Kanban",
+    "remote_policy": "1 jour / semaine",
+    "soft_skills": [
+      "Analyse",
+      "Organisation",
+      "Esprit d'équipe"
+    ],
+    "health_insurance": "Assurance santé complémentaire proposée.",
+    "transport_and_meals": "Indemnité de transport et repas subventionnés.",
+    "applications_count": 11,
+    "response_time": "Sous 7 jours ouvrés",
+    "recruiter_name": "Yasmine El Amrani",
+    "recruiter_role": "Chargée de recrutement",
+    "work_address": "Boulevard d'Anfa, Casablanca",
+    "access_info": "Accessible en tramway et en bus depuis le centre-ville."
   },
   {
     "id": 4,
@@ -81,7 +141,27 @@
     "start_date": "2025-04-07",
     "duration": "24 mois",
     "salary": "950 € / mois",
-    "email": "talent@digitalwave.ma"
+    "email": "talent@digitalwave.ma",
+    "reference": "ALT-2025-004",
+    "published_at": "2025-02-15",
+    "status": "published",
+    "company_verified": true,
+    "team_size": "20 développeurs",
+    "work_method": "Agile / Scrum",
+    "remote_policy": "Hybride selon les projets",
+    "soft_skills": [
+      "Organisation",
+      "Adaptabilité",
+      "Communication"
+    ],
+    "health_insurance": "Assurance santé privée après la période d'essai.",
+    "transport_and_meals": "Indemnité mensuelle de transport et de repas.",
+    "applications_count": 22,
+    "response_time": "Sous 5 jours ouvrés",
+    "recruiter_name": "Mehdi Alaoui",
+    "recruiter_role": "Responsable des talents",
+    "work_address": "Avenue Fal Ould Oumeir, Agdal, Rabat",
+    "access_info": "À proximité de la gare Rabat Agdal et des lignes de bus."
   },
   {
     "id": 5,
@@ -102,7 +182,27 @@
     "start_date": "2025-01-20",
     "duration": "3 mois",
     "salary": "Selon barème légal",
-    "email": "contact@webfactory.fr"
+    "email": "contact@webfactory.fr",
+    "reference": "STG-2025-005",
+    "published_at": "2024-12-18",
+    "status": "published",
+    "company_verified": false,
+    "team_size": "8 collaborateurs",
+    "work_method": "Sprints hebdomadaires",
+    "remote_policy": "1 jour / semaine",
+    "soft_skills": [
+      "Créativité",
+      "Souci du détail",
+      "Autonomie"
+    ],
+    "health_insurance": "Mutuelle d'entreprise standard.",
+    "transport_and_meals": "Abonnement Tisséo à 50% et titres-restaurant.",
+    "applications_count": 9,
+    "response_time": "Sous 6 jours ouvrés",
+    "recruiter_name": "Lucie Moreau",
+    "recruiter_role": "Cheffe de projet digital",
+    "work_address": "7 allée Jean Jaurès, 31000 Toulouse",
+    "access_info": "Accessible via le métro A, arrêt Jean-Jaurès."
   },
   {
     "id": 6,
@@ -123,6 +223,26 @@
     "start_date": "2025-09-01",
     "duration": "12 mois",
     "salary": "1100 € / mois",
-    "email": "hr@cloudsoft.fr"
+    "email": "hr@cloudsoft.fr",
+    "reference": "ALT-2025-006",
+    "published_at": "2025-03-12",
+    "status": "published",
+    "company_verified": true,
+    "team_size": "30 développeurs",
+    "work_method": "Agile / Scrum",
+    "remote_policy": "3 jours / semaine",
+    "soft_skills": [
+      "Curiosité technique",
+      "Collaboration",
+      "Proactivité"
+    ],
+    "health_insurance": "Mutuelle premium prise en charge à 80%.",
+    "transport_and_meals": "Transport à 50% et carte restaurant de 10 € par jour.",
+    "applications_count": 31,
+    "response_time": "Sous 3 jours ouvrés",
+    "recruiter_name": "Thomas Leroy",
+    "recruiter_role": "HR Business Partner",
+    "work_address": "35 boulevard Carnot, 59000 Lille",
+    "access_info": "À cinq minutes à pied de la gare Lille-Flandres."
   }
 ]
