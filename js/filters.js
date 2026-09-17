@@ -1,3 +1,5 @@
+import { getData } from "./data.js";
+
 let offers = [];
 
 const searchInput = document.getElementById("search-keyword");
@@ -7,57 +9,44 @@ const resultsCount = document.getElementById("results-count");
 
 async function loadOffers() {
     try {
-        const response = await fetch("../data/offers.json");
-        if (!response.ok) {
-            throw new Error("Erreur lors du chargement des offres");
-        }
-        offers = await response.json();
-        displayOffers(offers);
+        offers = await getData();
+
+        resultsCount.textContent = offers.length;
+
     } catch (error) {
         console.error(error);
     }
 }
+
 function searchOffers() {
     const keyword = searchInput.value.toLowerCase().trim();
-    const filteredOffers = offers.filter(function (offer) {
+
+    const articles = offersList.querySelectorAll("article");
+
+    let visibleOffers = 0;
+
+    offers.forEach(function (offer, index) {
 
         const title = offer.job_title.toLowerCase();
         const company = offer.company.toLowerCase();
         const description = offer.description.toLowerCase();
 
-        return (
+        const match =
             title.includes(keyword) ||
             company.includes(keyword) ||
-            description.includes(keyword)
-        );
+            description.includes(keyword);
+
+        if (match) {
+            articles[index].style.display = "";
+            visibleOffers++;
+        } else {
+            articles[index].style.display = "none";
+        }
     });
 
-    displayOffers(filteredOffers);
-}
-function displayOffers(offersToDisplay) {
-    offersList.innerHTML = "";
-    resultsCount.textContent = offersToDisplay.length;
-    offersToDisplay.forEach(function (offer) {
-        const article = document.createElement("article");
-        article.className =
-            "bg-white rounded-2xl border border-slate-200 shadow-sm p-5";
-        article.innerHTML = `
-            <h2 class="text-lg font-bold text-slate-800">
-                ${offer.job_title}
-            </h2>
-            <p class="text-sm text-slate-600 mt-1">
-                ${offer.company}
-            </p>
-            <p class="text-sm text-slate-500 mt-2">
-                ${offer.location}
-            </p>
-            <p class="text-sm text-slate-600 mt-3">
-                ${offer.description}
-            </p>
-        `;
-        offersList.appendChild(article);
-    });
+    resultsCount.textContent = visibleOffers;
 }
 
 searchButton.addEventListener("click", searchOffers);
+
 loadOffers();
