@@ -6,7 +6,6 @@ const offers = await getData();
 disply_offers(pagnation(1,3,offers));
 disply_pagination(offers)
 
-disply_offers(offers)
 
 const mobileMenuBtn = document.getElementById("mobile-menu-btn");
 const mobileMenu = document.getElementById("mobile-menu");
