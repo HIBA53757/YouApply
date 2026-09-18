@@ -1,7 +1,8 @@
 export function disply_offers(offers){
+Offers_List.textContent = ""
 offers.forEach(offer => {
     const Offers_List = document.querySelector("#Offers_List");
-
+    
     const article = document.createElement("article");
 
     const div_in_article = document.createElement("div");
