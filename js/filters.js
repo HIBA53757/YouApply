@@ -226,36 +226,39 @@ function resetFilters() {
     resultsCount.textContent = offers.length;
     if (noResults) noResults.classList.add("hidden");
 }
-const filterToggleBtn = document.getElementById("filter-toggle-btn");
-const filterContent = document.getElementById("filter-content");
-const filterChevron = document.getElementById("filter-chevron");
+if (searchButton) {
+    const filterToggleBtn = document.getElementById("filter-toggle-btn");
+    const filterContent = document.getElementById("filter-content");
+    const filterChevron = document.getElementById("filter-chevron");
 
-if (filterToggleBtn && filterContent) {
-    filterToggleBtn.addEventListener("click", function () {
-        filterContent.classList.toggle("grid-rows-[1fr]");
-        if (filterChevron) {
-            filterChevron.classList.toggle("rotate-180");
-        }
-    });
-}
-searchButton.addEventListener("click", searchOffers);
-technologyFilters.addEventListener("change", searchOffers);
-sortSelect.addEventListener("change", sortOffers);
-
-document.querySelectorAll(".reset-filters").forEach((button) => {
-    button.addEventListener("click", resetFilters);
-});
-
-document.querySelectorAll(".contract-filter").forEach((button) => {
-    button.addEventListener("click", function () {
-        document.querySelectorAll(".contract-filter").forEach((btn) => {
-            btn.classList.remove("bg-white", "text-slate-800", "shadow-sm");
-            btn.classList.add("text-slate-600");
+    if (filterToggleBtn && filterContent) {
+        filterToggleBtn.addEventListener("click", function () {
+            filterContent.classList.toggle("grid-rows-[1fr]");
+            if (filterChevron) {
+                filterChevron.classList.toggle("rotate-180");
+            }
         });
-        button.classList.remove("text-slate-600");
-        button.classList.add("bg-white", "text-slate-800", "shadow-sm");
-        searchOffers();
-    });
-});
+    }
 
-loadOffers();
+    searchButton.addEventListener("click", searchOffers);
+    technologyFilters.addEventListener("change", searchOffers);
+    sortSelect.addEventListener("change", sortOffers);
+
+    document.querySelectorAll(".reset-filters").forEach((button) => {
+        button.addEventListener("click", resetFilters);
+    });
+
+    document.querySelectorAll(".contract-filter").forEach((button) => {
+        button.addEventListener("click", function () {
+            document.querySelectorAll(".contract-filter").forEach((btn) => {
+                btn.classList.remove("bg-white", "text-slate-800", "shadow-sm");
+                btn.classList.add("text-slate-600");
+            });
+            button.classList.remove("text-slate-600");
+            button.classList.add("bg-white", "text-slate-800", "shadow-sm");
+            searchOffers();
+        });
+    });
+
+    loadOffers();
+}
