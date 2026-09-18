@@ -1,5 +1,6 @@
 import { saveFollowedOffers } from "./storage.js";
 import { getFollowedOffers } from "./storage.js";
+import { unfollowOffer } from "./storage.js";
 
 export function disply_offers(offers) {
   offers.forEach((offer) => {
@@ -154,15 +155,15 @@ export function disply_offers(offers) {
 
     button_save.addEventListener("click", () => {
       const offerId = button_save.dataset.offerId;
-
       const followedOffers = getFollowedOffers();
 
-      if (!followedOffers.includes(Number(offerId))) {
+      const alreadyFollowed = followedOffers.includes(Number(offerId));
+      if (alreadyFollowed) {
+        unfollowOffer(offerId);
+      } else {
         followedOffers.push(Number(offerId));
         saveFollowedOffers(followedOffers);
         // console.log(followedOffers);
-      } else {
-        console.log("deja ");
       }
     });
 
