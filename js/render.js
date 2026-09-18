@@ -171,6 +171,13 @@ export function disply_offers(offers) {
         unfollowOffer(offerId);
         if (document.body.dataset.page === "followed") {
           article.remove();
+
+          const emptyState = document.querySelector("#empty-followed-offers");
+          const hasRemainingOffers = Offers_List.querySelector("article");
+
+          if (!hasRemainingOffers && emptyState) {
+            emptyState.classList.remove("hidden");
+          }
         }
         svg_save.setAttribute("fill", "none");
         button_save.classList.remove("text-blue-600", "hover:text-blue-700");
