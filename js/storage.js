@@ -1,3 +1,6 @@
+
+const followedOffersIds = []
+
 function getFollowedOffers() {
   const followedOffers = localStorage.getItem("followedOffers");
   console.log(followedOffers);
@@ -6,7 +9,7 @@ function getFollowedOffers() {
   //  return the array
 }
 
-function saveFollowedOffers(followedOffers) {
+ export function saveFollowedOffers(followedOffers) {
 
   localStorage.setItem("followedOffers", followedOffers);
 
@@ -15,4 +18,4 @@ function saveFollowedOffers(followedOffers) {
 }
 
 getFollowedOffers();
-saveFollowedOffers("test")
+saveFollowedOffers(followedOffersIds)
