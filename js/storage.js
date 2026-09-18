@@ -1,8 +1,6 @@
-const followedOffersIds = [];
-
 export function getFollowedOffers() {
   const followedOffers = localStorage.getItem("followedOffers");
-  return JSON.parse(followedOffers);
+  return followedOffers ? JSON.parse(followedOffers) : [];
 }
 
 export function saveFollowedOffers(followedOffers) {
@@ -14,6 +12,3 @@ export function unfollowOffer(offerId) {
   const updateOffer = followedOffers.filter((id) => id !== Number(offerId));
   saveFollowedOffers(updateOffer);
 }
-
-getFollowedOffers();
-saveFollowedOffers(followedOffersIds);

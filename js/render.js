@@ -156,6 +156,14 @@ export function disply_offers(offers) {
 
     button_save.dataset.offerId = offer.id;
 
+    const followedOffers = getFollowedOffers();
+    const alreadyFollowed = followedOffers.includes(Number(offer.id));
+
+    if (alreadyFollowed) {
+      button_save.classList.remove("text-slate-300", "hover:text-slate-500");
+      button_save.classList.add("text-blue-600", "hover:text-blue-700");
+    }
+
     button_save.addEventListener("click", () => {
       const offerId = button_save.dataset.offerId;
       const followedOffers = getFollowedOffers();
@@ -163,17 +171,26 @@ export function disply_offers(offers) {
       const alreadyFollowed = followedOffers.includes(Number(offerId));
       if (alreadyFollowed) {
         unfollowOffer(offerId);
+        svg_save.setAttribute("fill", "none");
+        button_save.classList.remove("text-blue-600", "hover:text-blue-700");
+        button_save.classList.add("text-slate-300", "hover:text-slate-500");
       } else {
         followedOffers.push(Number(offerId));
         saveFollowedOffers(followedOffers);
-        // console.log(followedOffers);
+        svg_save.setAttribute("fill", "currentColor");
+        button_save.classList.remove("text-slate-300", "hover:text-slate-500");
+        button_save.classList.add("text-blue-600", "hover:text-blue-700");
       }
     });
 
     // SAVE SVG
     svg_save.setAttribute("class", "w-6 h-6");
 
-    svg_save.setAttribute("fill", "none");
+    if (alreadyFollowed) {
+      svg_save.setAttribute("fill", "currentColor");
+    } else {
+      svg_save.setAttribute("fill", "none");
+    }
 
     svg_save.setAttribute("stroke", "currentColor");
 
