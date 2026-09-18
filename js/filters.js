@@ -226,6 +226,18 @@ function resetFilters() {
     resultsCount.textContent = offers.length;
     if (noResults) noResults.classList.add("hidden");
 }
+const filterToggleBtn = document.getElementById("filter-toggle-btn");
+const filterContent = document.getElementById("filter-content");
+const filterChevron = document.getElementById("filter-chevron");
+
+if (filterToggleBtn && filterContent) {
+    filterToggleBtn.addEventListener("click", function () {
+        filterContent.classList.toggle("grid-rows-[1fr]");
+        if (filterChevron) {
+            filterChevron.classList.toggle("rotate-180");
+        }
+    });
+}
 searchButton.addEventListener("click", searchOffers);
 technologyFilters.addEventListener("change", searchOffers);
 sortSelect.addEventListener("change", sortOffers);
