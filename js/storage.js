@@ -8,8 +8,6 @@ export function getFollowedOffers() {
 
 export function saveFollowedOffers(followedOffers) {
   localStorage.setItem("followedOffers", JSON.stringify(followedOffers));
-
-  //  save it in localStorage
 }
 
 getFollowedOffers();

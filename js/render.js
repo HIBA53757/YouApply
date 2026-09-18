@@ -1,4 +1,5 @@
 import { saveFollowedOffers } from "./storage.js";
+import { getFollowedOffers } from "./storage.js";
 
 export function disply_offers(offers) {
   offers.forEach((offer) => {
@@ -153,7 +154,16 @@ export function disply_offers(offers) {
 
     button_save.addEventListener("click", () => {
       const offerId = button_save.dataset.offerId;
-      saveFollowedOffers(offerId);
+
+      const followedOffers = getFollowedOffers();
+
+      if (!followedOffers.includes(Number(offerId))) {
+        followedOffers.push(Number(offerId));
+        saveFollowedOffers(followedOffers);
+        // console.log(followedOffers);
+      } else {
+        console.log("deja ");
+      }
     });
 
     // SAVE SVG
