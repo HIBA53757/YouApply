@@ -121,6 +121,9 @@ function displayDurations() {
         searchOffers();
     });
 }
+export function filterByContract(offer, selectedContract) {
+    return selectedContract === "all" || offer.opp_type.toLowerCase() === selectedContract;
+}
 function searchOffers() {
     const keyword = searchInput.value.toLowerCase().trim();
     const city = cityInput.value.toLowerCase().trim();
@@ -164,8 +167,7 @@ function searchOffers() {
                 return offer.skills.includes(technology);
             });
 
-        const contractMatch =
-            selectedContract === "all" || offer.opp_type.toLowerCase() === selectedContract;
+        const contractMatch = filterByContract(offer, selectedContract);
 
         const workModeMatch =
             selectedWorkModes.length === 0 || selectedWorkModes.includes(offer.work_mode);
