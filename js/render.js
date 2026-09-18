@@ -1,14 +1,12 @@
-export function disply_offers(offers){
-Offers_List.textContent = ""
-offers.forEach(offer => {
 import { saveFollowedOffers } from "./storage.js";
 import { getFollowedOffers } from "./storage.js";
 import { unfollowOffer } from "./storage.js";
 
 export function disply_offers(offers) {
+  const Offers_List = document.querySelector("#Offers_List");
+  Offers_List.textContent = "";
+
   offers.forEach((offer) => {
-    const Offers_List = document.querySelector("#Offers_List");
-    
     const article = document.createElement("article");
 
     const div_in_article = document.createElement("div");
@@ -171,6 +169,9 @@ export function disply_offers(offers) {
       const alreadyFollowed = followedOffers.includes(Number(offerId));
       if (alreadyFollowed) {
         unfollowOffer(offerId);
+        if (document.body.dataset.page === "followed") {
+          article.remove();
+        }
         svg_save.setAttribute("fill", "none");
         button_save.classList.remove("text-blue-600", "hover:text-blue-700");
         button_save.classList.add("text-slate-300", "hover:text-slate-500");
