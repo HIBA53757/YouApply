@@ -65,7 +65,7 @@ function createCheckItem(text, isCard = false) {
   const check = document.createElement("span");
   check.textContent = "✓";
   check.className =
-    "w-6 h-6 flex items-center justify-center flex-shrink-0 rounded-full bg-blue-50 text-blue-600 font-bold text-sm";
+    "w-6 h-6 flex items-center justify-center flex-shrink-0 rounded-full bg-blue-50 text-blue-700 font-bold text-sm";
 
   const content = document.createElement("span");
   content.textContent = text;

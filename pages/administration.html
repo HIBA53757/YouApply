@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>YouApply - Administration</title>
         <script src="https://cdn.tailwindcss.com"></script>
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="../css/style.css">
     </head>
     <body
         class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
@@ -21,7 +21,7 @@
                         class="font-bold text-xl flex items-center">
 
                         <span class="text-black">You</span><span
-                            class="text-blue-700">Apply</span>
+                            class="brand-apply">Apply</span>
                     </a>
                     <span
                         class="hidden sm:block text-xs text-slate-500 font-medium leading-tight ml-2 border-l border-slate-300 pl-2">STAGES
@@ -36,7 +36,7 @@
                     <a href="offer-suivies.html"
                         class="hover:text-slate-900 flex items-center gap-2">
                         Offres suivies <span
-                            class="bg-teal-100 text-teal-700 text-xs px-2 py-0.5 rounded-full font-bold">3</span>
+                            class="bg-blue-100 text-blue-900 text-xs px-2 py-0.5 rounded-full font-bold">3</span>
                     </a>
                     <a href="deposer-offer.html"
                         class="hover:text-slate-900">Déposer une offre</a>
@@ -53,11 +53,11 @@
                                 class="text-sm font-semibold text-slate-800">Espace
                                 Étudiant</div>
                             <a href="#"
-                                class="text-xs text-emerald-600 hover:underline">Changer
+                                class="text-xs text-blue-700 hover:underline">Changer
                                 de rôle</a>
                         </div>
                         <div
-                            class="w-9 h-9 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-sm">
+                            class="w-9 h-9 rounded-full bg-blue-700 text-white flex items-center justify-center shadow-sm">
                             <svg class="w-5 h-5" fill="none"
                                 stroke="currentColor" viewBox="0 0 24 24"><path
                                     stroke-linecap="round"
@@ -109,7 +109,7 @@
                         <div class="font-semibold text-slate-800">Espace
                             Étudiant</div>
                         <a href="#"
-                            class="text-sm text-emerald-600 hover:underline mt-1 inline-block">Changer
+                            class="text-sm text-blue-700 hover:underline mt-1 inline-block">Changer
                             de rôle</a>
                     </div>
                 </nav>
@@ -120,43 +120,38 @@
         <main
             class="max-w-[1400px] mx-auto px-4 md:px-6 lg:px-8 py-6 md:py-8 flex-grow w-full">
 
-            <!-- Header Section -->
-            <header class="mb-6 md:mb-8">
-                <nav aria-label="Breadcrumb"
-                    class="flex items-center text-xs font-bold tracking-wider mb-3">
-                    <span class="text-slate-500 uppercase">BACK-OFFICE</span>
-                    <span class="mx-2 text-slate-300">/</span>
-                    <span class="text-blue-600 uppercase">OFFRES</span>
-                </nav>
-
-                <div
-                    class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-                    <h1
-                        class="text-2xl md:text-3xl font-bold text-slate-800">Administration
-                        — Gestion des Offres</h1>
-                    <div
-                        class="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto mt-2 lg:mt-0">
-                        <button
-                            class="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium text-slate-700 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors shadow-sm">
-                            <svg class="w-4 h-4 text-slate-400" fill="none"
-                                stroke="currentColor" viewBox="0 0 24 24"><path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round" stroke-width="2"
-                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                            Exporter CSV
-                        </button>
-                        <a href="deposer-offer.html"
-                            class="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium text-white bg-blue-600 rounded-xl hover:bg-blue-700 transition-colors shadow-sm">
-                            <svg class="w-4 h-4" fill="none"
-                                stroke="currentColor" viewBox="0 0 24 24"><path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round" stroke-width="2"
-                                    d="M12 4v16m8-8H4"></path></svg>
-                            Ajouter une offre manuellement
-                        </a>
-                    </div>
+            <section class="page-hero mb-6 md:mb-8" aria-labelledby="page-title">
+                <div class="page-hero__content">
+                    <p class="page-hero__eyebrow">Back-office</p>
+                    <h1 id="page-title" class="page-hero__title">Administration des offres</h1>
+                    <p class="page-hero__description">Suivez les annonces et gérez les opportunités proposées aux étudiants.</p>
                 </div>
-            </header>
+                <span class="page-hero__badge">Gestion des offres</span>
+            </section>
+
+            <!-- Page Actions -->
+            <div class="flex justify-end mb-6 md:mb-8">
+                <div class="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
+                    <button
+                        class="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium text-slate-700 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors shadow-sm">
+                        <svg class="w-4 h-4 text-slate-400" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24"><path
+                                stroke-linecap="round"
+                                stroke-linejoin="round" stroke-width="2"
+                                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                        Exporter CSV
+                    </button>
+                    <a href="deposer-offer.html"
+                        class="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium text-white bg-blue-700 rounded-xl hover:bg-blue-900 transition-colors shadow-sm">
+                        <svg class="w-4 h-4" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24"><path
+                                stroke-linecap="round"
+                                stroke-linejoin="round" stroke-width="2"
+                                d="M12 4v16m8-8H4"></path></svg>
+                        Ajouter une offre manuellement
+                    </a>
+                </div>
+            </div>
 
             <!-- KPI Cards -->
             <section
@@ -186,7 +181,7 @@
                             enregistrées en base</p>
                     </div>
                     <div
-                        class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0">
+                        class="w-10 h-10 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center flex-shrink-0">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24"><path stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2"
@@ -260,7 +255,7 @@
                     <div
                         class="flex items-center gap-1 overflow-x-auto pb-2 lg:pb-0 [&::-webkit-scrollbar]:hidden w-full lg:w-auto -mx-4 px-4 lg:mx-0 lg:px-0">
                         <button
-                            class="bg-blue-600 text-white px-4 py-2 lg:py-1.5 rounded-full text-sm font-medium whitespace-nowrap shadow-sm">
+                            class="bg-blue-700 text-white px-4 py-2 lg:py-1.5 rounded-full text-sm font-medium whitespace-nowrap shadow-sm">
                             Toutes <span
                                 class="text-blue-200 font-normal ml-1">(142)</span>
                         </button>
@@ -294,7 +289,7 @@
                                         d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                             </div>
                             <input type="text" placeholder="Filtrer poste..."
-                                class="bg-slate-50 border border-slate-200 text-slate-600 text-sm rounded-lg pl-9 pr-4 py-2.5 lg:py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full lg:w-64">
+                                class="bg-slate-50 border border-slate-200 text-slate-600 text-sm rounded-lg pl-9 pr-4 py-2.5 lg:py-2 focus:outline-none focus:ring-2 focus:ring-blue-700 w-full lg:w-64">
                         </div>
                         <button
                             class="w-10 h-10 lg:w-9 lg:h-9 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors flex-shrink-0"
@@ -436,7 +431,7 @@
                                         <div
                                             class="flex items-center gap-1 text-slate-400">
                                             <button
-                                                class="p-1.5 lg:p-2 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                                                class="p-1.5 lg:p-2 hover:text-blue-900 hover:bg-blue-50 rounded-lg transition-colors"
                                                 title="Éditer"><svg
                                                     class="w-4 h-4 lg:w-5 lg:h-5"
                                                     fill="none"
@@ -561,7 +556,7 @@
                                         <div
                                             class="flex items-center gap-1 text-slate-400">
                                             <button
-                                                class="p-1.5 lg:p-2 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                                                class="p-1.5 lg:p-2 hover:text-blue-900 hover:bg-blue-50 rounded-lg transition-colors"
                                                 title="Éditer"><svg
                                                     class="w-4 h-4 lg:w-5 lg:h-5"
                                                     fill="none"
@@ -686,7 +681,7 @@
                                         <div
                                             class="flex items-center gap-1 text-slate-400">
                                             <button
-                                                class="p-1.5 lg:p-2 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                                                class="p-1.5 lg:p-2 hover:text-blue-900 hover:bg-blue-50 rounded-lg transition-colors"
                                                 title="Éditer"><svg
                                                     class="w-4 h-4 lg:w-5 lg:h-5"
                                                     fill="none"
@@ -752,7 +747,7 @@
 
                         <div class="flex items-center gap-1">
                             <a href="#"
-                                class="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-lg bg-blue-600 text-white text-xs sm:text-sm font-medium"
+                                class="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-lg bg-blue-700 text-white text-xs sm:text-sm font-medium"
                                 aria-current="page">1</a>
                             <a href="#"
                                 class="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-lg text-slate-600 hover:bg-slate-100 text-xs sm:text-sm font-medium">2</a>
@@ -765,7 +760,7 @@
                         </div>
 
                         <button
-                            class="text-xs sm:text-sm font-medium text-slate-700 hover:text-blue-600 hover:bg-blue-50 px-2 sm:px-3 py-1.5 rounded-lg transition-colors">
+                            class="text-xs sm:text-sm font-medium text-slate-700 hover:text-blue-900 hover:bg-blue-50 px-2 sm:px-3 py-1.5 rounded-lg transition-colors">
                             <span class="hidden sm:inline">Suivant</span>;
                         </button>
                     </nav>

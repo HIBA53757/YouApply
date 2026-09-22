@@ -86,7 +86,7 @@ export function disply_offers(offers) {
     // COMPANY LOGO
     div_Company_logo.setAttribute(
       "class",
-      "w-14 h-14 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-xl flex-shrink-0",
+      "w-14 h-14 rounded-xl bg-blue-700 text-white flex items-center justify-center font-bold text-xl flex-shrink-0",
     );
 
     div_Company_logo.textContent = offer.company.charAt(0).toUpperCase();
@@ -113,7 +113,7 @@ export function disply_offers(offers) {
 
     span_contract.setAttribute(
       "class",
-      "bg-[#5eead4] text-[#0f766e] text-xs font-bold px-3 py-1 rounded-full",
+      "bg-blue-100 text-blue-900 text-xs font-bold px-3 py-1 rounded-full",
     );
 
     span_contract.textContent = offer.opp_type;
@@ -159,7 +159,7 @@ export function disply_offers(offers) {
 
     if (alreadyFollowed) {
       button_save.classList.remove("text-slate-300", "hover:text-slate-500");
-      button_save.classList.add("text-blue-600", "hover:text-blue-700");
+      button_save.classList.add("text-blue-700", "hover:text-blue-900");
     }
 
     button_save.addEventListener("click", () => {
@@ -180,14 +180,14 @@ export function disply_offers(offers) {
           }
         }
         svg_save.setAttribute("fill", "none");
-        button_save.classList.remove("text-blue-600", "hover:text-blue-700");
+        button_save.classList.remove("text-blue-700", "hover:text-blue-900");
         button_save.classList.add("text-slate-300", "hover:text-slate-500");
       } else {
         followedOffers.push(Number(offerId));
         saveFollowedOffers(followedOffers);
         svg_save.setAttribute("fill", "currentColor");
         button_save.classList.remove("text-slate-300", "hover:text-slate-500");
-        button_save.classList.add("text-blue-600", "hover:text-blue-700");
+        button_save.classList.add("text-blue-700", "hover:text-blue-900");
       }
     });
 
@@ -260,7 +260,7 @@ export function disply_offers(offers) {
     // LINK
     link_offer.setAttribute(
       "class",
-      "w-full sm:w-auto bg-blue-700 hover:bg-blue-800 text-white text-sm font-medium px-5 py-2.5 rounded-xl flex items-center justify-center gap-2 transition-colors",
+      "w-full sm:w-auto bg-blue-700 hover:bg-blue-900 text-white text-sm font-medium px-5 py-2.5 rounded-xl flex items-center justify-center gap-2 transition-colors",
     );
     link_offer.setAttribute("href", `offre-detail.html?id=${offer.id}`);
 

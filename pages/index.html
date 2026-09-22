@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YouApply - Offres (Responsive)</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/style.css">
 
 
 </head>
@@ -20,7 +21,7 @@
             <div class="flex items-center gap-2">
                 <a href="index.html" class="font-bold text-xl flex items-center">
 
-                    <span class="text-black">You</span><span class="text-blue-700">Apply</span>
+                    <span class="text-black">You</span><span class="brand-apply">Apply</span>
                 </a>
                 <span
                     class="hidden sm:block text-xs text-slate-500 font-medium leading-tight ml-2 border-l border-slate-300 pl-2">STAGES
@@ -44,7 +45,7 @@
                     <div class="text-right">
                         <div class="text-sm font-semibold text-slate-800">Espace
                             Étudiant</div>
-                        <a href="#" class="text-xs text-emerald-600 hover:underline">Changer
+                        <a href="#" class="text-xs text-blue-700 hover:underline">Changer
                             de rôle</a>
                     </div>
                     <div class="w-9 h-9 rounded-full bg-blue-700 text-white flex items-center justify-center shadow-sm">
@@ -95,14 +96,23 @@
                         tant que</div>
                     <div class="font-semibold text-slate-800">Espace
                         Étudiant</div>
-                    <a href="#" class="text-sm text-emerald-600 hover:underline mt-1 inline-block">Changer
+                    <a href="#" class="text-sm text-blue-700 hover:underline mt-1 inline-block">Changer
                         de rôle</a>
                 </div>
             </nav>
         </div>
     </header>
 
-    <main class="max-w-[1400px] mx-auto px-4 md:px-6 lg:px-8 py-6 flex-grow w-full">
+    <main class="max-w-[1400px] mx-auto px-4 md:px-6 lg:px-8 py-6 md:py-8 flex-grow w-full">
+
+        <section class="page-hero mb-6 md:mb-8" aria-labelledby="page-title">
+            <div class="page-hero__content">
+                <p class="page-hero__eyebrow">Espace étudiant</p>
+                <h1 id="page-title" class="page-hero__title">Trouvez votre prochaine opportunité</h1>
+                <p class="page-hero__description">Explorez les offres de stage et d'alternance, puis trouvez celles qui correspondent à votre projet.</p>
+            </div>
+            <span class="page-hero__badge">Stages & alternances</span>
+        </section>
 
         <!-- Global Search Section -->
         <section
@@ -110,7 +120,7 @@
 
             <!-- Keyword -->
             <div
-                class="flex-1 flex items-center bg-slate-100/80 rounded-xl px-4 border border-transparent focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500 focus-within:bg-white transition-all">
+                class="flex-1 flex items-center bg-slate-100/80 rounded-xl px-4 border border-transparent focus-within:border-blue-700 focus-within:ring-1 focus-within:ring-blue-700 focus-within:bg-white transition-all">
 
                 <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -124,7 +134,7 @@
 
             <!-- City -->
             <div
-                class="flex-1 flex items-center bg-slate-100/80 rounded-xl px-4 border border-transparent focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500 focus-within:bg-white transition-all">
+                class="flex-1 flex items-center bg-slate-100/80 rounded-xl px-4 border border-transparent focus-within:border-blue-700 focus-within:ring-1 focus-within:ring-blue-700 focus-within:bg-white transition-all">
 
                 <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -141,7 +151,7 @@
 
             <!-- Search button -->
             <button id="search-button" type="button"
-                class="bg-blue-700 hover:bg-blue-800 text-white font-medium text-sm px-8 py-3.5 rounded-xl flex items-center justify-center gap-2 transition-colors w-full md:w-auto shadow-sm">
+                class="bg-blue-700 hover:bg-blue-900 text-white font-medium text-sm px-8 py-3.5 rounded-xl flex items-center justify-center gap-2 transition-colors w-full md:w-auto shadow-sm">
 
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -197,7 +207,7 @@
                                     Filtres
                                 </h2>
                                 <button type="reset"
-                                    class="reset-filters text-sm font-medium text-blue-600 hover:underline">Effacer
+                                    class="reset-filters text-sm font-medium text-blue-700 hover:underline">Effacer
                                     tout</button>
                             </header>
 
@@ -268,11 +278,11 @@
                 <!-- Results Header -->
                 <header
                     class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
-                    <h1 class="text-slate-600 flex items-center flex-wrap gap-1">
+                    <h2 class="text-slate-600 flex items-center flex-wrap gap-1">
                         <strong id="results-count" class="text-2xl text-slate-800 font-bold mr-1">0</strong>
                         <span class="text-sm font-medium">offres de stages &
                             alternances trouvées</span>
-                    </h1>
+                    </h2>
                     <div class="flex items-center gap-2 self-start sm:self-auto">
                         <label class="text-sm font-bold text-slate-700 whitespace-nowrap">Trier
                             par :</label>
@@ -325,7 +335,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-slate-200 mt-12 py-8">
+    <footer class="bg-white border-t border-slate-200 mt-auto py-8">
         <div class="max-w-[1400px] mx-auto px-4 md:px-6 lg:px-8 text-center text-sm text-slate-500">
             © 2026 YouApply. Tous droits réservés.
         </div>

@@ -29,11 +29,11 @@ contractTabs.forEach((tab) => {
     selectedContract = tab.dataset.contract;
 
     contractTabs.forEach((btn) => {
-      btn.classList.remove("bg-blue-600", "text-white", "shadow-sm");
+      btn.classList.remove("bg-blue-700", "text-white", "shadow-sm");
       btn.classList.add("bg-slate-100", "text-slate-600", "hover:bg-slate-200");
     });
     tab.classList.remove("bg-slate-100", "text-slate-600", "hover:bg-slate-200");
-    tab.classList.add("bg-blue-600", "text-white", "shadow-sm");
+    tab.classList.add("bg-blue-700", "text-white", "shadow-sm");
 
     displayFollowedOffers();
   });

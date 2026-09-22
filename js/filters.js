@@ -78,7 +78,7 @@ function displayWorkModes() {
     checkbox.type = "checkbox";
     checkbox.dataset.workMode = mode.code;
     checkbox.className =
-      "work-mode-filter w-5 h-5 text-blue-700 bg-white border-slate-300 rounded focus:ring-blue-500 focus:ring-2 accent-blue-700";
+      "work-mode-filter w-5 h-5 text-blue-700 bg-white border-slate-300 rounded focus:ring-blue-700 focus:ring-2 accent-blue-700";
 
     const span = document.createElement("span");
     span.className = "text-sm text-slate-700";

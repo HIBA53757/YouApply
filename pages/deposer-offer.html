@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>YouApply - Déposer une opportunité</title>
         <script src="https://cdn.tailwindcss.com"></script>
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="../css/style.css">
     </head>
     <body
         class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
@@ -21,7 +21,7 @@
                         class="font-bold text-xl flex items-center">
 
                         <span class="text-black">You</span><span
-                            class="text-blue-700">Apply</span>
+                            class="brand-apply">Apply</span>
                     </a>
                     <span
                         class="hidden sm:block text-xs text-slate-500 font-medium leading-tight ml-2 border-l border-slate-300 pl-2">STAGES
@@ -36,7 +36,7 @@
                     <a href="offer-suivies.html"
                         class="hover:text-slate-900 flex items-center gap-2">
                         Offres suivies <span
-                            class="bg-teal-100 text-teal-700 text-xs px-2 py-0.5 rounded-full">3</span>
+                            class="bg-blue-100 text-blue-900 text-xs px-2 py-0.5 rounded-full">3</span>
                     </a>
                     <a href="deposer-offer.html"
                         class="bg-blue-50 text-blue-700 px-4 py-2 rounded-lg">Déposer
@@ -53,7 +53,7 @@
                                 class="text-sm font-semibold text-slate-800">Espace
                                 Étudiant</div>
                             <a href="#"
-                                class="text-xs text-emerald-600 hover:underline">Changer
+                                class="text-xs text-blue-700 hover:underline">Changer
                                 de rôle</a>
                         </div>
                         <div
@@ -109,7 +109,7 @@
                         <div class="font-semibold text-slate-800">Espace
                             Étudiant</div>
                         <a href="#"
-                            class="text-sm text-emerald-600 hover:underline mt-1 inline-block">Changer
+                            class="text-sm text-blue-700 hover:underline mt-1 inline-block">Changer
                             de rôle</a>
                     </div>
                 </nav>
@@ -118,61 +118,55 @@
 
         <!-- Main Content -->
         <main
-            class="max-w-[900px] mx-auto px-4 md:px-6 lg:px-8 py-8 md:py-10 flex-grow relative w-full">
+            class="max-w-[1400px] mx-auto px-4 md:px-6 lg:px-8 py-6 md:py-8 flex-grow relative w-full">
 
             <!-- Page Header -->
-            <div
-                class="mb-8 md:mb-10 flex flex-col md:flex-row md:items-start justify-between gap-6">
-                <div>
-                    <div
-                        class="flex items-center gap-2 text-blue-600 font-bold text-xs mb-3 uppercase tracking-wider">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24"><path stroke-linecap="round"
-                                stroke-linejoin="round" stroke-width="2"
-                                d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"></path></svg>
-                        Espace Recruteur
-                    </div>
-                    <h1
-                        class="text-2xl md:text-3xl font-bold text-slate-800 mb-2 leading-tight">Déposer
-                        une opportunité de stage ou alternance</h1>
-                    <p class="text-slate-500 text-sm md:text-base">Remplissez
-                        les informations ci-dessous pour publier votre offre
-                        auprès de milliers d'étudiants.</p>
+            <section class="page-hero mb-6 md:mb-8" aria-labelledby="page-title">
+                <div class="page-hero__content">
+                    <p class="page-hero__eyebrow">Espace recruteur</p>
+                    <h1 id="page-title" class="page-hero__title">Déposer une opportunité de stage ou alternance</h1>
+                    <p class="page-hero__description">Remplissez les informations ci-dessous pour publier votre offre auprès de milliers d'étudiants.</p>
                 </div>
-                <div class="flex-shrink-0 self-start">
-                    <span
-                        class="inline-flex items-center gap-2 bg-emerald-100 text-emerald-700 px-4 py-2 rounded-full font-bold text-sm shadow-sm">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24"><path stroke-linecap="round"
-                                stroke-linejoin="round" stroke-width="2.5"
-                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        Publication 100% Gratuite
-                    </span>
-                </div>
-            </div>
+                <span class="page-hero__badge">Publication 100% gratuite</span>
+            </section>
 
-            <!-- Multi-step Form -->
-            <form class="space-y-6 md:space-y-8 pb-32">
+            <nav aria-label="Sections du formulaire" class="grid grid-cols-3 gap-2 md:gap-4 mb-6 md:mb-8">
+                <a href="#informations" class="rounded-2xl border border-slate-200 bg-white px-3 py-3 md:px-5 md:py-4 shadow-sm hover:border-blue-300 hover:shadow-md transition-all">
+                    <span class="block text-xs font-bold text-blue-700 mb-1">01</span>
+                    <span class="block text-xs md:text-sm font-semibold text-slate-800">Informations</span>
+                </a>
+                <a href="#contenu" class="rounded-2xl border border-slate-200 bg-white px-3 py-3 md:px-5 md:py-4 shadow-sm hover:border-blue-300 hover:shadow-md transition-all">
+                    <span class="block text-xs font-bold text-blue-700 mb-1">02</span>
+                    <span class="block text-xs md:text-sm font-semibold text-slate-800">Contenu de l'offre</span>
+                </a>
+                <a href="#modalites" class="rounded-2xl border border-slate-200 bg-white px-3 py-3 md:px-5 md:py-4 shadow-sm hover:border-blue-300 hover:shadow-md transition-all">
+                    <span class="block text-xs font-bold text-blue-700 mb-1">03</span>
+                    <span class="block text-xs md:text-sm font-semibold text-slate-800">Modalités</span>
+                </a>
+            </nav>
 
-                <!-- STEP 1: Informations Générales -->
-                <section
-                    class="bg-white rounded-2xl p-5 md:p-8 border border-slate-200 shadow-sm">
+            <!-- Offer form (publication requires a backend) -->
+            <form id="offer-form" class="space-y-6 md:space-y-8" onsubmit="return false">
+
+                <!-- Section 1: Informations Générales -->
+                <section id="informations"
+                    class="scroll-mt-24 bg-white rounded-3xl p-5 md:p-8 lg:p-10 border border-slate-200 shadow-sm">
                     <!-- Section Header -->
                     <header
                         class="flex items-center justify-between mb-6 md:mb-8 pb-4 md:pb-6 border-b border-slate-100">
                         <h2
                             class="text-lg md:text-xl font-bold text-slate-800 flex items-center gap-3 md:gap-4">
                             <span
-                                class="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center text-sm font-bold shadow-sm flex-shrink-0">1</span>
+                                class="w-8 h-8 rounded-full bg-blue-50 text-blue-700 flex items-center justify-center text-sm font-bold shadow-sm flex-shrink-0">1</span>
                             Informations Générales
                         </h2>
                         <span
-                            class="text-xs font-semibold text-slate-500 uppercase tracking-wider hidden sm:inline">Étape
+                            class="text-xs font-semibold text-slate-500 uppercase tracking-wider hidden sm:inline">Section
                             1 sur 3</span>
                     </header>
 
                     <!-- Opportunity Type (Radio Cards) -->
-                    <fieldset class="mb-6">
+                    <fieldset class="mb-8">
                         <legend
                             class="block text-sm font-semibold text-slate-800 mb-3">Type
                             d'opportunité <span
@@ -180,31 +174,32 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <!-- Card 1: Stage -->
                             <label
-                                class="relative flex items-start gap-4 p-4 md:p-5 rounded-xl border-2 border-amber-300 bg-amber-50 cursor-pointer transition-all hover:shadow-sm">
+                                class="offer-type-card relative flex items-start gap-4 p-4 md:p-5 rounded-xl cursor-pointer transition-all">
                                 <input type="radio" name="opp_type"
                                     value="stage"
-                                    class="mt-0.5 w-4 h-4 text-amber-500 border-amber-300 focus:ring-amber-500"
+                                    class="mt-0.5 w-4 h-4 text-blue-700 border-slate-300 focus:ring-blue-700"
+                                    required
                                     checked>
                                 <div class="flex-1">
                                     <div
                                         class="flex items-center justify-between mb-1">
                                         <span
-                                            class="font-bold text-amber-900">Stage
+                                            class="font-bold text-slate-800">Stage
                                             conventionné</span>
                                         <span
                                             class="bg-amber-200 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Stage</span>
                                     </div>
                                     <p
-                                        class="text-sm text-amber-700/80">Formation
+                                        class="text-sm text-slate-500">Formation
                                         initiale (2 à 6 mois)</p>
                                 </div>
                             </label>
                             <!-- Card 2: Alternance -->
                             <label
-                                class="relative flex items-start gap-4 p-4 md:p-5 rounded-xl border-2 border-transparent bg-slate-50 hover:bg-slate-100 hover:border-slate-200 cursor-pointer transition-all">
+                                class="offer-type-card relative flex items-start gap-4 p-4 md:p-5 rounded-xl cursor-pointer transition-all">
                                 <input type="radio" name="opp_type"
                                     value="alternance"
-                                    class="mt-0.5 w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500">
+                                    class="mt-0.5 w-4 h-4 text-blue-700 border-slate-300 focus:ring-blue-700">
                                 <div class="flex-1">
                                     <div
                                         class="flex items-center justify-between mb-1">
@@ -222,11 +217,15 @@
                         </div>
                     </fieldset>
 
+                    <div class="mb-5">
+                        <h3 class="text-sm font-bold text-slate-900">Le poste</h3>
+                        <p class="text-xs text-slate-500 mt-1">Les informations qui apparaîtront en premier sur l'offre.</p>
+                    </div>
                     <!-- Grid Inputs -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
                         <!-- Nom Entreprise -->
                         <div>
-                            <label
+                            <label for="company"
                                 class="block text-sm font-semibold text-slate-800 mb-2">Nom
                                 de l'entreprise <span
                                     class="text-red-500">*</span></label>
@@ -241,14 +240,14 @@
                                             stroke-width="2"
                                             d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
                                 </div>
-                                <input type="text"
+                                <input id="company" name="company" type="text" required
                                     placeholder="ex. Acme Technologies SAS"
-                                    class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl pl-11 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all">
+                                    class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl pl-11 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
                             </div>
                         </div>
                         <!-- Ville -->
                         <div>
-                            <label
+                            <label for="location"
                                 class="block text-sm font-semibold text-slate-800 mb-2">Ville
                                 / Localisation <span
                                     class="text-red-500">*</span></label>
@@ -267,14 +266,14 @@
                                             stroke-width="2"
                                             d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                                 </div>
-                                <input type="text"
+                                <input id="location" name="location" type="text" required
                                     placeholder="ex. Lyon (69002) ou Télétravail"
-                                    class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl pl-11 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all">
+                                    class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl pl-11 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
                             </div>
                         </div>
                         <!-- Intitulé du poste -->
                         <div>
-                            <label
+                            <label for="job_title"
                                 class="block text-sm font-semibold text-slate-800 mb-2">Intitulé
                                 exact du poste <span
                                     class="text-red-500">*</span></label>
@@ -289,24 +288,24 @@
                                             stroke-width="2"
                                             d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                                 </div>
-                                <input type="text"
+                                <input id="job_title" name="job_title" type="text" required
                                     placeholder="ex. Développeur Full-Stack"
-                                    class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl pl-11 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all">
+                                    class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl pl-11 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
                             </div>
                         </div>
                         <!-- Rythme alternance -->
                         <div>
-                            <label
+                            <label for="schedule"
                                 class="block text-sm font-semibold text-slate-800 mb-2">Rythme
-                                d'alternance</label>
+                                école / entreprise <span class="text-red-500">*</span></label>
                             <div class="relative">
-                                <select
-                                    class="w-full bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-xl pl-4 pr-10 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white appearance-none cursor-pointer transition-all">
-                                    <option>3j Entreprise / 2j École</option>
-                                    <option>1 Semaine / 1 Semaine</option>
-                                    <option>3 Semaines / 1 Semaine</option>
-                                    <option>Autre (préciser dans
-                                        l'offre)</option>
+                                <select id="schedule" name="schedule" required
+                                    class="w-full bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-xl pl-4 pr-10 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white appearance-none cursor-pointer transition-all">
+                                    <option value="">Sélectionner un rythme</option>
+                                    <option value="3j Entreprise / 2j École">3j Entreprise / 2j École</option>
+                                    <option value="1 Semaine / 1 Semaine">1 Semaine / 1 Semaine</option>
+                                    <option value="3 Semaines / 1 Semaine">3 Semaines / 1 Semaine</option>
+                                    <option value="Autre">Autre</option>
                                 </select>
                                 <div
                                     class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-slate-400">
@@ -320,23 +319,62 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="md:col-span-2 border-t border-slate-100 pt-6 mt-1">
+                            <h3 class="text-sm font-bold text-slate-900">Environnement de travail</h3>
+                            <p class="text-xs text-slate-500 mt-1">Précisez l'équipe, le lieu et l'organisation du travail.</p>
+                        </div>
+                        <div>
+                            <label for="work_mode" class="block text-sm font-semibold text-slate-800 mb-2">Mode de travail <span class="text-red-500">*</span></label>
+                            <select id="work_mode" name="work_mode" required
+                                class="w-full bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white cursor-pointer transition-all">
+                                <option value="">Sélectionner un mode</option>
+                                <option value="presentiel">Présentiel</option>
+                                <option value="hybride">Hybride</option>
+                                <option value="remote">Télétravail</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="team_size" class="block text-sm font-semibold text-slate-800 mb-2">Taille de l'équipe</label>
+                            <input id="team_size" name="team_size" type="text" placeholder="ex. 24 développeurs"
+                                class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
+                        </div>
+                        <div>
+                            <label for="work_method" class="block text-sm font-semibold text-slate-800 mb-2">Méthode de travail</label>
+                            <input id="work_method" name="work_method" type="text" placeholder="ex. Agile / Scrum"
+                                class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
+                        </div>
+                        <div>
+                            <label for="remote_policy" class="block text-sm font-semibold text-slate-800 mb-2">Politique de télétravail</label>
+                            <input id="remote_policy" name="remote_policy" type="text" placeholder="ex. 2 jours / semaine"
+                                class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
+                        </div>
+                        <div>
+                            <label for="work_address" class="block text-sm font-semibold text-slate-800 mb-2">Adresse du lieu de travail</label>
+                            <input id="work_address" name="work_address" type="text" placeholder="ex. 42 rue de la République, 69002 Lyon"
+                                class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label for="access_info" class="block text-sm font-semibold text-slate-800 mb-2">Accès et transports</label>
+                            <input id="access_info" name="access_info" type="text" placeholder="ex. Métro A, arrêt Cordeliers"
+                                class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
+                        </div>
                     </div>
                 </section>
 
-                <!-- STEP 2: Contenu & Missions de l'Offre -->
-                <section
-                    class="bg-white rounded-2xl p-5 md:p-8 border border-slate-200 shadow-sm">
+                <!-- Section 2: Contenu & Missions de l'Offre -->
+                <section id="contenu"
+                    class="scroll-mt-24 bg-white rounded-3xl p-5 md:p-8 lg:p-10 border border-slate-200 shadow-sm">
                     <!-- Section Header -->
                     <header
                         class="flex items-center justify-between mb-6 md:mb-8 pb-4 md:pb-6 border-b border-slate-100">
                         <h2
                             class="text-lg md:text-xl font-bold text-slate-800 flex items-center gap-3 md:gap-4">
                             <span
-                                class="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center text-sm font-bold shadow-sm flex-shrink-0">2</span>
+                                class="w-8 h-8 rounded-full bg-blue-50 text-blue-700 flex items-center justify-center text-sm font-bold shadow-sm flex-shrink-0">2</span>
                             Contenu & Missions
                         </h2>
                         <span
-                            class="text-xs font-semibold text-slate-500 uppercase tracking-wider hidden sm:inline">Étape
+                            class="text-xs font-semibold text-slate-500 uppercase tracking-wider hidden sm:inline">Section
                             2 sur 3</span>
                     </header>
 
@@ -345,160 +383,139 @@
                         <div>
                             <div
                                 class="flex flex-col sm:flex-row sm:items-center justify-between mb-2 gap-1">
-                                <label
+                                <label for="description"
                                     class="block text-sm font-semibold text-slate-800">Présentation
-                                    de l'entreprise</label>
+                                    de l'entreprise <span class="text-red-500">*</span></label>
                                 <span
                                     class="text-xs text-slate-500">Environnement,
                                     culture et équipe</span>
                             </div>
-                            <textarea rows="3"
+                            <textarea id="description" name="description" rows="3" required
                                 placeholder="Présentez brièvement vos activités, l'équipe technique..."
-                                class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all resize-none"></textarea>
+                                class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all resize-none"></textarea>
                         </div>
 
                         <!-- Missions -->
                         <div>
                             <div
                                 class="flex flex-col sm:flex-row sm:items-center justify-between mb-2 gap-1">
-                                <label
+                                <label for="missions"
                                     class="block text-sm font-semibold text-slate-800">Missions
                                     principales confiées <span
                                         class="text-red-500">*</span></label>
                                 <span
-                                    class="text-xs text-blue-600 font-medium">Conseil:
+                                    class="text-xs text-blue-700 font-medium">Conseil:
                                     détaillez 3 à 5 missions clés</span>
                             </div>
-                            <textarea rows="4"
+                            <textarea id="missions" name="missions" rows="4" required
                                 placeholder="- Conception et développement de nouvelles fonctionnalités back/front&#10;- Participation aux réunions de sprint agile..."
-                                class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all resize-none"></textarea>
+                                class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all resize-none"></textarea>
                         </div>
 
                         <!-- Profil -->
                         <div>
                             <div
                                 class="flex flex-col sm:flex-row sm:items-center justify-between mb-2 gap-1">
-                                <label
+                                <label for="profile"
                                     class="block text-sm font-semibold text-slate-800">Profil
                                     & Prérequis recherchés <span
                                         class="text-red-500">*</span></label>
                                 <span class="text-xs text-slate-500">Niveau
                                     d'études et soft skills</span>
                             </div>
-                            <textarea rows="3"
+                            <textarea id="profile" name="profile" rows="3" required
                                 placeholder="Étudiant en Bac+3 à Bac+5 en Informatique. Curieux, autonome..."
-                                class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all resize-none"></textarea>
+                                class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all resize-none"></textarea>
                         </div>
 
-                        <!-- Compétences (Tags) -->
-                        <div>
-                            <label
-                                class="block text-sm font-semibold text-slate-800 mb-3">Compétences
-                                & Technologies clés</label>
+                        <!-- Arrays in offers.json are represented by groups of checkboxes. -->
+                        <fieldset class="rounded-2xl border border-slate-200 bg-slate-50/70 p-4 md:p-5">
+                            <legend class="px-1 text-sm font-semibold text-slate-800">Compétences & Technologies clés</legend>
+                            <p class="text-xs text-slate-500 mb-4">Sélectionnez les technologies utiles pour ce poste.</p>
                             <div class="flex flex-wrap gap-2">
-                                <!-- Selected Pills -->
-                                <button type="button"
-                                    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition-colors">
-                                    JavaScript
-                                    <svg class="w-3.5 h-3.5" fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"><path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="3"
-                                            d="M5 13l4 4L19 7"></path></svg>
-                                </button>
-                                <button type="button"
-                                    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition-colors">
-                                    PHP
-                                    <svg class="w-3.5 h-3.5" fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"><path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="3"
-                                            d="M5 13l4 4L19 7"></path></svg>
-                                </button>
-                                <button type="button"
-                                    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition-colors">
-                                    MySQL
-                                    <svg class="w-3.5 h-3.5" fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"><path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="3"
-                                            d="M5 13l4 4L19 7"></path></svg>
-                                </button>
-                                <!-- Unselected Pills -->
-                                <button type="button"
-                                    class="inline-flex items-center px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 text-sm font-medium hover:bg-slate-200 transition-colors">
-                                    React
-                                </button>
-                                <button type="button"
-                                    class="inline-flex items-center px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 text-sm font-medium hover:bg-slate-200 transition-colors">
-                                    Figma
-                                </button>
-                                <!-- Selected again -->
-                                <button type="button"
-                                    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition-colors">
-                                    Git / GitHub
-                                    <svg class="w-3.5 h-3.5" fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"><path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="3"
-                                            d="M5 13l4 4L19 7"></path></svg>
-                                </button>
+                                <label class="offer-choice"><input type="checkbox" name="skills" value="HTML" class="sr-only"><span>HTML</span></label>
+                                <label class="offer-choice"><input type="checkbox" name="skills" value="CSS" class="sr-only"><span>CSS</span></label>
+                                <label class="offer-choice"><input type="checkbox" name="skills" value="JavaScript" class="sr-only"><span>JavaScript</span></label>
+                                <label class="offer-choice"><input type="checkbox" name="skills" value="PHP" class="sr-only"><span>PHP</span></label>
+                                <label class="offer-choice"><input type="checkbox" name="skills" value="MySQL" class="sr-only"><span>MySQL</span></label>
+                                <label class="offer-choice"><input type="checkbox" name="skills" value="React" class="sr-only"><span>React</span></label>
+                                <label class="offer-choice"><input type="checkbox" name="skills" value="Figma" class="sr-only"><span>Figma</span></label>
+                                <label class="offer-choice"><input type="checkbox" name="skills" value="Git / GitHub" class="sr-only"><span>Git / GitHub</span></label>
+                                <label class="offer-choice"><input type="checkbox" name="skills" value="Laravel" class="sr-only"><span>Laravel</span></label>
+                                <label class="offer-choice"><input type="checkbox" name="skills" value="Node.js" class="sr-only"><span>Node.js</span></label>
                             </div>
-                        </div>
+                        </fieldset>
+                        <fieldset class="rounded-2xl border border-slate-200 bg-slate-50/70 p-4 md:p-5">
+                            <legend class="px-1 text-sm font-semibold text-slate-800">Qualités personnelles</legend>
+                            <p class="text-xs text-slate-500 mb-4">Choisissez les qualités que vous recherchez.</p>
+                            <div class="flex flex-wrap gap-2">
+                                <label class="offer-choice"><input type="checkbox" name="soft_skills" value="Adaptabilité" class="sr-only"><span>Adaptabilité</span></label>
+                                <label class="offer-choice"><input type="checkbox" name="soft_skills" value="Analyse" class="sr-only"><span>Analyse</span></label>
+                                <label class="offer-choice"><input type="checkbox" name="soft_skills" value="Autonomie" class="sr-only"><span>Autonomie</span></label>
+                                <label class="offer-choice"><input type="checkbox" name="soft_skills" value="Collaboration" class="sr-only"><span>Collaboration</span></label>
+                                <label class="offer-choice"><input type="checkbox" name="soft_skills" value="Communication" class="sr-only"><span>Communication</span></label>
+                                <label class="offer-choice"><input type="checkbox" name="soft_skills" value="Créativité" class="sr-only"><span>Créativité</span></label>
+                                <label class="offer-choice"><input type="checkbox" name="soft_skills" value="Curiosité" class="sr-only"><span>Curiosité</span></label>
+                                <label class="offer-choice"><input type="checkbox" name="soft_skills" value="Curiosité technique" class="sr-only"><span>Curiosité technique</span></label>
+                                <label class="offer-choice"><input type="checkbox" name="soft_skills" value="Esprit d'équipe" class="sr-only"><span>Esprit d'équipe</span></label>
+                                <label class="offer-choice"><input type="checkbox" name="soft_skills" value="Organisation" class="sr-only"><span>Organisation</span></label>
+                                <label class="offer-choice"><input type="checkbox" name="soft_skills" value="Proactivité" class="sr-only"><span>Proactivité</span></label>
+                                <label class="offer-choice"><input type="checkbox" name="soft_skills" value="Rigueur" class="sr-only"><span>Rigueur</span></label>
+                                <label class="offer-choice"><input type="checkbox" name="soft_skills" value="Souci du détail" class="sr-only"><span>Souci du détail</span></label>
+                            </div>
+                        </fieldset>
                     </div>
                 </section>
 
-                <!-- STEP 3: Modalités Pratiques & Contact -->
-                <section
-                    class="bg-white rounded-2xl p-5 md:p-8 border border-slate-200 shadow-sm">
+                <!-- Section 3: Modalités Pratiques & Contact -->
+                <section id="modalites"
+                    class="scroll-mt-24 bg-white rounded-3xl p-5 md:p-8 lg:p-10 border border-slate-200 shadow-sm">
                     <!-- Section Header -->
                     <header
                         class="flex items-center justify-between mb-6 md:mb-8 pb-4 md:pb-6 border-b border-slate-100">
                         <h2
                             class="text-lg md:text-xl font-bold text-slate-800 flex items-center gap-3 md:gap-4">
                             <span
-                                class="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center text-sm font-bold shadow-sm flex-shrink-0">3</span>
+                                class="w-8 h-8 rounded-full bg-blue-50 text-blue-700 flex items-center justify-center text-sm font-bold shadow-sm flex-shrink-0">3</span>
                             Modalités & Contact
                         </h2>
                         <span
-                            class="text-xs font-semibold text-slate-500 uppercase tracking-wider hidden sm:inline">Étape
+                            class="text-xs font-semibold text-slate-500 uppercase tracking-wider hidden sm:inline">Section
                             3 sur 3</span>
                     </header>
 
                     <div class="space-y-6">
+                        <div>
+                            <h3 class="text-sm font-bold text-slate-900">Conditions du contrat</h3>
+                            <p class="text-xs text-slate-500 mt-1">Date de début, durée et rémunération proposées.</p>
+                        </div>
                         <!-- Date, Durée, Gratification Grid -->
                         <div
                             class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
                             <div>
-                                <label
+                                <label for="start_date"
                                     class="block text-sm font-semibold text-slate-800 mb-2">Date
                                     de début souhaitée <span
                                         class="text-red-500">*</span></label>
-                                <input type="text" value="09/01/2025"
-                                    class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all">
+                                <input id="start_date" name="start_date" type="date" required
+                                    class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
                             </div>
                             <div>
-                                <label
+                                <label for="duration"
                                     class="block text-sm font-semibold text-slate-800 mb-2">Durée
                                     du contrat <span
                                         class="text-red-500">*</span></label>
                                 <div class="relative">
-                                    <select
-                                        class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl pl-4 pr-10 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white appearance-none cursor-pointer transition-all">
-                                        <option>12 mois (Alternance 1
-                                            an)</option>
-                                        <option>24 mois (Alternance 2
-                                            ans)</option>
-                                        <option>6 mois (Stage de fin
-                                            d'études)</option>
+                                    <select id="duration" name="duration" required
+                                        class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl pl-4 pr-10 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white appearance-none cursor-pointer transition-all">
+                                        <option value="">Sélectionner une durée</option>
+                                        <option value="1 mois">1 mois</option>
+                                        <option value="2 mois">2 mois</option>
+                                        <option value="3 mois">3 mois</option>
+                                        <option value="4 mois">4 mois</option>
+                                        <option value="6 mois">6 mois</option>
+                                        <option value="12 mois">12 mois</option>
+                                        <option value="24 mois">24 mois</option>
                                     </select>
                                     <div
                                         class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-slate-400">
@@ -513,7 +530,7 @@
                                 </div>
                             </div>
                             <div>
-                                <label
+                                <label for="salary"
                                     class="block text-sm font-semibold text-slate-800 mb-2">Gratification
                                     / Salaire</label>
                                 <div class="relative">
@@ -527,16 +544,39 @@
                                                 stroke-width="2"
                                                 d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                                     </div>
-                                    <input type="text"
-                                        value="Selon barème légal"
-                                        class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl pl-11 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all">
+                                    <input id="salary" name="salary" type="text"
+                                        placeholder="ex. Selon barème légal ou 850 € / mois"
+                                        class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl pl-11 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
                                 </div>
                             </div>
                         </div>
 
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+                            <div>
+                                <label for="mission_duration" class="block text-sm font-semibold text-slate-800 mb-2">Catégorie de durée <span class="text-red-500">*</span></label>
+                                <select id="mission_duration" name="mission_duration" required
+                                    class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white cursor-pointer transition-all">
+                                    <option value="">Sélectionner une catégorie</option>
+                                    <option value="1-2">1 à 2 mois</option>
+                                    <option value="3-6">3 à 6 mois</option>
+                                    <option value="1-year">1 an</option>
+                                    <option value="2-years">2 ans</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="reference" class="block text-sm font-semibold text-slate-800 mb-2">Référence de l'offre</label>
+                                <input id="reference" name="reference" type="text" placeholder="ex. STG-2025-001"
+                                    class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
+                            </div>
+                        </div>
+
+                        <div class="border-t border-slate-100 pt-6">
+                            <h3 class="text-sm font-bold text-slate-900">Contact et candidatures</h3>
+                            <p class="text-xs text-slate-500 mt-1">Indiquez qui recevra les candidatures et répondra aux étudiants.</p>
+                        </div>
                         <!-- Email -->
                         <div>
-                            <label
+                            <label for="email"
                                 class="block text-sm font-semibold text-slate-800 mb-2">Email
                                 de réception des candidatures <span
                                     class="text-red-500">*</span></label>
@@ -551,13 +591,48 @@
                                             stroke-width="2"
                                             d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                                 </div>
-                                <input type="email"
+                                <input id="email" name="email" type="email" required
                                     placeholder="recrutement@entreprise.com"
-                                    class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl pl-11 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all">
+                                    class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl pl-11 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
                             </div>
                             <p class="text-xs text-slate-500 mt-2">Les CV et
                                 lettres de motivation vous seront directement
                                 adressés sans intermédiaire.</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+                            <div>
+                                <label for="recruiter_name" class="block text-sm font-semibold text-slate-800 mb-2">Nom du recruteur <span class="text-red-500">*</span></label>
+                                <input id="recruiter_name" name="recruiter_name" type="text" required placeholder="ex. Camille Martin"
+                                    class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
+                            </div>
+                            <div>
+                                <label for="recruiter_role" class="block text-sm font-semibold text-slate-800 mb-2">Fonction du recruteur</label>
+                                <input id="recruiter_role" name="recruiter_role" type="text" placeholder="ex. Responsable recrutement Tech"
+                                    class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
+                            </div>
+                            <div>
+                                <label for="response_time" class="block text-sm font-semibold text-slate-800 mb-2">Délai de réponse estimé</label>
+                                <input id="response_time" name="response_time" type="text" placeholder="ex. Sous 5 jours ouvrés"
+                                    class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
+                            </div>
+                        </div>
+
+                        <div class="border-t border-slate-100 pt-6">
+                            <h3 class="text-sm font-bold text-slate-900">Avantages</h3>
+                            <p class="text-xs text-slate-500 mt-1">Ces informations aident les candidats à se projeter.</p>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+                            <div>
+                                <label for="health_insurance" class="block text-sm font-semibold text-slate-800 mb-2">Couverture santé</label>
+                                <textarea id="health_insurance" name="health_insurance" rows="2" placeholder="ex. Mutuelle prise en charge à 60%."
+                                    class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all resize-none"></textarea>
+                            </div>
+                            <div>
+                                <label for="transport_and_meals" class="block text-sm font-semibold text-slate-800 mb-2">Transport et repas</label>
+                                <textarea id="transport_and_meals" name="transport_and_meals" rows="2" placeholder="ex. Transport à 50% et titres-restaurant."
+                                    class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all resize-none"></textarea>
+                            </div>
                         </div>
 
                         <!-- Legal Alert Block -->
@@ -586,22 +661,18 @@
                     </div>
                 </section>
 
-            </form>
-
-            <!-- Fixed / Sticky Bottom Action Bar -->
-            <div
-                class="fixed bottom-0 left-0 w-full z-40 px-4 pb-4 md:pb-6 pt-4 pointer-events-none">
-                <div class="max-w-[900px] mx-auto pointer-events-auto">
-                    <div
-                        class="bg-white/95 backdrop-blur-md border border-slate-200 shadow-[0_-4px_20px_-10px_rgba(0,0,0,0.1)] rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <!-- Form actions -->
+                <div class="rounded-3xl border border-slate-200 bg-white p-4 md:p-6 shadow-sm">
+                    <p class="mb-4 text-xs text-slate-500">Les champs marqués d'un * sont obligatoires.</p>
+                    <div class="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between gap-3">
 
                         <button type="button"
-                            class="w-full sm:w-auto text-sm font-semibold text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-xl px-4 py-3 transition-colors order-2 sm:order-1 text-center">
+                            class="w-full sm:w-auto text-sm font-semibold text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-xl px-4 py-3 transition-colors text-center">
                             Annuler
                         </button>
 
                         <div
-                            class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3 w-full sm:w-auto order-1 sm:order-2">
+                            class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3 w-full sm:w-auto">
                             <button type="button"
                                 class="flex-1 flex items-center justify-center gap-2 bg-blue-50 text-blue-700 font-semibold text-sm px-5 py-3 rounded-xl hover:bg-blue-100 transition-colors border border-transparent hover:border-blue-200">
                                 <svg class="w-4 h-4 hidden sm:block" fill="none"
@@ -617,7 +688,7 @@
                             </button>
 
                             <button type="submit"
-                                class="flex-1 flex items-center justify-center gap-2 bg-blue-600 text-white font-semibold text-sm px-5 py-3 rounded-xl hover:bg-blue-700 transition-colors shadow-sm shadow-blue-600/20">
+                                class="flex-1 flex items-center justify-center gap-2 bg-blue-700 text-white font-semibold text-sm px-5 py-3 rounded-xl hover:bg-blue-900 transition-colors shadow-sm shadow-blue-700/20">
                                 <svg class="w-4 h-4 hidden sm:block" fill="none"
                                     stroke="currentColor"
                                     viewBox="0 0 24 24"><path
@@ -629,7 +700,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
 
         </main>
 
