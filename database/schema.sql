@@ -61,3 +61,82 @@ CREATE TABLE offre_technologie (
         ON DELETE CASCADE
 );
 
+
+
+--@block 
+SHOW TABLES;
+
+
+--@block 
+SHOW CREATE TABLE company;
+
+--@block
+SHOW CREATE TABLE offer;
+
+--@block
+SHOW CREATE TABLE technology;
+
+--@block
+SHOW CREATE TABLE offre_technologie;
+
+
+
+--@block
+INSERT INTO company (name, description)
+VALUES ('Test', 'Company used for database tests auto increment ');
+
+
+--@block
+INSERT INTO technology (name)
+VALUES ('JavaScript');
+
+
+--@block
+INSERT INTO offer (
+    company_id,
+    job_title,
+    opp_type,
+    location,
+    missions,
+    profile,
+    start_date,
+    duration,
+    work_mode,
+    salary,
+    email,
+    status
+)
+VALUES (
+    2,
+    'Frontend Developer',
+    'stage',
+    'Casablanca',
+    'Develop web interfaces',
+    'Student developer',
+    '2026-10-01',
+    '6 months',
+    'hybride',
+    '3000 MAD',
+    'test@example.com',
+    'published'
+);
+
+
+
+--@block 
+INSERT INTO offre_technologie (
+    offer_id,
+    technology_id
+)
+VALUES (1, 1);
+
+
+--@block
+SELECT * FROM company;
+--@block
+SELECT * FROM technology;
+--@block
+SELECT * FROM offer;
+
+--@block 
+select * from offre_technologie;
