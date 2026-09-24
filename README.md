@@ -75,36 +75,7 @@ A local server is required because the application uses JavaScript modules and `
 
 ## Project Structure
 
-```text
-YouApply/
-├── assets/
-│   └── images/
-├── css/
-│   └── style.css
-├── data/
-│   └── offers.json
-├── docs/
-│   ├── analyse-cahier-des-charges.md
-│   ├── figma-link.md
-│   └── jira-export.md
-├── js/
-│   ├── app.js
-│   ├── data.js
-│   ├── filters.js
-│   ├── followed-offers.js
-│   ├── offer-details.js
-│   ├── pagination.js
-│   ├── render.js
-│   └── storage.js
-├── pages/
-│   ├── administration.html
-│   ├── deposer-offer.html
-│   ├── index.html
-│   ├── offre-detail.html
-│   └── offer-suivies.html
-├── .gitignore
-└── README.md
-```
+
 
 ## JavaScript Modules
 
