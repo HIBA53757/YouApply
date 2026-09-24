@@ -1,110 +1,7 @@
-<!DOCTYPE html>
-<html lang="fr">
+<%- include('../partials/header', { title: 'YouApply - Déposer une opportunité', active: 'deposer' }) %>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouApply - Déposer une opportunité</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="../css/style.css">
-</head>
-
-<body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
-
-    <!-- Navbar -->
-    <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
-        <div class="max-w-[1400px] mx-auto px-4 md:px-6 lg:px-8 h-16 flex items-center justify-between">
-
-            <!-- Logo -->
-            <div class="flex items-center gap-2">
-                <a href="index.html" class="font-bold text-xl flex items-center">
-
-                    <span class="text-black">You</span><span class="brand-apply">Apply</span>
-                </a>
-                <span
-                    class="hidden sm:block text-xs text-slate-500 font-medium leading-tight ml-2 border-l border-slate-300 pl-2">STAGES
-                    &<br>ALTERNANCES</span>
-            </div>
-
-            <!-- Main Navigation (Desktop) -->
-            <nav class="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-600">
-                <a href="index.html" class="hover:text-slate-900">Trouver
-                    une offre</a>
-                <a href="offer-suivies.html" class="hover:text-slate-900 flex items-center gap-2">
-                    Offres suivies <span class="bg-blue-100 text-blue-900 text-xs px-2 py-0.5 rounded-full">3</span>
-                </a>
-                <a href="deposer-offer.html" class="bg-blue-50 text-blue-700 px-4 py-2 rounded-lg">Déposer
-                    une offre</a>
-                <a href="administration.html" class="hover:text-slate-900">Administration</a>
-            </nav>
-
-            <!-- Profile (Desktop) -->
-            <div class="hidden lg:flex items-center">
-                <div class="flex items-center gap-3">
-                    <div class="text-right">
-                        <div class="text-sm font-semibold text-slate-800">Espace
-                            Étudiant</div>
-                        <a href="#" class="text-xs text-blue-700 hover:underline">Changer
-                            de rôle</a>
-                    </div>
-                    <div class="w-9 h-9 rounded-full bg-blue-700 text-white flex items-center justify-center shadow-sm">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Mobile Controls (Hamburger & Profile) -->
-            <div class="flex lg:hidden items-center gap-3">
-                <button
-                    class="w-10 h-10 rounded-full bg-blue-700 text-white flex items-center justify-center shadow-sm">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                    </svg>
-                </button>
-                <button id="mobile-menu-btn"
-                    class="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center text-slate-700 hover:bg-slate-200 transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                </button>
-            </div>
-        </div>
-
-        <!-- Mobile Navigation Menu (Hidden by default) -->
-        <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-200 bg-white absolute w-full shadow-lg">
-            <nav class="flex flex-col p-4 space-y-2">
-                <a href="index.html" class="text-slate-600 hover:bg-slate-50 px-4 py-3 rounded-lg font-medium">Trouver
-                    une offre</a>
-                <a href="offer-suivies.html"
-                    class="text-slate-600 hover:bg-slate-50 px-4 py-3 rounded-lg font-medium flex items-center justify-between">
-                    Offres suivies
-                </a>
-                <a href="deposer-offer.html" class="bg-blue-50 text-blue-700 px-4 py-3 rounded-lg font-medium">Déposer
-                    une offre</a>
-                <a href="administration.html"
-                    class="text-slate-600 hover:bg-slate-50 px-4 py-3 rounded-lg font-medium">Administration</a>
-                <div class="h-px bg-slate-200 my-2"></div>
-                <div class="px-4 py-2">
-                    <div class="text-sm text-slate-500 mb-1">Connecté en
-                        tant que</div>
-                    <div class="font-semibold text-slate-800">Espace
-                        Étudiant</div>
-                    <a href="#" class="text-sm text-blue-700 hover:underline mt-1 inline-block">Changer
-                        de rôle</a>
-                </div>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Main Content -->
     <main class="max-w-[1400px] mx-auto px-4 md:px-6 lg:px-8 py-6 md:py-8 flex-grow relative w-full">
 
-        <!-- Page Header -->
         <section class="page-hero mb-6 md:mb-8" aria-labelledby="page-title">
             <div class="page-hero__content">
                 <p class="page-hero__eyebrow">Espace recruteur</p>
@@ -133,13 +30,10 @@
             </a>
         </nav>
 
-        <!-- Offer form (publication requires a backend) -->
         <form id="offer-form" class="space-y-6 md:space-y-8" onsubmit="return false">
 
-            <!-- Section 1: Informations Générales -->
             <section id="informations"
                 class="scroll-mt-24 bg-white rounded-3xl p-5 md:p-8 lg:p-10 border border-slate-200 shadow-sm">
-                <!-- Section Header -->
                 <header class="flex items-center justify-between mb-6 md:mb-8 pb-4 md:pb-6 border-b border-slate-100">
                     <h2 class="text-lg md:text-xl font-bold text-slate-800 flex items-center gap-3 md:gap-4">
                         <span
@@ -150,12 +44,10 @@
                         1 sur 3</span>
                 </header>
 
-                <!-- Opportunity Type (Radio Cards) -->
                 <fieldset class="mb-8">
                     <legend class="block text-sm font-semibold text-slate-800 mb-3">Type
                         d'opportunité <span class="text-red-500">*</span></legend>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <!-- Card 1: Stage -->
                         <label
                             class="offer-type-card relative flex items-start gap-4 p-4 md:p-5 rounded-xl cursor-pointer transition-all">
                             <input type="radio" name="opp_type" value="stage"
@@ -172,7 +64,6 @@
                                     initiale (2 à 6 mois)</p>
                             </div>
                         </label>
-                        <!-- Card 2: Alternance -->
                         <label
                             class="offer-type-card relative flex items-start gap-4 p-4 md:p-5 rounded-xl cursor-pointer transition-all">
                             <input type="radio" name="opp_type" value="alternance"
@@ -195,9 +86,7 @@
                     <h3 class="text-sm font-bold text-slate-900">Le poste</h3>
                     <p class="text-xs text-slate-500 mt-1">Les informations qui apparaîtront en premier sur l'offre.</p>
                 </div>
-                <!-- Grid Inputs -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
-                    <!-- Nom Entreprise -->
                     <div>
                         <label for="company" class="block text-sm font-semibold text-slate-800 mb-2">Nom
                             de l'entreprise <span class="text-red-500">*</span></label>
@@ -215,7 +104,6 @@
                                 class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl pl-11 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
                         </div>
                     </div>
-                    <!-- Ville -->
                     <div>
                         <label for="location" class="block text-sm font-semibold text-slate-800 mb-2">Ville
                             / Localisation <span class="text-red-500">*</span></label>
@@ -235,7 +123,6 @@
                                 class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl pl-11 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
                         </div>
                     </div>
-                    <!-- Intitulé du poste -->
                     <div>
                         <label for="job_title" class="block text-sm font-semibold text-slate-800 mb-2">Intitulé
                             exact du poste <span class="text-red-500">*</span></label>
@@ -289,10 +176,8 @@
                 </div>
             </section>
 
-            <!-- Section 2: Contenu & Missions de l'Offre -->
             <section id="contenu"
                 class="scroll-mt-24 bg-white rounded-3xl p-5 md:p-8 lg:p-10 border border-slate-200 shadow-sm">
-                <!-- Section Header -->
                 <header class="flex items-center justify-between mb-6 md:mb-8 pb-4 md:pb-6 border-b border-slate-100">
                     <h2 class="text-lg md:text-xl font-bold text-slate-800 flex items-center gap-3 md:gap-4">
                         <span
@@ -304,7 +189,6 @@
                 </header>
 
                 <div class="space-y-6">
-                    <!-- Présentation -->
                     <div>
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-2 gap-1">
                             <label for="description" class="block text-sm font-semibold text-slate-800">Présentation
@@ -317,7 +201,6 @@
                             class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all resize-none"></textarea>
                     </div>
 
-                    <!-- Missions -->
                     <div>
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-2 gap-1">
                             <label for="missions" class="block text-sm font-semibold text-slate-800">Missions
@@ -330,8 +213,6 @@
                             class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all resize-none"></textarea>
                     </div>
 
-
-                    <!-- Arrays in offers.json are represented by groups of checkboxes. -->
                     <fieldset class="rounded-2xl border border-slate-200 bg-slate-50/70 p-4 md:p-5">
                         <legend class="px-1 text-sm font-semibold text-slate-800">Compétences & Technologies clés
                         </legend>
@@ -363,10 +244,8 @@
                 </div>
             </section>
 
-            <!-- Section 3: Modalités Pratiques & Contact -->
             <section id="modalites"
                 class="scroll-mt-24 bg-white rounded-3xl p-5 md:p-8 lg:p-10 border border-slate-200 shadow-sm">
-                <!-- Section Header -->
                 <header class="flex items-center justify-between mb-6 md:mb-8 pb-4 md:pb-6 border-b border-slate-100">
                     <h2 class="text-lg md:text-xl font-bold text-slate-800 flex items-center gap-3 md:gap-4">
                         <span
@@ -382,7 +261,6 @@
                         <h3 class="text-sm font-bold text-slate-900">Conditions du contrat</h3>
                         <p class="text-xs text-slate-500 mt-1">Date de début, durée et rémunération proposées.</p>
                     </div>
-                    <!-- Date, Durée, Gratification Grid -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
                         <div>
                             <label for="start_date" class="block text-sm font-semibold text-slate-800 mb-2">Date
@@ -417,7 +295,6 @@
 
                     </div>
 
-                    <!-- Email -->
                     <div>
                         <label for="email" class="block text-sm font-semibold text-slate-800 mb-2">Email
                             de réception des candidatures <span class="text-red-500">*</span></label>
@@ -439,15 +316,14 @@
                             adressés sans intermédiaire.</p>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
-                       
+
                 </div>
-                
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
                     </div>
                 </div>
             </section>
 
-            <!-- Form actions -->
             <div class="rounded-3xl border border-slate-200 bg-white p-4 md:p-6 shadow-sm">
                 <p class="mb-4 text-xs text-slate-500">Les champs marqués d'un * sont obligatoires.</p>
                 <div class="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between gap-3">
@@ -468,15 +344,7 @@
             </div>
         </form>
     </main>
-    <!-- Footer -->
-    <footer class="bg-white border-t border-slate-200 mt-auto py-8">
-        <div class="max-w-[1400px] mx-auto px-4 md:px-6 lg:px-8 text-center text-sm text-slate-500">
-            © 2026 YouApply. Tous droits réservés.
-        </div>
-    </footer>
-    <script type="module" src="../js/app.js"></script>
 
-    <script type="module" src="../js/burger-menu.js"></script>
-</body>
+    <script type="module" src="/js/app.js"></script>
 
-</html>
+<%- include('../partials/footer') %>

@@ -1,0 +1,28 @@
+{
+  "name": "youapply",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "YouApply is a responsive frontend portal for browsing, filtering, and saving internship and work-study opportunities. It is designed for students who need one place to discover relevant offers and keep track of the ones that interest them.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HIBA53757/YouApply.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HIBA53757/YouApply/issues"
+  },
+  "homepage": "https://github.com/HIBA53757/YouApply#readme",
+  "dependencies": {
+    "ejs": "^6.0.1",
+    "express": "^5.2.1"
+  }
+}

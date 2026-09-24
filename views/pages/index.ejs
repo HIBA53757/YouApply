@@ -1,107 +1,4 @@
-<!DOCTYPE html>
-<html lang="fr">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouApply - Offres (Responsive)</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="../css/style.css">
-
-
-</head>
-
-<body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
-
-    <!-- Navbar -->
-    <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
-        <div class="max-w-[1400px] mx-auto px-4 md:px-6 lg:px-8 h-16 flex items-center justify-between">
-
-            <!-- Logo -->
-            <div class="flex items-center gap-2">
-                <a href="index.html" class="font-bold text-xl flex items-center">
-
-                    <span class="text-black">You</span><span class="brand-apply">Apply</span>
-                </a>
-                <span
-                    class="hidden sm:block text-xs text-slate-500 font-medium leading-tight ml-2 border-l border-slate-300 pl-2">STAGES
-                    &<br>ALTERNANCES</span>
-            </div>
-
-            <!-- Main Navigation (Desktop) -->
-            <nav class="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-600">
-                <a href="index.html" class="bg-blue-50 text-blue-700 px-4 py-2 rounded-lg">Trouver
-                    une offre</a>
-                <a href="offer-suivies.html" class="hover:text-slate-900 flex items-center gap-2">
-                    Offres suivies
-                </a>
-                <a href="deposer-offer.html" class="hover:text-slate-900">Déposer une offre</a>
-                <a href="administration.html" class="hover:text-slate-900">Administration</a>
-            </nav>
-
-            <!-- Profile (Desktop) -->
-            <div class="hidden lg:flex items-center">
-                <div class="flex items-center gap-3">
-                    <div class="text-right">
-                        <div class="text-sm font-semibold text-slate-800">Espace
-                            Étudiant</div>
-                        <a href="#" class="text-xs text-blue-700 hover:underline">Changer
-                            de rôle</a>
-                    </div>
-                    <div class="w-9 h-9 rounded-full bg-blue-700 text-white flex items-center justify-center shadow-sm">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Mobile Controls (Hamburger & Profile) -->
-            <div class="flex lg:hidden items-center gap-3">
-                <button
-                    class="w-10 h-10 rounded-full bg-blue-700 text-white flex items-center justify-center shadow-sm">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                    </svg>
-                </button>
-                <button id="mobile-menu-btn"
-                    class="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center text-slate-700 hover:bg-slate-200 transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                </button>
-            </div>
-        </div>
-
-        <!-- Mobile Navigation Menu (Hidden by default) -->
-        <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-200 bg-white absolute w-full shadow-lg">
-            <nav class="flex flex-col p-4 space-y-2">
-                <a href="index.html" class="bg-blue-50 text-blue-700 px-4 py-3 rounded-lg font-medium">Trouver
-                    une offre</a>
-                <a href="offer-suivies.html"
-                    class="text-slate-600 hover:bg-slate-50 px-4 py-3 rounded-lg font-medium flex items-center justify-between">
-                    Offres suivies
-                </a>
-                <a href="deposer-offer.html"
-                    class="text-slate-600 hover:bg-slate-50 px-4 py-3 rounded-lg font-medium">Déposer
-                    une offre</a>
-                <a href="administration.html"
-                    class="text-slate-600 hover:bg-slate-50 px-4 py-3 rounded-lg font-medium">Administration</a>
-                <div class="h-px bg-slate-200 my-2"></div>
-                <div class="px-4 py-2">
-                    <div class="text-sm text-slate-500 mb-1">Connecté en
-                        tant que</div>
-                    <div class="font-semibold text-slate-800">Espace
-                        Étudiant</div>
-                    <a href="#" class="text-sm text-blue-700 hover:underline mt-1 inline-block">Changer
-                        de rôle</a>
-                </div>
-            </nav>
-        </div>
-    </header>
+<%- include('../partials/header', { title: 'YouApply - Offres', active: 'index' }) %>
 
     <main class="max-w-[1400px] mx-auto px-4 md:px-6 lg:px-8 py-6 md:py-8 flex-grow w-full">
 
@@ -115,63 +12,46 @@
             <span class="page-hero__badge">Stages & alternances</span>
         </section>
 
-        <!-- Global Search Section -->
         <section
             class="bg-white rounded-2xl shadow-sm border border-slate-200 p-3 mb-6 flex flex-col md:flex-row gap-3">
 
-            <!-- Keyword -->
             <div
                 class="flex-1 flex items-center bg-slate-100/80 rounded-xl px-4 border border-transparent focus-within:border-blue-700 focus-within:ring-1 focus-within:ring-blue-700 focus-within:bg-white transition-all">
-
                 <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z">
-                    </path>
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                 </svg>
-
                 <input id="search-keyword" type="text" placeholder="Mots-clés : Développeur, UX, Marketing..."
                     class="w-full bg-transparent border-none focus:outline-none text-sm py-3.5 px-3 text-slate-800 placeholder-slate-500">
             </div>
 
-            <!-- City -->
             <div
                 class="flex-1 flex items-center bg-slate-100/80 rounded-xl px-4 border border-transparent focus-within:border-blue-700 focus-within:ring-1 focus-within:ring-blue-700 focus-within:bg-white transition-all">
-
                 <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
-                    </path>
+                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z">
-                    </path>
+                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                 </svg>
-
                 <input id="search-city" type="text" placeholder="Ville, département ou Télétravail..."
                     class="w-full bg-transparent border-none focus:outline-none text-sm py-3.5 px-3 text-slate-800 placeholder-slate-500">
             </div>
 
-            <!-- Search button -->
             <button id="search-button" type="button"
                 class="bg-blue-700 hover:bg-blue-900 text-white font-medium text-sm px-8 py-3.5 rounded-xl flex items-center justify-center gap-2 transition-colors w-full md:w-auto shadow-sm">
-
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M13 10V3L4 14h7v7l9-11h-7z">
-                    </path>
+                        d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                 </svg>
-
                 Rechercher
             </button>
         </section>
 
-        <!-- Main Grid Layout -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
-            <!-- Sidebar / Filters -->
             <aside
                 class="lg:col-span-3 space-y-4 lg:sticky lg:top-20 lg:self-start lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto">
 
-                <!-- Mobile Filter Toggle Button -->
                 <div id="filter-toggle-btn"
                     class="lg:hidden bg-white rounded-2xl shadow-sm border border-slate-200 p-4 flex items-center justify-between cursor-pointer active:scale-[0.99] hover:border-blue-200 hover:shadow-md transition-all duration-200">
                     <div class="flex items-center gap-3 font-semibold text-slate-800">
@@ -188,11 +68,9 @@
                         </svg>
                     </div>
                     <button class="reset-filters text-sm font-bold text-blue-700 hover:underline px-2 py-1 z-10"
-                        onclick="event.stopPropagation()">Effacer
-                        tout</button>
+                        onclick="event.stopPropagation()">Effacer tout</button>
                 </div>
 
-                <!-- Filter Form Content -->
                 <div id="filter-content"
                     class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-out lg:grid-rows-[1fr]">
                     <div class="overflow-hidden">
@@ -212,11 +90,8 @@
                                     tout</button>
                             </header>
 
-                            <!-- Filter Group: Type de contrat -->
                             <fieldset class="mb-6">
-                                <legend class="text-sm font-semibold mb-3">
-                                    Type de contrat
-                                </legend>
+                                <legend class="text-sm font-semibold mb-3">Type de contrat</legend>
                                 <div class="flex bg-slate-100 p-1 rounded-xl">
                                     <button type="button" data-contract="all"
                                         class="contract-filter flex-1 text-sm font-medium py-2 bg-white text-slate-800 rounded-lg shadow-sm">
@@ -233,52 +108,38 @@
                                 </div>
                             </fieldset>
 
-                            <!-- Filter Group: Mode de travail -->
                             <fieldset class="mb-6">
                                 <legend class="text-sm font-semibold mb-3">Mode de travail</legend>
-                                <div id="work-mode-filters" class="space-y-4">
-                                </div>
+                                <div id="work-mode-filters" class="space-y-4"></div>
                             </fieldset>
 
-                            <!-- Filter Group: Technologies & Compétences -->
                             <fieldset class="mb-6">
                                 <div class="flex items-center justify-between mb-3">
-                                    <legend class="text-sm font-semibold">
-                                        Technologies
-                                    </legend>
-                                    <span class="text-xs text-slate-500">
-                                        Top sélections
-                                    </span>
+                                    <legend class="text-sm font-semibold">Technologies</legend>
+                                    <span class="text-xs text-slate-500">Top sélections</span>
                                 </div>
-                                <div id="technology-filters" class="grid grid-cols-2 gap-y-4 gap-x-2">
-                                </div>
+                                <div id="technology-filters" class="grid grid-cols-2 gap-y-4 gap-x-2"></div>
                             </fieldset>
-                            <!-- Action -->
+
                             <button type="reset"
-                                class=" reset-filters w-full flex items-center justify-center gap-2 py-3 bg-blue-50 text-blue-700 font-bold text-sm rounded-xl hover:bg-blue-100 transition-colors">
+                                class="reset-filters w-full flex items-center justify-center gap-2 py-3 bg-blue-50 text-blue-700 font-bold text-sm rounded-xl hover:bg-blue-100 transition-colors">
                                 Effacer les filtres
                             </button>
                         </form>
-
-
                     </div>
                 </div>
             </aside>
 
-            <!-- Results Section -->
             <section class="lg:col-span-9 flex flex-col">
 
-                <!-- Results Header -->
                 <header
                     class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
                     <h2 class="text-slate-600 flex items-center flex-wrap gap-1">
                         <strong id="results-count" class="text-2xl text-slate-800 font-bold mr-1">0</strong>
-                        <span class="text-sm font-medium">offres de stages &
-                            alternances trouvées</span>
+                        <span class="text-sm font-medium">offres de stages & alternances trouvées</span>
                     </h2>
                     <div class="flex items-center gap-2 self-start sm:self-auto">
-                        <label class="text-sm font-bold text-slate-700 whitespace-nowrap">Trier
-                            par :</label>
+                        <label class="text-sm font-bold text-slate-700 whitespace-nowrap">Trier par :</label>
                         <select id="sort-select"
                             class="bg-slate-100 border-none text-sm font-semibold text-slate-800 rounded-xl py-2 pl-3 pr-8 focus:ring-0 cursor-pointer appearance-none">
                             <option value="recent">Les plus récentes</option>
@@ -287,40 +148,23 @@
                     </div>
                 </header>
 
-                <!-- Offers List -->
                 <div id="Offers_List" class="space-y-4 mb-8"></div>
+
                 <div id="no-results" class="hidden text-center py-10">
-                    <p class="text-lg font-semibold text-slate-700">
-                        Aucune offre trouvée
-                    </p>
-                    <p class="text-sm text-slate-500 mt-2">
-                        Essayez de modifier vos critères de recherche.
-                    </p>
+                    <p class="text-lg font-semibold text-slate-700">Aucune offre trouvée</p>
+                    <p class="text-sm text-slate-500 mt-2">Essayez de modifier vos critères de recherche.</p>
                 </div>
-                <!-- Pagination -->
+
                 <nav aria-label="Pagination" class="flex items-center justify-between pt-4 mt-auto">
-                   
-
                     <div id="div_contain_number_page"
-                        class="flex items-center gap-1 flex-nowrap overflow-x-auto max-w-full">
-                    </div>
-
-                   
+                        class="flex items-center gap-1 flex-nowrap overflow-x-auto max-w-full"></div>
                 </nav>
 
             </section>
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-white border-t border-slate-200 mt-auto py-8">
-        <div class="max-w-[1400px] mx-auto px-4 md:px-6 lg:px-8 text-center text-sm text-slate-500">
-            © 2026 YouApply. Tous droits réservés.
-        </div>
-    </footer>
-    <script type="module" src="../js/app.js"></script>
-    <script type="module" src="../js/filters.js"></script>
-    <script type="module" src="../js/burger-menu.js"></script>
-</body>
+    <script type="module" src="/js/app.js"></script>
+    <script type="module" src="/js/filters.js"></script>
 
-</html>
+<%- include('../partials/footer') %>
