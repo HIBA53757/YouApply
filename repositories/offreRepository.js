@@ -17,10 +17,16 @@ export async function getAllOffers() {
             offre.duree_mois,
             offre.email_contact,
             offre.date_publication,
-            entreprise.nom AS entreprise_nom
+            entreprise.nom AS entreprise_nom,
+            GROUP_CONCAT(technologie.nom SEPARATOR ',') AS skills
         FROM offre
         INNER JOIN entreprise
             ON offre.entreprise_id = entreprise.id
+        LEFT JOIN offre_technologie
+            ON offre_technologie.offre_id = offre.id
+        LEFT JOIN technologie
+            ON technologie.id = offre_technologie.technologie_id
+        GROUP BY offre.id
         ORDER BY offre.date_publication DESC
     `);
 

@@ -19,8 +19,19 @@ app.get("/", async (req, res) => {
     try {
         const offers = await getAllOffers();
 
+        const technologiesSet = new Set();
+        offers.forEach((offer) => {
+            const skills = Array.isArray(offer.skills)
+                ? offer.skills
+                : offer.skills
+                    ? String(offer.skills).split(",").map((s) => s.trim()).filter(Boolean)
+                    : [];
+            skills.forEach((skill) => technologiesSet.add(skill));
+        });
+
         res.render("pages/index", {
-            offers
+            offers,
+             technologies: Array.from(technologiesSet),
         });
     } catch (error) {
         console.error(error);

@@ -110,7 +110,29 @@
 
                             <fieldset class="mb-6">
                                 <legend class="text-sm font-semibold mb-3">Mode de travail</legend>
-                                <div id="work-mode-filters" class="space-y-4"></div>
+                                <div id="work-mode-filters" class="space-y-4">
+                                    <label class="flex items-center justify-between cursor-pointer group">
+                                        <div class="flex items-center gap-3">
+                                            <input type="checkbox" data-work-mode="hybride"
+                                                class="work-mode-filter w-5 h-5 text-blue-700 bg-white border-slate-300 rounded focus:ring-blue-700 focus:ring-2 accent-blue-700">
+                                            <span class="text-sm text-slate-700">Hybride</span>
+                                        </div>
+                                    </label>
+                                    <label class="flex items-center justify-between cursor-pointer group">
+                                        <div class="flex items-center gap-3">
+                                            <input type="checkbox" data-work-mode="remote"
+                                                class="work-mode-filter w-5 h-5 text-blue-700 bg-white border-slate-300 rounded focus:ring-blue-700 focus:ring-2 accent-blue-700">
+                                            <span class="text-sm text-slate-700">Télétravail 100%</span>
+                                        </div>
+                                    </label>
+                                    <label class="flex items-center justify-between cursor-pointer group">
+                                        <div class="flex items-center gap-3">
+                                            <input type="checkbox" data-work-mode="presentiel"
+                                                class="work-mode-filter w-5 h-5 text-blue-700 bg-white border-slate-300 rounded focus:ring-blue-700 focus:ring-2 accent-blue-700">
+                                            <span class="text-sm text-slate-700">Présentiel</span>
+                                        </div>
+                                    </label>
+                                </div>
                             </fieldset>
 
                             <fieldset class="mb-6">
@@ -118,7 +140,14 @@
                                     <legend class="text-sm font-semibold">Technologies</legend>
                                     <span class="text-xs text-slate-500">Top sélections</span>
                                 </div>
-                                <div id="technology-filters" class="grid grid-cols-2 gap-y-4 gap-x-2"></div>
+                                <div id="technology-filters" class="grid grid-cols-2 gap-y-4 gap-x-2">
+                                    <% technologies.forEach(technology => { %>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" value="<%= technology %>" class="technology-filter">
+                                        <span class="text-sm text-slate-700"><%= technology %></span>
+                                    </label>
+                                    <% }) %>
+                                </div>
                             </fieldset>
 
                             <button type="reset"
@@ -156,7 +185,8 @@
                         const startDate = offer.date_debut ? new Date(offer.date_debut).toLocaleDateString('fr-FR') : '';
                         const initial = offer.entreprise_nom ? offer.entreprise_nom.charAt(0).toUpperCase() : '?';
                     %>
-                    <article class="bg-white p-5 md:p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 transition-all">
+                    <article class="bg-white p-5 md:p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 transition-all"
+                        data-work-mode="<%= offer.mode_travail || '' %>">
                         <div class="flex flex-col sm:flex-row items-start gap-4">
 
                             <div class="w-14 h-14 rounded-xl bg-blue-700 text-white flex items-center justify-center font-bold text-xl flex-shrink-0">
@@ -241,5 +271,6 @@
     </main>
 
     <script type="module" src="/js/followBtn.js"></script>
+
 
 <%- include('../partials/footer') %>
