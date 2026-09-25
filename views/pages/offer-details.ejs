@@ -1,0 +1,338 @@
+<%- include('../partials/header', { title: "YouApply - Détails de l'offre", active: 'index' }) %>
+
+<%
+    const skills = Array.isArray(offer.skills)
+        ? offer.skills
+        : (offer.skills ? String(offer.skills).split(',').map(s => s.trim()).filter(Boolean) : []);
+
+    const startDate = offer.date_debut ? new Date(offer.date_debut).toLocaleDateString('fr-FR') : '';
+    const publishedDate = offer.date_publication ? new Date(offer.date_publication).toLocaleDateString('fr-FR') : '';
+
+    const missionsList = offer.missions
+        ? offer.missions.split(/\r?\n/).map(m => m.trim()).filter(Boolean)
+        : [];
+
+    const workModeLabels = {
+        presentiel: 'Présentiel',
+        hybride: 'Hybride',
+        remote: 'Télétravail 100%',
+    };
+%>
+
+    <main class="max-w-[1400px] mx-auto px-4 md:px-6 lg:px-8 py-6 md:py-8 flex-grow w-full">
+
+        <section class="page-hero mb-6 md:mb-8" aria-labelledby="page-title">
+            <div class="page-hero__content">
+                <p class="page-hero__eyebrow">Découvrir une offre</p>
+                <h1 id="page-title" class="page-hero__title">Détails de l'offre</h1>
+                <p class="page-hero__description">Consultez les missions, les conditions et les informations de contact
+                    avant de postuler.</p>
+            </div>
+            <span class="page-hero__badge"><%= offer.type_contrat %></span>
+        </section>
+
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+            <nav aria-label="Breadcrumb"
+                class="flex flex-wrap items-center text-xs sm:text-sm font-medium text-slate-500 gap-y-2">
+                <a href="/"
+                    class="hover:text-blue-900 flex items-center gap-1 whitespace-nowrap transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                        </path>
+                    </svg>
+                    Accueil
+                </a>
+                <span class="mx-1 sm:mx-2 text-slate-300">/</span>
+                <a href="/" class="hover:text-blue-900 whitespace-nowrap transition-colors">Offres</a>
+                <span class="mx-1 sm:mx-2 text-slate-300">/</span>
+                <span class="text-slate-800 line-clamp-1 break-all flex-1 min-w-[150px]">
+                    <%= offer.titre %></span>
+            </nav>
+
+            <div class="flex items-center gap-2 sm:gap-3 w-full md:w-auto">
+                <button
+                    class="flex-1 md:flex-none flex items-center justify-center gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium text-slate-700 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 hover:border-slate-300 transition-colors shadow-sm">
+                    <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z">
+                        </path>
+                    </svg>
+                    Partager
+                </button>
+                <button
+                    class="flex-1 md:flex-none flex items-center justify-center gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium text-slate-700 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 hover:border-slate-300 transition-colors shadow-sm">
+                    <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z">
+                        </path>
+                    </svg>
+                    Imprimer
+                </button>
+            </div>
+        </div>
+
+        <header class="bg-white border border-slate-200 rounded-2xl p-5 md:p-6 mb-6 shadow-sm">
+            <div class="flex flex-col lg:flex-row lg:items-start justify-between gap-6">
+                <div class="flex flex-col sm:flex-row gap-4 sm:gap-5 items-start">
+                    <div
+                        class="w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-blue-700 text-white flex items-center justify-center flex-shrink-0 shadow-sm font-bold text-xl">
+                        <%= offer.entreprise_nom ? offer.entreprise_nom.charAt(0).toUpperCase() : '?' %>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2 mb-2 sm:mb-1 flex-wrap">
+                            <span class="text-blue-700 font-semibold text-sm"><%= offer.entreprise_nom %></span>
+                        </div>
+                        <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-slate-800 leading-tight mb-3">
+                            <%= offer.titre %>
+                        </h2>
+
+                        <div
+                            class="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-2 sm:gap-4 text-sm text-slate-500 font-medium">
+                            <span class="flex items-center gap-1.5"><svg class="w-4 h-4 text-slate-400 flex-shrink-0"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
+                                    </path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
+                                <span><%= offer.ville %></span>
+                            </span>
+                            <% if (publishedDate) { %>
+                            <span class="hidden sm:block w-1 h-1 rounded-full bg-slate-300"></span>
+                            <span class="flex items-center gap-1.5"><svg class="w-4 h-4 text-slate-400 flex-shrink-0"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                Publié le <%= publishedDate %></span>
+                            <% } %>
+                            <span class="hidden sm:block w-1 h-1 rounded-full bg-slate-300"></span>
+                            <span class="flex items-center gap-1.5"><svg class="w-4 h-4 text-slate-400 flex-shrink-0"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"></path>
+                                </svg>
+                                Réf : #<%= offer.id %></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap gap-2 mt-5 md:mt-6 pt-5 md:pt-6 border-t border-slate-100">
+                <span
+                    class="inline-flex items-center gap-1.5 bg-teal-50 text-teal-700 border border-teal-100 px-3 py-1.5 rounded-lg text-xs font-semibold">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                        </path>
+                    </svg>
+                    <%= offer.duree_mois %> mois
+                </span>
+                <span
+                    class="inline-flex items-center gap-1.5 bg-blue-100 text-blue-900 border border-blue-100 px-2.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium">
+                    <%= offer.type_contrat %>
+                </span>
+                <span
+                    class="inline-flex items-center gap-1.5 bg-slate-50 text-slate-700 border border-slate-200 px-2.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium">
+                    <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                        </path>
+                    </svg>
+                    Début le <%= startDate %>
+                </span>
+                <% if (offer.mode_travail) { %>
+                <span
+                    class="inline-flex items-center gap-1.5 bg-slate-50 text-slate-700 border border-slate-200 px-2.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium">
+                    <%= workModeLabels[offer.mode_travail] || offer.mode_travail %>
+                </span>
+                <% } %>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+            <div class="lg:col-span-8 space-y-6">
+
+                <section class="bg-white rounded-2xl p-5 md:p-6 border border-slate-200 shadow-sm">
+                    <h2 class="text-lg md:text-xl font-bold text-slate-800 flex items-center gap-3 mb-4">
+                        <div class="p-2 bg-blue-50 text-blue-700 rounded-lg">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
+                                </path>
+                            </svg>
+                        </div>
+                        À propos de l'entreprise
+                    </h2>
+                    <p class="text-sm md:text-base text-slate-600 leading-relaxed">
+                        <%= offer.presentation_entreprise %>
+                    </p>
+                    <dl class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mt-6">
+                        <% if (offer.methode_travail) { %>
+                        <div class="bg-slate-50 p-3 md:p-4 rounded-xl border border-slate-100">
+                            <dt class="text-[11px] md:text-xs text-slate-500 font-semibold uppercase tracking-wider mb-1">Méthode</dt>
+                            <dd class="text-slate-800 font-bold text-base md:text-lg"><%= offer.methode_travail %></dd>
+                        </div>
+                        <% } %>
+                        <div class="bg-slate-50 p-3 md:p-4 rounded-xl border border-slate-100">
+                            <dt class="text-[11px] md:text-xs text-slate-500 font-semibold uppercase tracking-wider mb-1">Locaux</dt>
+                            <dd class="text-slate-800 font-bold text-base md:text-lg"><%= offer.ville %></dd>
+                        </div>
+                        <% if (offer.politique_teletravail) { %>
+                        <div class="bg-slate-50 p-3 md:p-4 rounded-xl border border-slate-100">
+                            <dt class="text-[11px] md:text-xs text-slate-500 font-semibold uppercase tracking-wider mb-1">Télétravail</dt>
+                            <dd class="text-slate-800 font-bold text-base md:text-lg"><%= offer.politique_teletravail %></dd>
+                        </div>
+                        <% } %>
+                    </dl>
+                </section>
+
+                <section class="bg-white rounded-2xl p-5 md:p-6 border border-slate-200 shadow-sm">
+                    <h2 class="text-lg md:text-xl font-bold text-slate-800 flex items-center gap-3 mb-4">
+                        <div class="p-2 bg-blue-50 text-blue-700 rounded-lg">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4">
+                                </path>
+                            </svg>
+                        </div>
+                        Description du poste & Missions
+                    </h2>
+                    <p class="text-sm md:text-base text-slate-600 leading-relaxed mb-5 md:mb-6">
+                        Les principales missions confiées pour cette offre :
+                    </p>
+                    <ul class="space-y-4 md:space-y-5">
+                        <% if (missionsList.length) { %>
+                            <% missionsList.forEach(mission => { %>
+                            <li class="flex gap-3 text-sm md:text-base text-slate-600 leading-relaxed">
+                                <svg class="w-5 h-5 text-blue-700 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                                <span><%= mission %></span>
+                            </li>
+                            <% }) %>
+                        <% } else { %>
+                            <li class="text-sm md:text-base text-slate-600 leading-relaxed"><%= offer.missions %></li>
+                        <% } %>
+                    </ul>
+                </section>
+
+                <% if (skills.length) { %>
+                <section class="bg-white rounded-2xl p-5 md:p-6 border border-slate-200 shadow-sm">
+                    <h2 class="text-lg md:text-xl font-bold text-slate-800 flex items-center gap-3 mb-4">
+                        <div class="p-2 bg-blue-50 text-blue-700 rounded-lg">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                            </svg>
+                        </div>
+                        Stack & Compétences
+                    </h2>
+                    <p class="text-sm md:text-base text-slate-600 mb-5 md:mb-6">Vous serez amené(e) à manipuler quotidiennement :</p>
+
+                    <div class="bg-slate-50 border border-slate-100 rounded-xl p-4 md:p-5">
+                        <div class="flex flex-wrap gap-2">
+                            <% skills.forEach(skill => { %>
+                            <span class="bg-white border border-slate-200 text-slate-700 text-xs md:text-sm font-semibold px-3 py-1.5 rounded-lg"><%= skill %></span>
+                            <% }) %>
+                        </div>
+                    </div>
+                </section>
+                <% } %>
+
+            </div>
+
+            <aside class="lg:col-span-4 space-y-6">
+
+                <div class="lg:sticky lg:top-24 space-y-6">
+
+                    <div class="bg-white rounded-2xl p-5 md:p-6 border border-slate-200 shadow-sm">
+
+                        <div class="space-y-3 mb-6">
+                            <button
+                                class="w-full flex items-center justify-center gap-2 py-3 px-4 bg-white border border-slate-300 text-slate-700 font-medium text-sm rounded-xl hover:bg-blue-50 hover:border-blue-200 hover:text-blue-900 transition-colors">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path>
+                                </svg>
+                                Suivre cette offre
+                            </button>
+
+                            <a href="mailto:<%= offer.email_contact %>"
+                                class="w-full flex items-center justify-center gap-2 py-3 px-4 bg-blue-700 text-white font-medium text-sm rounded-xl hover:bg-blue-900 transition-colors shadow-sm">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                </svg>
+                                Postuler auprès du recruteur
+                            </a>
+                        </div>
+
+                        <dl class="space-y-3 text-xs md:text-sm mb-6 pb-6 border-b border-slate-100">
+                            <div class="flex justify-between items-center">
+                                <dt class="text-slate-500">Référence :</dt>
+                                <dd class="font-semibold text-slate-800">#<%= offer.id %></dd>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <dt class="text-slate-500">Type de contrat :</dt>
+                                <dd class="font-semibold text-teal-700 bg-teal-50 px-2 py-0.5 rounded"><%= offer.type_contrat %></dd>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <dt class="text-slate-500">Durée prévue :</dt>
+                                <dd class="font-medium text-slate-800"><%= offer.duree_mois %> mois</dd>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <dt class="text-slate-500">Démarrage :</dt>
+                                <dd class="font-medium text-slate-800"><%= startDate %></dd>
+                            </div>
+                        </dl>
+
+                        <div>
+                            <h3 class="text-[11px] md:text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4">Contact Recrutement</h3>
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-700 font-bold flex items-center justify-center flex-shrink-0">
+                                    <%= offer.entreprise_nom ? offer.entreprise_nom.charAt(0).toUpperCase() : '?' %>
+                                </div>
+                                <div>
+                                    <div class="font-semibold text-slate-800 text-sm"><%= offer.entreprise_nom %></div>
+                                </div>
+                            </div>
+                            <a href="mailto:<%= offer.email_contact %>"
+                                class="text-xs md:text-sm font-medium text-blue-700 flex items-center gap-2 hover:underline break-all">
+                                <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                                    </path>
+                                </svg>
+                                <span><%= offer.email_contact %></span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="bg-blue-50 border border-blue-100 rounded-2xl p-4 md:p-5 shadow-sm">
+                        <div class="flex items-start gap-3">
+                            <div class="mt-0.5 text-blue-700 flex-shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-blue-900 text-sm mb-1">Conseil AlternaJob</h4>
+                                <p class="text-xs md:text-sm text-blue-900/80 leading-relaxed">Préparez votre CV au format PDF et veillez à intégrer un lien direct vers votre GitHub ou portfolio avant de cliquer sur postuler.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </aside>
+        </div>
+    </main>
+
+    <script type="module" src="/js/app.js"></script>
+
+<%- include('../partials/footer') %>

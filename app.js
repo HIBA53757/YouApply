@@ -1,7 +1,7 @@
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { getAllOffers } from "./repositories/offreRepository.js";
+import { getAllOffers ,getOfferById} from "./repositories/offreRepository.js";
 
 const __filename = fileURLToPath(import.meta.url); //url of this file to window path
 const __dirname = path.dirname(__filename);  //folder path
@@ -51,8 +51,20 @@ app.get("/administration.html", (req, res) => {
     res.render("pages/administration");
 });
 
-app.get("/offer-details.html", (req, res) => {
-    res.render("pages/offer-details");
+app.get("/offer-details.html", async (req, res) => {
+    try {
+        const offerId = req.query.id;
+        const offer = await getOfferById(offerId);
+
+        if (!offer) {
+            return res.status(404).send("Offre introuvable");
+        }
+
+        res.render("pages/offer-details", { offer });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Erreur serveur");
+    }
 });
 
 app.listen(PORT, () => {
