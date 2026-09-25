@@ -1,19 +1,8 @@
-import { getData } from "./data.js";
-import { disply_offers } from "./render.js";
 const WORK_MODES = [
   { code: "hybride", label: "Hybride" },
   { code: "remote", label: "Télétravail 100%" },
   { code: "presentiel", label: "Présentiel" },
 ];
-
-const DURATIONS = [
-  { code: "1-2", label: "1 à 2 mois" },
-  { code: "3-6", label: "3 à 6 mois" },
-  { code: "1-year", label: "1 an" },
-  { code: "2-years", label: "2 ans" },
-];
-
-let offers = [];
 
 const searchInput = document.getElementById("search-keyword");
 const cityInput = document.getElementById("search-city");
@@ -24,52 +13,44 @@ const offersList = document.getElementById("Offers_List");
 const resultsCount = document.getElementById("results-count");
 const technologyFilters = document.getElementById("technology-filters");
 const workModeFilters = document.getElementById("work-mode-filters");
-const durationFilters = document.getElementById("duration-filters");
 const noResults = document.getElementById("no-results");
 
-async function loadOffers() {
-  try {
-    offers = await getData();
-    displayTechnologies();
-    displayWorkModes();
-    displayDurations();
-    resultsCount.textContent = offers.length;
-  } catch (error) {
-    console.error(error);
-  }
+const articles = Array.from(offersList.querySelectorAll("article"));
+
+function getOfferData(article) {
+  const title = article.querySelector("h2")?.textContent.trim() || "";
+
+  const company =
+    article.querySelector(".text-slate-700 span")?.textContent.trim() || "";
+
+  const contract =
+    article.querySelector(".bg-blue-100")?.textContent.trim() || "";
+
+  const location =
+    article.querySelector(".text-slate-500")?.textContent.trim() || "";
+
+  const description =
+    article.querySelector("p")?.textContent.trim() || "";
+
+  const skills = Array.from(
+    article.querySelectorAll(".bg-slate-100")
+  ).map((skill) => skill.textContent.trim());
+
+  return {
+    title: title.toLowerCase(),
+    company: company.toLowerCase(),
+    contract: contract.toLowerCase(),
+    location: location.toLowerCase(),
+    description: description.toLowerCase(),
+    skills: skills.map((skill) => skill.toLowerCase()),
+  };
 }
-function displayTechnologies() {
-  const technologies = [];
 
-  offers.forEach(function (offer) {
-    offer.skills.forEach(function (skill) {
-      if (!technologies.includes(skill)) {
-        technologies.push(skill);
-      }
-    });
-  });
-  technologies.forEach(function (technology) {
-    const label = document.createElement("label");
-    label.className = "flex items-center gap-2 cursor-pointer";
-
-    const checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-    checkbox.value = technology;
-    checkbox.className = "technology-filter";
-
-    const span = document.createElement("span");
-    span.className = "text-sm text-slate-700";
-    span.textContent = technology;
-
-    label.appendChild(checkbox);
-    label.appendChild(span);
-    technologyFilters.appendChild(label);
-  });
-}
 function displayWorkModes() {
   WORK_MODES.forEach(function (mode) {
     const label = document.createElement("label");
-    label.className = "flex items-center justify-between cursor-pointer group";
+    label.className =
+      "flex items-center justify-between cursor-pointer group";
 
     const wrapper = document.createElement("div");
     wrapper.className = "flex items-center gap-3";
@@ -86,88 +67,94 @@ function displayWorkModes() {
 
     wrapper.appendChild(checkbox);
     wrapper.appendChild(span);
+
     label.appendChild(wrapper);
     workModeFilters.appendChild(label);
   });
+
   workModeFilters.addEventListener("change", searchOffers);
 }
-function displayDurations() {
-  DURATIONS.forEach(function (duration) {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.dataset.duration = duration.code;
-    button.className =
-      "duration-filter px-4 py-2 text-xs font-medium bg-slate-100 text-slate-700 rounded-full hover:bg-slate-200";
-    button.textContent = duration.label;
-    durationFilters.appendChild(button);
+
+function displayTechnologies() {
+  const technologies = new Set();
+
+  articles.forEach(function (article) {
+    const skills = Array.from(
+      article.querySelectorAll(".bg-slate-100")
+    );
+
+    skills.forEach(function (skill) {
+      const technology = skill.textContent.trim();
+
+      if (technology) {
+        technologies.add(technology);
+      }
+    });
   });
 
-  durationFilters.addEventListener("click", function (event) {
-    const button = event.target.closest(".duration-filter");
-    if (!button) return;
+  technologies.forEach(function (technology) {
+    const label = document.createElement("label");
+    label.className = "flex items-center gap-2 cursor-pointer";
 
-    const isActive = button.classList.contains("bg-blue-700");
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.value = technology;
+    checkbox.className = "technology-filter";
 
-    durationFilters
-      .querySelectorAll(".duration-filter")
-      .forEach(function (btn) {
-        btn.classList.remove("bg-blue-700", "text-white");
-        btn.classList.add("bg-slate-100", "text-slate-700");
-      });
+    const span = document.createElement("span");
+    span.className = "text-sm text-slate-700";
+    span.textContent = technology;
 
-    if (!isActive) {
-      button.classList.remove("bg-slate-100", "text-slate-700");
-      button.classList.add("bg-blue-700", "text-white");
-    }
+    label.appendChild(checkbox);
+    label.appendChild(span);
 
-    searchOffers();
+    technologyFilters.appendChild(label);
   });
+
+  technologyFilters.addEventListener("change", searchOffers);
 }
-export function filterByContract(offer, selectedContract) {
+
+function filterByContract(offer, selectedContract) {
   return (
     selectedContract === "all" ||
-    offer.opp_type.toLowerCase() === selectedContract
+    offer.contract === selectedContract
   );
 }
+
 function searchOffers() {
   const keyword = searchInput.value.toLowerCase().trim();
   const city = cityInput.value.toLowerCase().trim();
 
   const selectedTechnologies = Array.from(
-    document.querySelectorAll(".technology-filter:checked"),
+    document.querySelectorAll(".technology-filter:checked")
   ).map(function (checkbox) {
-    return checkbox.value;
+    return checkbox.value.toLowerCase();
   });
 
   const selectedWorkModes = Array.from(
-    document.querySelectorAll(".work-mode-filter:checked"),
+    document.querySelectorAll(".work-mode-filter:checked")
   ).map(function (checkbox) {
-    return checkbox.dataset.workMode;
+    return checkbox.dataset.workMode.toLowerCase();
   });
-
-  const selectedDuration = document.querySelector(
-    ".duration-filter.bg-blue-700",
-  )?.dataset.duration;
 
   const selectedContract =
     document.querySelector(".contract-filter.bg-white")?.dataset.contract ||
     "all";
 
-  const articles = offersList.querySelectorAll("article");
   let visibleOffers = 0;
 
-  offers.forEach(function (offer, index) {
-    const title = offer.job_title.toLowerCase();
-    const company = offer.company.toLowerCase();
-    const description = offer.description.toLowerCase();
-    const location = offer.location.toLowerCase();
+  articles.forEach(function (article) {
+    const offer = getOfferData(article);
 
     const keywordMatch =
-      title.includes(keyword) ||
-      company.includes(keyword) ||
-      description.includes(keyword);
+      !keyword ||
+      offer.title.includes(keyword) ||
+      offer.company.includes(keyword) ||
+      offer.description.includes(keyword);
 
-    const cityMatch = location.includes(city);
+    const cityMatch =
+      !city ||
+      offer.location.includes(city);
 
     const technologyMatch =
       selectedTechnologies.length === 0 ||
@@ -175,114 +162,250 @@ function searchOffers() {
         return offer.skills.includes(technology);
       });
 
-    const contractMatch = filterByContract(offer, selectedContract);
+    const contractMatch = filterByContract(
+      offer,
+      selectedContract
+    );
 
     const workModeMatch =
       selectedWorkModes.length === 0 ||
-      selectedWorkModes.includes(offer.work_mode);
+      selectedWorkModes.includes(
+        getWorkMode(article)
+      );
 
-    const durationMatch =
-      !selectedDuration || offer.mission_duration === selectedDuration;
     const showOffer =
       keywordMatch &&
       cityMatch &&
       technologyMatch &&
       contractMatch &&
-      workModeMatch &&
-      durationMatch;
-    if (articles[index]) {
-      articles[index].style.display = showOffer ? "" : "none";
+      workModeMatch;
+
+    article.style.display = showOffer ? "" : "none";
+
+    if (showOffer) {
+      visibleOffers++;
     }
-    if (showOffer) visibleOffers++;
   });
+
   resultsCount.textContent = visibleOffers;
-  if (noResults) noResults.classList.toggle("hidden", visibleOffers !== 0);
+
+  if (noResults) {
+    noResults.classList.toggle(
+      "hidden",
+      visibleOffers !== 0
+    );
+  }
 }
+
+function getWorkMode(article) {
+  const text = article.textContent.toLowerCase();
+
+  if (text.includes("télétravail")) {
+    return "remote";
+  }
+
+  if (text.includes("hybride")) {
+    return "hybride";
+  }
+
+  if (text.includes("présentiel")) {
+    return "presentiel";
+  }
+
+  return "";
+}
+
 function sortOffers() {
   const sortType = sortSelect.value;
 
-  offers.sort(function (a, b) {
-    const dateA = new Date(a.published_at);
-    const dateB = new Date(b.published_at);
-    if (sortType === "recent") return dateB - dateA;
-    if (sortType === "oldest") return dateA - dateB;
+  const sortedArticles = [...articles].sort(function (a, b) {
+    const dateA = getDateFromArticle(a);
+    const dateB = getDateFromArticle(b);
+
+    if (sortType === "recent") {
+      return dateB - dateA;
+    }
+
+    return dateA - dateB;
   });
 
-  offersList.innerHTML = "";
-  disply_offers(offers);
+  sortedArticles.forEach(function (article) {
+    offersList.appendChild(article);
+  });
+
   searchOffers();
 }
+
+function getDateFromArticle(article) {
+  const text = article.textContent;
+
+  const match = text.match(
+    /Début le\s+(\d{2}\/\d{2}\/\d{4})/
+  );
+
+  if (!match) {
+    return 0;
+  }
+
+  const [day, month, year] = match[1].split("/");
+
+  return new Date(
+    `${year}-${month}-${day}`
+  ).getTime();
+}
+
 function resetFilters() {
   searchInput.value = "";
   cityInput.value = "";
 
   document
     .querySelectorAll(".technology-filter")
-    .forEach((cb) => (cb.checked = false));
+    .forEach(function (checkbox) {
+      checkbox.checked = false;
+    });
+
   document
     .querySelectorAll(".work-mode-filter")
-    .forEach((cb) => (cb.checked = false));
+    .forEach(function (checkbox) {
+      checkbox.checked = false;
+    });
 
-  document.querySelectorAll(".contract-filter").forEach((button) => {
-    button.classList.remove("bg-white", "text-slate-800", "shadow-sm");
-    button.classList.add("text-slate-600");
-  });
+  document
+    .querySelectorAll(".contract-filter")
+    .forEach(function (button) {
+      button.classList.remove(
+        "bg-white",
+        "text-slate-800",
+        "shadow-sm"
+      );
+
+      button.classList.add("text-slate-600");
+    });
+
   const allContract = document.querySelector(
-    '.contract-filter[data-contract="all"]',
+    '.contract-filter[data-contract="all"]'
   );
-  allContract.classList.remove("text-slate-600");
-  allContract.classList.add("bg-white", "text-slate-800", "shadow-sm");
 
-  document.querySelectorAll(".duration-filter").forEach((button) => {
-    button.classList.remove("bg-blue-700", "text-white");
-    button.classList.add("bg-slate-100", "text-slate-700");
-  });
+  allContract.classList.remove("text-slate-600");
+
+  allContract.classList.add(
+    "bg-white",
+    "text-slate-800",
+    "shadow-sm"
+  );
 
   sortSelect.value = "recent";
 
-  offers.sort((a, b) => new Date(b.published_at) - new Date(a.published_at));
+  articles.forEach(function (article) {
+    offersList.appendChild(article);
+    article.style.display = "";
+  });
 
-  offersList.innerHTML = "";
-  disply_offers(offers);
-  resultsCount.textContent = offers.length;
-  if (noResults) noResults.classList.add("hidden");
-}
-if (searchButton) {
-  const filterToggleBtn = document.getElementById("filter-toggle-btn");
-  const filterContent = document.getElementById("filter-content");
-  const filterChevron = document.getElementById("filter-chevron");
+  resultsCount.textContent = articles.length;
 
-  if (filterToggleBtn && filterContent) {
-    filterToggleBtn.addEventListener("click", function () {
-      filterContent.classList.toggle("grid-rows-[1fr]");
-      if (filterChevron) {
-        filterChevron.classList.toggle("rotate-180");
-      }
-    });
+  if (noResults) {
+    noResults.classList.add("hidden");
   }
-
-  searchButton.addEventListener("click", searchOffers);
-  searchInput.addEventListener("input", searchOffers);
-  cityInput.addEventListener("input", searchOffers);
-
-  technologyFilters.addEventListener("change", searchOffers);
-  sortSelect.addEventListener("change", sortOffers);
-
-  document.querySelectorAll(".reset-filters").forEach((button) => {
-    button.addEventListener("click", resetFilters);
-  });
-
-  document.querySelectorAll(".contract-filter").forEach((button) => {
-    button.addEventListener("click", function () {
-      document.querySelectorAll(".contract-filter").forEach((btn) => {
-        btn.classList.remove("bg-white", "text-slate-800", "shadow-sm");
-        btn.classList.add("text-slate-600");
-      });
-      button.classList.remove("text-slate-600");
-      button.classList.add("bg-white", "text-slate-800", "shadow-sm");
-      searchOffers();
-    });
-  });
-
-  loadOffers();
 }
+
+const filterToggleBtn =
+  document.getElementById("filter-toggle-btn");
+
+const filterContent =
+  document.getElementById("filter-content");
+
+const filterChevron =
+  document.getElementById("filter-chevron");
+
+if (filterToggleBtn && filterContent) {
+  filterToggleBtn.addEventListener(
+    "click",
+    function () {
+      filterContent.classList.toggle(
+        "grid-rows-[1fr]"
+      );
+
+      if (filterChevron) {
+        filterChevron.classList.toggle(
+          "rotate-180"
+        );
+      }
+    }
+  );
+}
+
+if (searchButton) {
+  searchButton.addEventListener(
+    "click",
+    searchOffers
+  );
+}
+
+if (searchInput) {
+  searchInput.addEventListener(
+    "input",
+    searchOffers
+  );
+}
+
+if (cityInput) {
+  cityInput.addEventListener(
+    "input",
+    searchOffers
+  );
+}
+
+if (sortSelect) {
+  sortSelect.addEventListener(
+    "change",
+    sortOffers
+  );
+}
+
+document
+  .querySelectorAll(".contract-filter")
+  .forEach(function (button) {
+    button.addEventListener(
+      "click",
+      function () {
+        document
+          .querySelectorAll(".contract-filter")
+          .forEach(function (btn) {
+            btn.classList.remove(
+              "bg-white",
+              "text-slate-800",
+              "shadow-sm"
+            );
+
+            btn.classList.add(
+              "text-slate-600"
+            );
+          });
+
+        button.classList.remove(
+          "text-slate-600"
+        );
+
+        button.classList.add(
+          "bg-white",
+          "text-slate-800",
+          "shadow-sm"
+        );
+
+        searchOffers();
+      }
+    );
+  });
+
+document
+  .querySelectorAll(".reset-filters")
+  .forEach(function (button) {
+    button.addEventListener(
+      "click",
+      resetFilters
+    );
+  });
+
+displayTechnologies();
+displayWorkModes();
+
