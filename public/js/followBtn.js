@@ -1,4 +1,4 @@
-import { getFollowedOffers, saveFollowedOffers, unfollowOffer } from "./storage.js";
+import { getFollowedOffers, toggleFollowedOffer } from "./storage.js";
 
 function setState(button, followed) {
   const svg = button.querySelector("svg");
@@ -9,21 +9,19 @@ function setState(button, followed) {
   button.classList.toggle("hover:text-slate-500", !followed);
 }
 
-document.querySelectorAll("#Offers_List button[data-offer-id]").forEach((button) => {
-  const id = Number(button.dataset.offerId);
-
-  setState(button, getFollowedOffers().includes(id));
-
-  button.addEventListener("click", () => {
-    const followedOffers = getFollowedOffers();
-
-    if (followedOffers.includes(id)) {
-      unfollowOffer(id);
-      setState(button, false);
-    } else {
-      followedOffers.push(id);
-      saveFollowedOffers(followedOffers);
-      setState(button, true);
-    }
+function syncButtons() {
+  document.querySelectorAll("button[data-offer-id]").forEach((button) => {
+    setState(button, getFollowedOffers().includes(Number(button.dataset.offerId)));
   });
+}
+
+syncButtons();
+document.addEventListener("click", (event) => {
+  const button = event.target.closest("button[data-offer-id]");
+  if (!button) return;
+  const followed = toggleFollowedOffer(button.dataset.offerId);
+  syncButtons();
+  if (document.body.dataset.page === "followed" && !followed) {
+    document.dispatchEvent(new CustomEvent("followed-offers-changed"));
+  }
 });

@@ -1,7 +1,7 @@
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { getAllOffers ,getOfferById} from "./repositories/offreRepository.js";
+import { getAllOffers, getOfferById, getOffersByIds } from "./repositories/offreRepository.js";
 
 const __filename = fileURLToPath(import.meta.url); //url of this file to window path
 const __dirname = path.dirname(__filename);  //folder path
@@ -14,6 +14,20 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 app.use(express.static(path.join(__dirname, "public")));
+
+app.get("/api/offres", async (req, res) => {
+    try {
+        const rawIds = String(req.query.ids || "");
+        const ids = rawIds.split(",").filter(Boolean).map(Number);
+        if (ids.some((id) => !Number.isSafeInteger(id) || id < 1)) {
+            return res.status(400).json({ error: "Identifiants d'offres invalides" });
+        }
+        res.json(await getOffersByIds([...new Set(ids)]));
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Impossible de charger les offres" });
+    }
+});
 
 app.get("/", async (req, res) => {
     try {
