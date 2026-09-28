@@ -1,11 +1,12 @@
 <%- include('../partials/header', { title: 'YouApply - Déposer une opportunité', active: 'deposer' }) %>
+<% const currentOffer = offer || {}; const editing = Boolean(currentOffer.id); const editDate = currentOffer.date_debut ? new Date(currentOffer.date_debut).toISOString().slice(0, 10) : ''; const editSkills = String(currentOffer.skills || '').split(',').map(skill => skill.trim()); %>
 
     <main class="max-w-[1400px] mx-auto px-4 md:px-6 lg:px-8 py-6 md:py-8 flex-grow relative w-full">
 
         <section class="page-hero mb-6 md:mb-8" aria-labelledby="page-title">
             <div class="page-hero__content">
                 <p class="page-hero__eyebrow">Espace recruteur</p>
-                <h1 id="page-title" class="page-hero__title">Déposer une opportunité de stage ou alternance</h1>
+                <h1 id="page-title" class="page-hero__title"><%= editing ? 'Modifier une offre' : 'Déposer une opportunité de stage ou alternance' %></h1>
                 <p class="page-hero__description">Remplissez les informations ci-dessous pour publier votre offre auprès
                     de milliers d'étudiants.</p>
             </div>
@@ -30,7 +31,7 @@
             </a>
         </nav>
 
-        <form id="offer-form" action="/deposer-offer" method="post" class="space-y-6 md:space-y-8">
+        <form id="offer-form" action="<%= editing ? `/offres/${currentOffer.id}/update` : '/deposer-offer' %>" method="post" class="space-y-6 md:space-y-8">
             <% if (message) { %>
             <p class="rounded-xl px-4 py-3 text-sm font-medium <%= messageType === 'error' ? 'bg-red-50 text-red-800 border border-red-200' : 'bg-emerald-50 text-emerald-800 border border-emerald-200' %>" role="status" aria-live="polite"><%= message %></p>
             <% } %>
@@ -55,7 +56,7 @@
                             class="offer-type-card relative flex items-start gap-4 p-4 md:p-5 rounded-xl cursor-pointer transition-all">
                             <input type="radio" name="opp_type" value="stage"
                                 class="mt-0.5 w-4 h-4 text-blue-700 border-slate-300 focus:ring-blue-700" required
-                                checked>
+                                <%= !editing || currentOffer.type_contrat === 'stage' ? 'checked' : '' %>>
                             <div class="flex-1">
                                 <div class="flex items-center justify-between mb-1">
                                     <span class="font-bold text-slate-800">Stage
@@ -70,7 +71,7 @@
                         <label
                             class="offer-type-card relative flex items-start gap-4 p-4 md:p-5 rounded-xl cursor-pointer transition-all">
                             <input type="radio" name="opp_type" value="alternance"
-                                class="mt-0.5 w-4 h-4 text-blue-700 border-slate-300 focus:ring-blue-700">
+                                class="mt-0.5 w-4 h-4 text-blue-700 border-slate-300 focus:ring-blue-700" <%= currentOffer.type_contrat === 'alternance' ? 'checked' : '' %>>
                             <div class="flex-1">
                                 <div class="flex items-center justify-between mb-1">
                                     <span class="font-bold text-slate-700">Contrat
@@ -102,7 +103,7 @@
                                     </path>
                                 </svg>
                             </div>
-                            <input id="company" name="company" type="text" required
+                            <input id="company" name="company" type="text" value="<%= currentOffer.entreprise_nom || '' %>" required
                                 placeholder="ex. Acme Technologies SAS"
                                 class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl pl-11 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
                         </div>
@@ -121,7 +122,7 @@
                                         d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                 </svg>
                             </div>
-                            <input id="location" name="location" type="text" required
+                            <input id="location" name="location" type="text" value="<%= currentOffer.ville || '' %>" required
                                 placeholder="ex. Lyon (69002) ou Télétravail"
                                 class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl pl-11 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
                         </div>
@@ -138,7 +139,7 @@
                                     </path>
                                 </svg>
                             </div>
-                            <input id="job_title" name="job_title" type="text" required
+                            <input id="job_title" name="job_title" type="text" value="<%= currentOffer.titre || '' %>" required
                                 placeholder="ex. Développeur Full-Stack"
                                 class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl pl-11 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
                         </div>
@@ -150,28 +151,28 @@
                         <select id="work_mode" name="work_mode" required
                             class="w-full bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white cursor-pointer transition-all">
                             <option value="">Sélectionner un mode</option>
-                            <option value="presentiel">Présentiel</option>
-                            <option value="hybride">Hybride</option>
-                            <option value="remote">Télétravail</option>
+                            <option value="presentiel" <%= currentOffer.mode_travail === 'presentiel' ? 'selected' : '' %>>Présentiel</option>
+                            <option value="hybride" <%= currentOffer.mode_travail === 'hybride' ? 'selected' : '' %>>Hybride</option>
+                            <option value="remote" <%= currentOffer.mode_travail === 'remote' ? 'selected' : '' %>>Télétravail</option>
                         </select>
                     </div>
 
                     <div>
                         <label for="work_method" class="block text-sm font-semibold text-slate-800 mb-2">Méthode de
                             travail</label>
-                        <input id="work_method" name="work_method" type="text" placeholder="ex. Agile / Scrum"
+                        <input id="work_method" name="work_method" type="text" value="<%= currentOffer.methode_travail || '' %>" placeholder="ex. Agile / Scrum"
                             class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
                     </div>
                     <div>
                         <label for="remote_policy" class="block text-sm font-semibold text-slate-800 mb-2">Politique de
                             télétravail</label>
-                        <input id="remote_policy" name="remote_policy" type="text" placeholder="ex. 2 jours / semaine"
+                        <input id="remote_policy" name="remote_policy" type="text" value="<%= currentOffer.politique_teletravail || '' %>" placeholder="ex. 2 jours / semaine"
                             class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
                     </div>
                     <div>
                         <label for="work_address" class="block text-sm font-semibold text-slate-800 mb-2">Adresse du
                             lieu de travail</label>
-                        <input id="work_address" name="work_address" type="text"
+                        <input id="work_address" name="work_address" type="text" value="<%= currentOffer.adresse_travail || '' %>"
                             placeholder="ex. 42 rue de la République, 69002 Lyon"
                             class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
                     </div>
@@ -201,7 +202,7 @@
                         </div>
                         <textarea id="description" name="description" rows="3" required
                             placeholder="Présentez brièvement vos activités, l'équipe technique..."
-                            class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all resize-none"></textarea>
+                            class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all resize-none"><%= currentOffer.presentation_entreprise || '' %></textarea>
                     </div>
 
                     <div>
@@ -213,7 +214,7 @@
                         </div>
                         <textarea id="missions" name="missions" rows="4" required
                             placeholder="- Conception et développement de nouvelles fonctionnalités back/front&#10;- Participation aux réunions de sprint agile..."
-                            class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all resize-none"></textarea>
+                            class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all resize-none"><%= currentOffer.missions || '' %></textarea>
                     </div>
 
                     <fieldset class="rounded-2xl border border-slate-200 bg-slate-50/70 p-4 md:p-5">
@@ -221,25 +222,25 @@
                         </legend>
                         <p class="text-xs text-slate-500 mb-4">Sélectionnez les technologies utiles pour ce poste.</p>
                         <div class="flex flex-wrap gap-2">
-                            <label class="offer-choice"><input type="checkbox" name="skills" value="HTML"
+                            <label class="offer-choice"><input type="checkbox" name="skills" value="HTML" <%= editSkills.includes('HTML') ? 'checked' : '' %>
                                     class="sr-only"><span>HTML</span></label>
-                            <label class="offer-choice"><input type="checkbox" name="skills" value="CSS"
+                            <label class="offer-choice"><input type="checkbox" name="skills" value="CSS" <%= editSkills.includes('CSS') ? 'checked' : '' %>
                                     class="sr-only"><span>CSS</span></label>
-                            <label class="offer-choice"><input type="checkbox" name="skills" value="JavaScript"
+                            <label class="offer-choice"><input type="checkbox" name="skills" value="JavaScript" <%= editSkills.includes('JavaScript') ? 'checked' : '' %>
                                     class="sr-only"><span>JavaScript</span></label>
-                            <label class="offer-choice"><input type="checkbox" name="skills" value="PHP"
+                            <label class="offer-choice"><input type="checkbox" name="skills" value="PHP" <%= editSkills.includes('PHP') ? 'checked' : '' %>
                                     class="sr-only"><span>PHP</span></label>
-                            <label class="offer-choice"><input type="checkbox" name="skills" value="MySQL"
+                            <label class="offer-choice"><input type="checkbox" name="skills" value="MySQL" <%= editSkills.includes('MySQL') ? 'checked' : '' %>
                                     class="sr-only"><span>MySQL</span></label>
-                            <label class="offer-choice"><input type="checkbox" name="skills" value="React"
+                            <label class="offer-choice"><input type="checkbox" name="skills" value="React" <%= editSkills.includes('React') ? 'checked' : '' %>
                                     class="sr-only"><span>React</span></label>
-                            <label class="offer-choice"><input type="checkbox" name="skills" value="Figma"
+                            <label class="offer-choice"><input type="checkbox" name="skills" value="Figma" <%= editSkills.includes('Figma') ? 'checked' : '' %>
                                     class="sr-only"><span>Figma</span></label>
-                            <label class="offer-choice"><input type="checkbox" name="skills" value="Git / GitHub"
+                            <label class="offer-choice"><input type="checkbox" name="skills" value="Git / GitHub" <%= editSkills.includes('Git / GitHub') ? 'checked' : '' %>
                                     class="sr-only"><span>Git / GitHub</span></label>
-                            <label class="offer-choice"><input type="checkbox" name="skills" value="Laravel"
+                            <label class="offer-choice"><input type="checkbox" name="skills" value="Laravel" <%= editSkills.includes('Laravel') ? 'checked' : '' %>
                                     class="sr-only"><span>Laravel</span></label>
-                            <label class="offer-choice"><input type="checkbox" name="skills" value="Node.js"
+                            <label class="offer-choice"><input type="checkbox" name="skills" value="Node.js" <%= editSkills.includes('Node.js') ? 'checked' : '' %>
                                     class="sr-only"><span>Node.js</span></label>
                         </div>
                     </fieldset>
@@ -268,7 +269,7 @@
                         <div>
                             <label for="start_date" class="block text-sm font-semibold text-slate-800 mb-2">Date
                                 de début souhaitée <span class="text-red-500">*</span></label>
-                            <input id="start_date" name="start_date" type="date" required
+                            <input id="start_date" name="start_date" type="date" value="<%= editDate %>" required
                                 class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
                         </div>
                         <div>
@@ -278,13 +279,13 @@
                                 <select id="duration" name="duration" required
                                     class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl pl-4 pr-10 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white appearance-none cursor-pointer transition-all">
                                     <option value="">Sélectionner une durée</option>
-                                    <option value="1 mois">1 mois</option>
-                                    <option value="2 mois">2 mois</option>
-                                    <option value="3 mois">3 mois</option>
-                                    <option value="4 mois">4 mois</option>
-                                    <option value="6 mois">6 mois</option>
-                                    <option value="12 mois">12 mois</option>
-                                    <option value="24 mois">24 mois</option>
+                                    <option value="1 mois" <%= Number(currentOffer.duree_mois) === 1 ? 'selected' : '' %>>1 mois</option>
+                                    <option value="2 mois" <%= Number(currentOffer.duree_mois) === 2 ? 'selected' : '' %>>2 mois</option>
+                                    <option value="3 mois" <%= Number(currentOffer.duree_mois) === 3 ? 'selected' : '' %>>3 mois</option>
+                                    <option value="4 mois" <%= Number(currentOffer.duree_mois) === 4 ? 'selected' : '' %>>4 mois</option>
+                                    <option value="6 mois" <%= Number(currentOffer.duree_mois) === 6 ? 'selected' : '' %>>6 mois</option>
+                                    <option value="12 mois" <%= Number(currentOffer.duree_mois) === 12 ? 'selected' : '' %>>12 mois</option>
+                                    <option value="24 mois" <%= Number(currentOffer.duree_mois) === 24 ? 'selected' : '' %>>24 mois</option>
                                 </select>
                                 <div
                                     class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-slate-400">
@@ -310,7 +311,7 @@
                                     </path>
                                 </svg>
                             </div>
-                            <input id="email" name="email" type="email" required
+                            <input id="email" name="email" type="email" value="<%= currentOffer.email_contact || '' %>" required
                                 placeholder="recrutement@entreprise.com"
                                 class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl pl-11 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
                         </div>
@@ -340,7 +341,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
                             </svg>
-                            Publier gratuitement
+                            <%= editing ? 'Enregistrer les modifications' : 'Publier gratuitement' %>
                         </button>
                     </div>
                 </div>

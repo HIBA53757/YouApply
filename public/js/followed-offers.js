@@ -1,4 +1,4 @@
-import { disply_offers } from "./render.js";
+import { displayOffers } from "./render.js";
 import { getFollowedOffers } from "./storage.js";
 
 let offers = [];
@@ -27,7 +27,7 @@ function displayFollowedOffers() {
   const visible = selectedContract === "all"
     ? savedOffers
     : savedOffers.filter((offer) => contractType(offer) === selectedContract);
-  disply_offers(visible);
+  displayOffers(visible);
   document.querySelector("#empty-followed-offers")?.classList.toggle("hidden", visible.length > 0);
 }
 

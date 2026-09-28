@@ -7,23 +7,13 @@ export function getFollowedOffers() {
   }
 }
 
-export function saveFollowedOffers(followedOffers) {
-  localStorage.setItem("followedOffers", JSON.stringify(followedOffers));
-}
-
-export function unfollowOffer(offerId) {
-  const followedOffers = getFollowedOffers();
-  const updateOffer = followedOffers.filter((id) => id !== Number(offerId));
-  saveFollowedOffers(updateOffer);
-}
-
 export function toggleFollowedOffer(offerId) {
   const id = Number(offerId);
   const followedOffers = getFollowedOffers();
   if (followedOffers.includes(id)) {
-    saveFollowedOffers(followedOffers.filter((offerId) => offerId !== id));
+    localStorage.setItem("followedOffers", JSON.stringify(followedOffers.filter((offerId) => offerId !== id)));
     return false;
   }
-  saveFollowedOffers([...followedOffers, id]);
+  localStorage.setItem("followedOffers", JSON.stringify([...followedOffers, id]));
   return true;
 }

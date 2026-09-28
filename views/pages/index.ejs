@@ -12,6 +12,9 @@
             <span class="page-hero__badge">Stages & alternances</span>
         </section>
 
+        <form id="offers-filter-form" action="/" method="get">
+        <input type="hidden" id="contract-filter-value" name="contract" value="<%= filters.contract %>">
+
         <section
             class="bg-white rounded-2xl shadow-sm border border-slate-200 p-3 mb-6 flex flex-col md:flex-row gap-3">
 
@@ -21,7 +24,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                 </svg>
-                <input id="search-keyword" type="text" placeholder="Mots-clés : Développeur, UX, Marketing..."
+                <input id="search-keyword" name="keyword" type="text" value="<%= filters.keyword %>" placeholder="Mots-clés : Développeur, UX, Marketing..."
                     class="w-full bg-transparent border-none focus:outline-none text-sm py-3.5 px-3 text-slate-800 placeholder-slate-500">
             </div>
 
@@ -33,11 +36,11 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                 </svg>
-                <input id="search-city" type="text" placeholder="Ville, département ou Télétravail..."
+                <input id="search-city" name="city" type="text" value="<%= filters.city %>" placeholder="Ville, département ou Télétravail..."
                     class="w-full bg-transparent border-none focus:outline-none text-sm py-3.5 px-3 text-slate-800 placeholder-slate-500">
             </div>
 
-            <button id="search-button" type="button"
+            <button id="search-button" type="submit"
                 class="bg-blue-700 hover:bg-blue-900 text-white font-medium text-sm px-8 py-3.5 rounded-xl flex items-center justify-center gap-2 transition-colors w-full md:w-auto shadow-sm">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -67,14 +70,14 @@
                             </path>
                         </svg>
                     </div>
-                    <button class="reset-filters text-sm font-bold text-blue-700 hover:underline px-2 py-1 z-10"
-                        onclick="event.stopPropagation()">Effacer tout</button>
+                    <a href="/" class="text-sm font-bold text-blue-700 hover:underline px-2 py-1 z-10"
+                        onclick="event.stopPropagation()">Effacer tout</a>
                 </div>
 
                 <div id="filter-content"
                     class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-out lg:grid-rows-[1fr]">
                     <div class="overflow-hidden">
-                        <form class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">
+                        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">
                             <header class="hidden lg:flex items-center justify-between mb-6">
                                 <h2 class="text-base font-semibold flex items-center gap-2 text-slate-800">
                                     <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor"
@@ -85,24 +88,24 @@
                                     </svg>
                                     Filtres
                                 </h2>
-                                <button type="reset"
+                                <a href="/"
                                     class="reset-filters text-sm font-medium text-blue-700 hover:underline">Effacer
-                                    tout</button>
+                                    tout</a>
                             </header>
 
                             <fieldset class="mb-6">
                                 <legend class="text-sm font-semibold mb-3">Type de contrat</legend>
                                 <div class="flex bg-slate-100 p-1 rounded-xl">
                                     <button type="button" data-contract="all"
-                                        class="contract-filter flex-1 text-sm font-medium py-2 bg-white text-slate-800 rounded-lg shadow-sm">
+                                        class="flex-1 text-sm font-medium py-2 <%= filters.contract === 'all' ? 'bg-white text-slate-800 rounded-lg shadow-sm' : 'text-slate-600 hover:text-slate-800' %>">
                                         Tous
                                     </button>
                                     <button type="button" data-contract="stage"
-                                        class="contract-filter flex-1 text-sm font-medium py-2 text-slate-600 hover:text-slate-800">
+                                        class="flex-1 text-sm font-medium py-2 <%= filters.contract === 'stage' ? 'bg-white text-slate-800 rounded-lg shadow-sm' : 'text-slate-600 hover:text-slate-800' %>">
                                         Stage
                                     </button>
                                     <button type="button" data-contract="alternance"
-                                        class="contract-filter flex-1 text-sm font-medium py-2 text-slate-600 hover:text-slate-800">
+                                        class="flex-1 text-sm font-medium py-2 <%= filters.contract === 'alternance' ? 'bg-white text-slate-800 rounded-lg shadow-sm' : 'text-slate-600 hover:text-slate-800' %>">
                                         Alternance
                                     </button>
                                 </div>
@@ -113,21 +116,21 @@
                                 <div id="work-mode-filters" class="space-y-4">
                                     <label class="flex items-center justify-between cursor-pointer group">
                                         <div class="flex items-center gap-3">
-                                            <input type="checkbox" data-work-mode="hybride"
+                                            <input type="checkbox" name="workMode" value="hybride" <%= filters.workModes.includes('hybride') ? 'checked' : '' %>
                                                 class="work-mode-filter w-5 h-5 text-blue-700 bg-white border-slate-300 rounded focus:ring-blue-700 focus:ring-2 accent-blue-700">
                                             <span class="text-sm text-slate-700">Hybride</span>
                                         </div>
                                     </label>
                                     <label class="flex items-center justify-between cursor-pointer group">
                                         <div class="flex items-center gap-3">
-                                            <input type="checkbox" data-work-mode="remote"
+                                            <input type="checkbox" name="workMode" value="remote" <%= filters.workModes.includes('remote') ? 'checked' : '' %>
                                                 class="work-mode-filter w-5 h-5 text-blue-700 bg-white border-slate-300 rounded focus:ring-blue-700 focus:ring-2 accent-blue-700">
                                             <span class="text-sm text-slate-700">Télétravail 100%</span>
                                         </div>
                                     </label>
                                     <label class="flex items-center justify-between cursor-pointer group">
                                         <div class="flex items-center gap-3">
-                                            <input type="checkbox" data-work-mode="presentiel"
+                                            <input type="checkbox" name="workMode" value="presentiel" <%= filters.workModes.includes('presentiel') ? 'checked' : '' %>
                                                 class="work-mode-filter w-5 h-5 text-blue-700 bg-white border-slate-300 rounded focus:ring-blue-700 focus:ring-2 accent-blue-700">
                                             <span class="text-sm text-slate-700">Présentiel</span>
                                         </div>
@@ -143,18 +146,18 @@
                                 <div id="technology-filters" class="grid grid-cols-2 gap-y-4 gap-x-2">
                                     <% technologies.forEach(technology => { %>
                                     <label class="flex items-center gap-2 cursor-pointer">
-                                        <input type="checkbox" value="<%= technology %>" class="technology-filter">
+                                        <input type="checkbox" name="technology" value="<%= technology %>" <%= filters.technologies.includes(technology) ? 'checked' : '' %>>
                                         <span class="text-sm text-slate-700"><%= technology %></span>
                                     </label>
                                     <% }) %>
                                 </div>
                             </fieldset>
 
-                            <button type="reset"
-                                class="reset-filters w-full flex items-center justify-center gap-2 py-3 bg-blue-50 text-blue-700 font-bold text-sm rounded-xl hover:bg-blue-100 transition-colors">
+                            <a href="/"
+                                class="w-full flex items-center justify-center gap-2 py-3 bg-blue-50 text-blue-700 font-bold text-sm rounded-xl hover:bg-blue-100 transition-colors">
                                 Effacer les filtres
-                            </button>
-                        </form>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </aside>
@@ -169,10 +172,10 @@
                     </h2>
                     <div class="flex items-center gap-2 self-start sm:self-auto">
                         <label class="text-sm font-bold text-slate-700 whitespace-nowrap">Trier par :</label>
-                        <select id="sort-select"
+                        <select id="sort-select" name="sort"
                             class="bg-slate-100 border-none text-sm font-semibold text-slate-800 rounded-xl py-2 pl-3 pr-8 focus:ring-0 cursor-pointer appearance-none">
-                            <option value="recent">Les plus récentes</option>
-                            <option value="oldest">Les plus anciennes</option>
+                            <option value="recent" <%= filters.sort === 'recent' ? 'selected' : '' %>>Les plus récentes</option>
+                            <option value="oldest" <%= filters.sort === 'oldest' ? 'selected' : '' %>>Les plus anciennes</option>
                         </select>
                     </div>
                 </header>
@@ -271,15 +274,12 @@
                     <p class="text-sm text-slate-500 mt-2">Essayez de modifier vos critères de recherche.</p>
                 </div>
 
-                <nav aria-label="Pagination" class="flex items-center justify-between pt-4 mt-auto">
-                    <div id="div_contain_number_page"
-                        class="flex items-center gap-1 flex-nowrap overflow-x-auto max-w-full"></div>
-                </nav>
-
             </section>
         </div>
+        </form>
     </main>
 
+    <script type="module" src="/js/filters.js"></script>
     <script type="module" src="/js/followBtn.js"></script>
 
 
