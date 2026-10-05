@@ -13,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouApply</title>
+    <title><%= typeof title !== 'undefined' ? title : 'YouApply' %></title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/css/style.css">
 </head>
@@ -24,7 +24,7 @@
         <div class="max-w-[1400px] mx-auto px-4 md:px-6 lg:px-8 h-16 flex items-center justify-between">
 
             <div class="flex items-center gap-2">
-                <a href="index.html" class="font-bold text-xl flex items-center">
+                <a href="/" class="font-bold text-xl flex items-center">
                     <span class="text-black">You</span><span class="brand-apply">Apply</span>
                 </a>
                 <span
@@ -33,10 +33,10 @@
             </div>
 
             <nav class="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-600">
-                <a href="index.html" class="<%= desktopClass('index') %>">Trouver une offre</a>
-                <a href="offer-suivies.html" class="<%= desktopClass('suivies') %> flex items-center gap-2">Offres suivies</a>
-                <a href="deposer-offer.html" class="<%= desktopClass('deposer') %>">Déposer une offre</a>
-                <a href="administration.html" class="<%= desktopClass('administration') %>">Administration</a>
+                <a href="/" class="<%= desktopClass('index') %>">Trouver une offre</a>
+                <a href="/offer-suivies.html" class="<%= desktopClass('suivies') %> flex items-center gap-2">Offres suivies</a>
+                <a href="/deposer-offer.html" class="<%= desktopClass('deposer') %>">Déposer une offre</a>
+                <a href="/administration.html" class="<%= desktopClass('administration') %>">Administration</a>
             </nav>
 
             <div class="hidden lg:flex items-center">
@@ -74,10 +74,10 @@
 
         <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-200 bg-white absolute w-full shadow-lg">
             <nav class="flex flex-col p-4 space-y-2">
-                <a href="index.html" class="<%= mobileClass('index') %>">Trouver une offre</a>
-                <a href="offer-suivies.html" class="<%= mobileClass('suivies') %> flex items-center justify-between">Offres suivies</a>
-                <a href="deposer-offer.html" class="<%= mobileClass('deposer') %>">Déposer une offre</a>
-                <a href="administration.html" class="<%= mobileClass('administration') %>">Administration</a>
+                <a href="/" class="<%= mobileClass('index') %>">Trouver une offre</a>
+                <a href="/offer-suivies.html" class="<%= mobileClass('suivies') %> flex items-center justify-between">Offres suivies</a>
+                <a href="/deposer-offer.html" class="<%= mobileClass('deposer') %>">Déposer une offre</a>
+                <a href="/administration.html" class="<%= mobileClass('administration') %>">Administration</a>
                 <div class="h-px bg-slate-200 my-2"></div>
                 <div class="px-4 py-2">
                     <div class="text-sm text-slate-500 mb-1">Connecté en tant que</div>

@@ -1,31 +1,33 @@
-import { getData } from "./data.js";
-import { disply_offers } from "./render.js";
 import { getFollowedOffers } from "./storage.js";
-import { filterByContract } from "./filters.js";
 
 let selectedContract = "all";
 
-async function displayFollowedOffers() {
-  const offersList = document.querySelector("#Offers_List");
-  offersList.innerHTML = "";
-
-  const offers = await getData();
+function showFollowedOffers() {
   const followedIds = getFollowedOffers() || [];
+  const articles = document.querySelectorAll("article[data-offer-id]");
+  let count = 0;
 
-  const followedOffers = offers
-    .filter((offer) => followedIds.includes(Number(offer.id)))
-    .filter((offer) => filterByContract(offer, selectedContract));
+  articles.forEach((article) => {
+    const id = Number(article.dataset.offerId);
+    const isFollowed = followedIds.includes(id);
+    const contractMatch =
+      selectedContract === "all" || article.dataset.contract === selectedContract;
 
-  const emptyState = document.querySelector("#empty-followed-offers");
-  emptyState.classList.toggle("hidden", followedOffers.length > 0);
+    if (isFollowed && contractMatch) {
+      article.style.display = "";
+      count++;
+    } else {
+      article.style.display = "none";
+    }
+  });
 
-  disply_offers(followedOffers);
+  document.querySelector("#empty-followed-offers").classList.toggle("hidden", count > 0);
 }
 
 const contractTabs = document.querySelectorAll(".contract-tab");
 
 contractTabs.forEach((tab) => {
-  tab.addEventListener("click", function () {
+  tab.addEventListener("click", () => {
     selectedContract = tab.dataset.contract;
 
     contractTabs.forEach((btn) => {
@@ -35,8 +37,8 @@ contractTabs.forEach((tab) => {
     tab.classList.remove("bg-slate-100", "text-slate-600", "hover:bg-slate-200");
     tab.classList.add("bg-blue-700", "text-white", "shadow-sm");
 
-    displayFollowedOffers();
+    showFollowedOffers();
   });
 });
 
-displayFollowedOffers();
+showFollowedOffers();

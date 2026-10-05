@@ -1,350 +1,167 @@
-<%- include('../partials/header', { title: 'YouApply - Déposer une opportunité', active: 'deposer' }) %>
+<%
+    // If there is no offer, we use an empty object (create mode)
+    const o = offer || {};
 
-    <main class="max-w-[1400px] mx-auto px-4 md:px-6 lg:px-8 py-6 md:py-8 flex-grow relative w-full">
+    // Create: send to /deposer-offer. Edit: send to /offres/ID/update
+    let action = '/deposer-offer';
+    let startDate = '';
+    if (offer) {
+        action = '/offres/' + offer.id + '/update';
+        startDate = offer.date_debut.toLocaleDateString('sv-SE');
+    }
 
-        <section class="page-hero mb-6 md:mb-8" aria-labelledby="page-title">
-            <div class="page-hero__content">
-                <p class="page-hero__eyebrow">Espace recruteur</p>
-                <h1 id="page-title" class="page-hero__title">Déposer une opportunité de stage ou alternance</h1>
-                <p class="page-hero__description">Remplissez les informations ci-dessous pour publier votre offre auprès
-                    de milliers d'étudiants.</p>
+    // Technologies already chosen (empty list in create mode)
+    const selected = (o.skills || '').split(',');
+
+    const allSkills = ['HTML', 'CSS', 'JavaScript', 'PHP', 'MySQL', 'React', 'Figma', 'Git / GitHub', 'Laravel', 'Node.js'];
+    const durations = [1, 2, 3, 4, 6, 12, 24];
+    const inputClass = 'w-full bg-slate-50 border border-slate-200 text-sm rounded-xl px-4 py-3';
+%>
+<%- include('../partials/header', { title: 'YouApply - Déposer une offre', active: 'deposer' }) %>
+
+<main class="max-w-[1400px] mx-auto px-4 md:px-6 lg:px-8 py-6 md:py-8 flex-grow w-full">
+
+    <section class="page-hero mb-6 md:mb-8">
+        <div class="page-hero__content">
+            <p class="page-hero__eyebrow">Espace recruteur</p>
+            <h1 class="page-hero__title">Déposer ou modifier une offre</h1>
+            <p class="page-hero__description">Remplissez les informations ci-dessous.</p>
+        </div>
+    </section>
+
+    <form action="<%= action %>" method="post" class="space-y-6">
+
+        <section class="bg-white rounded-3xl p-5 md:p-8 border border-slate-200 shadow-sm space-y-6">
+            <h2 class="text-lg font-bold text-slate-800">Informations générales</h2>
+
+            <fieldset>
+                <legend class="text-sm font-semibold text-slate-800 mb-3">Type d'opportunité *</legend>
+                <label class="mr-6">
+                    <input type="radio" name="opp_type" value="stage" required
+                        <%= o.type_contrat !== 'alternance' ? 'checked' : '' %>> Stage
+                </label>
+                <label>
+                    <input type="radio" name="opp_type" value="alternance"
+                        <%= o.type_contrat === 'alternance' ? 'checked' : '' %>> Alternance
+                </label>
+            </fieldset>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div>
+                    <label for="company" class="block text-sm font-semibold mb-2">Nom de l'entreprise *</label>
+                    <input id="company" name="company" type="text" required class="<%= inputClass %>"
+                        value="<%= o.entreprise_nom %>">
+                </div>
+
+                <div>
+                    <label for="location" class="block text-sm font-semibold mb-2">Ville *</label>
+                    <input id="location" name="location" type="text" required class="<%= inputClass %>"
+                        value="<%= o.ville %>">
+                </div>
+
+                <div>
+                    <label for="job_title" class="block text-sm font-semibold mb-2">Intitulé du poste *</label>
+                    <input id="job_title" name="job_title" type="text" required class="<%= inputClass %>"
+                        value="<%= o.titre %>">
+                </div>
+
+                <div>
+                    <label for="work_mode" class="block text-sm font-semibold mb-2">Mode de travail *</label>
+                    <select id="work_mode" name="work_mode" required class="<%= inputClass %>">
+                        <option value="">Sélectionner un mode</option>
+                        <option value="presentiel" <%= o.mode_travail === 'presentiel' ? 'selected' : '' %>>Présentiel</option>
+                        <option value="hybride" <%= o.mode_travail === 'hybride' ? 'selected' : '' %>>Hybride</option>
+                        <option value="remote" <%= o.mode_travail === 'remote' ? 'selected' : '' %>>Télétravail</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="work_method" class="block text-sm font-semibold mb-2">Méthode de travail</label>
+                    <input id="work_method" name="work_method" type="text" placeholder="ex. Agile / Scrum"
+                        class="<%= inputClass %>" value="<%= o.methode_travail %>">
+                </div>
+
+                <div>
+                    <label for="remote_policy" class="block text-sm font-semibold mb-2">Politique de télétravail</label>
+                    <input id="remote_policy" name="remote_policy" type="text" placeholder="ex. 2 jours / semaine"
+                        class="<%= inputClass %>" value="<%= o.politique_teletravail %>">
+                </div>
+
+                <div>
+                    <label for="work_address" class="block text-sm font-semibold mb-2">Adresse du lieu de travail</label>
+                    <input id="work_address" name="work_address" type="text"
+                        class="<%= inputClass %>" value="<%= o.adresse_travail %>">
+                </div>
             </div>
-            <span class="page-hero__badge">Publication 100% gratuite</span>
         </section>
 
-        <nav aria-label="Sections du formulaire" class="grid grid-cols-3 gap-2 md:gap-4 mb-6 md:mb-8">
-            <a href="#informations"
-                class="rounded-2xl border border-slate-200 bg-white px-3 py-3 md:px-5 md:py-4 shadow-sm hover:border-blue-300 hover:shadow-md transition-all">
-                <span class="block text-xs font-bold text-blue-700 mb-1">01</span>
-                <span class="block text-xs md:text-sm font-semibold text-slate-800">Informations</span>
-            </a>
-            <a href="#contenu"
-                class="rounded-2xl border border-slate-200 bg-white px-3 py-3 md:px-5 md:py-4 shadow-sm hover:border-blue-300 hover:shadow-md transition-all">
-                <span class="block text-xs font-bold text-blue-700 mb-1">02</span>
-                <span class="block text-xs md:text-sm font-semibold text-slate-800">Contenu de l'offre</span>
-            </a>
-            <a href="#modalites"
-                class="rounded-2xl border border-slate-200 bg-white px-3 py-3 md:px-5 md:py-4 shadow-sm hover:border-blue-300 hover:shadow-md transition-all">
-                <span class="block text-xs font-bold text-blue-700 mb-1">03</span>
-                <span class="block text-xs md:text-sm font-semibold text-slate-800">Modalités</span>
-            </a>
-        </nav>
+        <section class="bg-white rounded-3xl p-5 md:p-8 border border-slate-200 shadow-sm space-y-6">
+            <h2 class="text-lg font-bold text-slate-800">Contenu & missions</h2>
 
-        <form id="offer-form" class="space-y-6 md:space-y-8" onsubmit="return false">
+            <div>
+                <label for="description" class="block text-sm font-semibold mb-2">Présentation de l'entreprise *</label>
+                <textarea id="description" name="description" rows="3" required
+                    class="<%= inputClass %>"><%= o.presentation_entreprise %></textarea>
+            </div>
 
-            <section id="informations"
-                class="scroll-mt-24 bg-white rounded-3xl p-5 md:p-8 lg:p-10 border border-slate-200 shadow-sm">
-                <header class="flex items-center justify-between mb-6 md:mb-8 pb-4 md:pb-6 border-b border-slate-100">
-                    <h2 class="text-lg md:text-xl font-bold text-slate-800 flex items-center gap-3 md:gap-4">
-                        <span
-                            class="w-8 h-8 rounded-full bg-blue-50 text-blue-700 flex items-center justify-center text-sm font-bold shadow-sm flex-shrink-0">1</span>
-                        Informations Générales
-                    </h2>
-                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider hidden sm:inline">Section
-                        1 sur 3</span>
-                </header>
+            <div>
+                <label for="missions" class="block text-sm font-semibold mb-2">Missions principales *</label>
+                <textarea id="missions" name="missions" rows="4" required
+                    class="<%= inputClass %>"><%= o.missions %></textarea>
+            </div>
 
-                <fieldset class="mb-8">
-                    <legend class="block text-sm font-semibold text-slate-800 mb-3">Type
-                        d'opportunité <span class="text-red-500">*</span></legend>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <label
-                            class="offer-type-card relative flex items-start gap-4 p-4 md:p-5 rounded-xl cursor-pointer transition-all">
-                            <input type="radio" name="opp_type" value="stage"
-                                class="mt-0.5 w-4 h-4 text-blue-700 border-slate-300 focus:ring-blue-700" required
-                                checked>
-                            <div class="flex-1">
-                                <div class="flex items-center justify-between mb-1">
-                                    <span class="font-bold text-slate-800">Stage
-                                        conventionné</span>
-                                    <span
-                                        class="bg-amber-200 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Stage</span>
-                                </div>
-                                <p class="text-sm text-slate-500">Formation
-                                    initiale (2 à 6 mois)</p>
-                            </div>
+            <fieldset>
+                <legend class="text-sm font-semibold mb-3">Technologies</legend>
+                <div class="flex flex-wrap gap-4">
+                    <% allSkills.forEach(skill => { %>
+                        <label class="flex items-center gap-2 text-sm">
+                            <input type="checkbox" name="skills" value="<%= skill %>"
+                                <%= selected.includes(skill) ? 'checked' : '' %>>
+                            <%= skill %>
                         </label>
-                        <label
-                            class="offer-type-card relative flex items-start gap-4 p-4 md:p-5 rounded-xl cursor-pointer transition-all">
-                            <input type="radio" name="opp_type" value="alternance"
-                                class="mt-0.5 w-4 h-4 text-blue-700 border-slate-300 focus:ring-blue-700">
-                            <div class="flex-1">
-                                <div class="flex items-center justify-between mb-1">
-                                    <span class="font-bold text-slate-700">Contrat
-                                        d'alternance</span>
-                                    <span
-                                        class="bg-teal-100 text-teal-700 text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Alternance</span>
-                                </div>
-                                <p class="text-sm text-slate-500">Apprentissage
-                                    ou Pro (1 à 2 ans)</p>
-                            </div>
-                        </label>
-                    </div>
-                </fieldset>
-
-                <div class="mb-5">
-                    <h3 class="text-sm font-bold text-slate-900">Le poste</h3>
-                    <p class="text-xs text-slate-500 mt-1">Les informations qui apparaîtront en premier sur l'offre.</p>
+                    <% }) %>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
-                    <div>
-                        <label for="company" class="block text-sm font-semibold text-slate-800 mb-2">Nom
-                            de l'entreprise <span class="text-red-500">*</span></label>
-                        <div class="relative">
-                            <div
-                                class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
-                                    </path>
-                                </svg>
-                            </div>
-                            <input id="company" name="company" type="text" required
-                                placeholder="ex. Acme Technologies SAS"
-                                class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl pl-11 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
-                        </div>
-                    </div>
-                    <div>
-                        <label for="location" class="block text-sm font-semibold text-slate-800 mb-2">Ville
-                            / Localisation <span class="text-red-500">*</span></label>
-                        <div class="relative">
-                            <div
-                                class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
-                                    </path>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                </svg>
-                            </div>
-                            <input id="location" name="location" type="text" required
-                                placeholder="ex. Lyon (69002) ou Télétravail"
-                                class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl pl-11 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
-                        </div>
-                    </div>
-                    <div>
-                        <label for="job_title" class="block text-sm font-semibold text-slate-800 mb-2">Intitulé
-                            exact du poste <span class="text-red-500">*</span></label>
-                        <div class="relative">
-                            <div
-                                class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
-                                    </path>
-                                </svg>
-                            </div>
-                            <input id="job_title" name="job_title" type="text" required
-                                placeholder="ex. Développeur Full-Stack"
-                                class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl pl-11 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
-                        </div>
-                    </div>
+            </fieldset>
+        </section>
 
-                    <div>
-                        <label for="work_mode" class="block text-sm font-semibold text-slate-800 mb-2">Mode de travail
-                            <span class="text-red-500">*</span></label>
-                        <select id="work_mode" name="work_mode" required
-                            class="w-full bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white cursor-pointer transition-all">
-                            <option value="">Sélectionner un mode</option>
-                            <option value="presentiel">Présentiel</option>
-                            <option value="hybride">Hybride</option>
-                            <option value="remote">Télétravail</option>
-                        </select>
-                    </div>
+        <section class="bg-white rounded-3xl p-5 md:p-8 border border-slate-200 shadow-sm space-y-6">
+            <h2 class="text-lg font-bold text-slate-800">Modalités & contact</h2>
 
-                    <div>
-                        <label for="work_method" class="block text-sm font-semibold text-slate-800 mb-2">Méthode de
-                            travail</label>
-                        <input id="work_method" name="work_method" type="text" placeholder="ex. Agile / Scrum"
-                            class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
-                    </div>
-                    <div>
-                        <label for="remote_policy" class="block text-sm font-semibold text-slate-800 mb-2">Politique de
-                            télétravail</label>
-                        <input id="remote_policy" name="remote_policy" type="text" placeholder="ex. 2 jours / semaine"
-                            class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
-                    </div>
-                    <div>
-                        <label for="work_address" class="block text-sm font-semibold text-slate-800 mb-2">Adresse du
-                            lieu de travail</label>
-                        <input id="work_address" name="work_address" type="text"
-                            placeholder="ex. 42 rue de la République, 69002 Lyon"
-                            class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
-                    </div>
-
-                </div>
-            </section>
-
-            <section id="contenu"
-                class="scroll-mt-24 bg-white rounded-3xl p-5 md:p-8 lg:p-10 border border-slate-200 shadow-sm">
-                <header class="flex items-center justify-between mb-6 md:mb-8 pb-4 md:pb-6 border-b border-slate-100">
-                    <h2 class="text-lg md:text-xl font-bold text-slate-800 flex items-center gap-3 md:gap-4">
-                        <span
-                            class="w-8 h-8 rounded-full bg-blue-50 text-blue-700 flex items-center justify-center text-sm font-bold shadow-sm flex-shrink-0">2</span>
-                        Contenu & Missions
-                    </h2>
-                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider hidden sm:inline">Section
-                        2 sur 3</span>
-                </header>
-
-                <div class="space-y-6">
-                    <div>
-                        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-2 gap-1">
-                            <label for="description" class="block text-sm font-semibold text-slate-800">Présentation
-                                de l'entreprise <span class="text-red-500">*</span></label>
-                            <span class="text-xs text-slate-500">Environnement,
-                                culture et équipe</span>
-                        </div>
-                        <textarea id="description" name="description" rows="3" required
-                            placeholder="Présentez brièvement vos activités, l'équipe technique..."
-                            class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all resize-none"></textarea>
-                    </div>
-
-                    <div>
-                        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-2 gap-1">
-                            <label for="missions" class="block text-sm font-semibold text-slate-800">Missions
-                                principales confiées <span class="text-red-500">*</span></label>
-                            <span class="text-xs text-blue-700 font-medium">Conseil:
-                                détaillez 3 à 5 missions clés</span>
-                        </div>
-                        <textarea id="missions" name="missions" rows="4" required
-                            placeholder="- Conception et développement de nouvelles fonctionnalités back/front&#10;- Participation aux réunions de sprint agile..."
-                            class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all resize-none"></textarea>
-                    </div>
-
-                    <fieldset class="rounded-2xl border border-slate-200 bg-slate-50/70 p-4 md:p-5">
-                        <legend class="px-1 text-sm font-semibold text-slate-800">Compétences & Technologies clés
-                        </legend>
-                        <p class="text-xs text-slate-500 mb-4">Sélectionnez les technologies utiles pour ce poste.</p>
-                        <div class="flex flex-wrap gap-2">
-                            <label class="offer-choice"><input type="checkbox" name="skills" value="HTML"
-                                    class="sr-only"><span>HTML</span></label>
-                            <label class="offer-choice"><input type="checkbox" name="skills" value="CSS"
-                                    class="sr-only"><span>CSS</span></label>
-                            <label class="offer-choice"><input type="checkbox" name="skills" value="JavaScript"
-                                    class="sr-only"><span>JavaScript</span></label>
-                            <label class="offer-choice"><input type="checkbox" name="skills" value="PHP"
-                                    class="sr-only"><span>PHP</span></label>
-                            <label class="offer-choice"><input type="checkbox" name="skills" value="MySQL"
-                                    class="sr-only"><span>MySQL</span></label>
-                            <label class="offer-choice"><input type="checkbox" name="skills" value="React"
-                                    class="sr-only"><span>React</span></label>
-                            <label class="offer-choice"><input type="checkbox" name="skills" value="Figma"
-                                    class="sr-only"><span>Figma</span></label>
-                            <label class="offer-choice"><input type="checkbox" name="skills" value="Git / GitHub"
-                                    class="sr-only"><span>Git / GitHub</span></label>
-                            <label class="offer-choice"><input type="checkbox" name="skills" value="Laravel"
-                                    class="sr-only"><span>Laravel</span></label>
-                            <label class="offer-choice"><input type="checkbox" name="skills" value="Node.js"
-                                    class="sr-only"><span>Node.js</span></label>
-                        </div>
-                    </fieldset>
-
-                </div>
-            </section>
-
-            <section id="modalites"
-                class="scroll-mt-24 bg-white rounded-3xl p-5 md:p-8 lg:p-10 border border-slate-200 shadow-sm">
-                <header class="flex items-center justify-between mb-6 md:mb-8 pb-4 md:pb-6 border-b border-slate-100">
-                    <h2 class="text-lg md:text-xl font-bold text-slate-800 flex items-center gap-3 md:gap-4">
-                        <span
-                            class="w-8 h-8 rounded-full bg-blue-50 text-blue-700 flex items-center justify-center text-sm font-bold shadow-sm flex-shrink-0">3</span>
-                        Modalités & Contact
-                    </h2>
-                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider hidden sm:inline">Section
-                        3 sur 3</span>
-                </header>
-
-                <div class="space-y-6">
-                    <div>
-                        <h3 class="text-sm font-bold text-slate-900">Conditions du contrat</h3>
-                        <p class="text-xs text-slate-500 mt-1">Date de début, durée et rémunération proposées.</p>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
-                        <div>
-                            <label for="start_date" class="block text-sm font-semibold text-slate-800 mb-2">Date
-                                de début souhaitée <span class="text-red-500">*</span></label>
-                            <input id="start_date" name="start_date" type="date" required
-                                class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
-                        </div>
-                        <div>
-                            <label for="duration" class="block text-sm font-semibold text-slate-800 mb-2">Durée
-                                du contrat <span class="text-red-500">*</span></label>
-                            <div class="relative">
-                                <select id="duration" name="duration" required
-                                    class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl pl-4 pr-10 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white appearance-none cursor-pointer transition-all">
-                                    <option value="">Sélectionner une durée</option>
-                                    <option value="1 mois">1 mois</option>
-                                    <option value="2 mois">2 mois</option>
-                                    <option value="3 mois">3 mois</option>
-                                    <option value="4 mois">4 mois</option>
-                                    <option value="6 mois">6 mois</option>
-                                    <option value="12 mois">12 mois</option>
-                                    <option value="24 mois">24 mois</option>
-                                </select>
-                                <div
-                                    class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-slate-400">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M19 9l-7 7-7-7"></path>
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div>
-                        <label for="email" class="block text-sm font-semibold text-slate-800 mb-2">Email
-                            de réception des candidatures <span class="text-red-500">*</span></label>
-                        <div class="relative">
-                            <div
-                                class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
-                                    </path>
-                                </svg>
-                            </div>
-                            <input id="email" name="email" type="email" required
-                                placeholder="recrutement@entreprise.com"
-                                class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl pl-11 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
-                        </div>
-                        <p class="text-xs text-slate-500 mt-2">Les CV et
-                            lettres de motivation vous seront directement
-                            adressés sans intermédiaire.</p>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
-
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div>
+                    <label for="start_date" class="block text-sm font-semibold mb-2">Date de début *</label>
+                    <input id="start_date" name="start_date" type="date" required
+                        class="<%= inputClass %>" value="<%= startDate %>">
                 </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
-                    </div>
-                </div>
-            </section>
-
-            <div class="rounded-3xl border border-slate-200 bg-white p-4 md:p-6 shadow-sm">
-                <p class="mb-4 text-xs text-slate-500">Les champs marqués d'un * sont obligatoires.</p>
-                <div class="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between gap-3">
-
-                    <div
-                        class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3 w-full sm:w-auto">
-
-                        <button type="submit"
-                            class="flex-1 flex items-center justify-center gap-2 bg-blue-700 text-white font-semibold text-sm px-5 py-3 rounded-xl hover:bg-blue-900 transition-colors shadow-sm shadow-blue-700/20">
-                            <svg class="w-4 h-4 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
-                            </svg>
-                            Publier gratuitement
-                        </button>
-                    </div>
+                <div>
+                    <label for="duration" class="block text-sm font-semibold mb-2">Durée du contrat *</label>
+                    <select id="duration" name="duration" required class="<%= inputClass %>">
+                        <option value="">Sélectionner une durée</option>
+                        <% durations.forEach(months => { %>
+                            <option value="<%= months %>" <%= o.duree_mois === months ? 'selected' : '' %>>
+                                <%= months %> mois
+                            </option>
+                        <% }) %>
+                    </select>
                 </div>
             </div>
-        </form>
-    </main>
 
-    <script type="module" src="/js/app.js"></script>
+            <div>
+                <label for="email" class="block text-sm font-semibold mb-2">Email de réception des candidatures *</label>
+                <input id="email" name="email" type="email" required class="<%= inputClass %>"
+                    value="<%= o.email_contact %>">
+            </div>
+        </section>
+
+        <div class="rounded-3xl border border-slate-200 bg-white p-4 md:p-6 shadow-sm">
+            <p class="mb-4 text-xs text-slate-500">Les champs marqués d'un * sont obligatoires.</p>
+            <button type="submit"
+                class="bg-blue-700 text-white font-semibold text-sm px-6 py-3 rounded-xl hover:bg-blue-900">
+                Enregistrer
+            </button>
+        </div>
+    </form>
+</main>
 
 <%- include('../partials/footer') %>

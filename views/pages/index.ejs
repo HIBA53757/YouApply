@@ -1,286 +1,169 @@
 <%- include('../partials/header', { title: 'YouApply - Offres', active: 'index' }) %>
 
-    <main class="max-w-[1400px] mx-auto px-4 md:px-6 lg:px-8 py-6 md:py-8 flex-grow w-full">
+<main class="max-w-[1400px] mx-auto px-4 md:px-6 lg:px-8 py-6 md:py-8 flex-grow w-full">
 
-        <section class="page-hero mb-6 md:mb-8" aria-labelledby="page-title">
-            <div class="page-hero__content">
-                <p class="page-hero__eyebrow">Espace étudiant</p>
-                <h1 id="page-title" class="page-hero__title">Trouvez votre prochaine opportunité</h1>
-                <p class="page-hero__description">Explorez les offres de stage et d'alternance, puis trouvez celles qui
-                    correspondent à votre projet.</p>
-            </div>
-            <span class="page-hero__badge">Stages & alternances</span>
-        </section>
+    <section class="page-hero mb-6 md:mb-8">
+        <div class="page-hero__content">
+            <p class="page-hero__eyebrow">Espace étudiant</p>
+            <h1 class="page-hero__title">Trouvez votre prochaine opportunité</h1>
+            <p class="page-hero__description">Explorez les offres de stage et d'alternance, puis trouvez celles qui correspondent à votre projet.</p>
+        </div>
+        <span class="page-hero__badge">Stages & alternances</span>
+    </section>
 
-        <section
-            class="bg-white rounded-2xl shadow-sm border border-slate-200 p-3 mb-6 flex flex-col md:flex-row gap-3">
+    <!-- One form for search, filters and sort. It sends a GET request to "/" -->
+    <form action="/" method="get">
 
-            <div
-                class="flex-1 flex items-center bg-slate-100/80 rounded-xl px-4 border border-transparent focus-within:border-blue-700 focus-within:ring-1 focus-within:ring-blue-700 focus-within:bg-white transition-all">
-                <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                </svg>
-                <input id="search-keyword" type="text" placeholder="Mots-clés : Développeur, UX, Marketing..."
-                    class="w-full bg-transparent border-none focus:outline-none text-sm py-3.5 px-3 text-slate-800 placeholder-slate-500">
-            </div>
+        <!-- Search -->
+        <section class="bg-white rounded-2xl shadow-sm border border-slate-200 p-3 mb-6 flex flex-col md:flex-row gap-3">
+            <input name="keyword" type="text" value="<%= filters.keyword || '' %>"
+                placeholder="Mots-clés : Développeur, UX..."
+                class="flex-1 bg-slate-100 rounded-xl px-4 py-3.5 text-sm">
 
-            <div
-                class="flex-1 flex items-center bg-slate-100/80 rounded-xl px-4 border border-transparent focus-within:border-blue-700 focus-within:ring-1 focus-within:ring-blue-700 focus-within:bg-white transition-all">
-                <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                </svg>
-                <input id="search-city" type="text" placeholder="Ville, département ou Télétravail..."
-                    class="w-full bg-transparent border-none focus:outline-none text-sm py-3.5 px-3 text-slate-800 placeholder-slate-500">
-            </div>
+            <input name="city" type="text" value="<%= filters.city || '' %>"
+                placeholder="Ville..."
+                class="flex-1 bg-slate-100 rounded-xl px-4 py-3.5 text-sm">
 
-            <button id="search-button" type="button"
-                class="bg-blue-700 hover:bg-blue-900 text-white font-medium text-sm px-8 py-3.5 rounded-xl flex items-center justify-center gap-2 transition-colors w-full md:w-auto shadow-sm">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                </svg>
+            <button type="submit"
+                class="bg-blue-700 hover:bg-blue-900 text-white font-medium text-sm px-8 py-3.5 rounded-xl">
                 Rechercher
             </button>
         </section>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
-            <aside
-                class="lg:col-span-3 space-y-4 lg:sticky lg:top-20 lg:self-start lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto">
+            <!-- Filters -->
+            <aside class="lg:col-span-3">
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">
 
-                <div id="filter-toggle-btn"
-                    class="lg:hidden bg-white rounded-2xl shadow-sm border border-slate-200 p-4 flex items-center justify-between cursor-pointer active:scale-[0.99] hover:border-blue-200 hover:shadow-md transition-all duration-200">
-                    <div class="flex items-center gap-3 font-semibold text-slate-800">
-                        <svg class="w-5 h-5 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4">
-                            </path>
-                        </svg>
-                        <span class="text-base">Filtres de recherche</span>
-                        <svg id="filter-chevron" class="w-5 h-5 text-slate-500 transition-transform duration-200"
-                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
-                            </path>
-                        </svg>
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-base font-semibold text-slate-800">Filtres</h2>
+                        <a href="/" class="text-sm font-medium text-blue-700 hover:underline">Effacer tout</a>
                     </div>
-                    <button class="reset-filters text-sm font-bold text-blue-700 hover:underline px-2 py-1 z-10"
-                        onclick="event.stopPropagation()">Effacer tout</button>
-                </div>
 
-                <div id="filter-content"
-                    class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-out lg:grid-rows-[1fr]">
-                    <div class="overflow-hidden">
-                        <form class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">
-                            <header class="hidden lg:flex items-center justify-between mb-6">
-                                <h2 class="text-base font-semibold flex items-center gap-2 text-slate-800">
-                                    <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4">
-                                        </path>
-                                    </svg>
-                                    Filtres
-                                </h2>
-                                <button type="reset"
-                                    class="reset-filters text-sm font-medium text-blue-700 hover:underline">Effacer
-                                    tout</button>
-                            </header>
+                    <fieldset class="mb-6">
+                        <legend class="text-sm font-semibold mb-3">Type de contrat</legend>
+                        <select name="contract" onchange="this.form.submit()"
+                            class="w-full bg-slate-100 rounded-xl py-2 px-3 text-sm">
+                            <option value="">Tous</option>
+                            <option value="stage" <%= filters.contract === 'stage' ? 'selected' : '' %>>Stage</option>
+                            <option value="alternance" <%= filters.contract === 'alternance' ? 'selected' : '' %>>Alternance</option>
+                        </select>
+                    </fieldset>
 
-                            <fieldset class="mb-6">
-                                <legend class="text-sm font-semibold mb-3">Type de contrat</legend>
-                                <div class="flex bg-slate-100 p-1 rounded-xl">
-                                    <button type="button" data-contract="all"
-                                        class="contract-filter flex-1 text-sm font-medium py-2 bg-white text-slate-800 rounded-lg shadow-sm">
-                                        Tous
-                                    </button>
-                                    <button type="button" data-contract="stage"
-                                        class="contract-filter flex-1 text-sm font-medium py-2 text-slate-600 hover:text-slate-800">
-                                        Stage
-                                    </button>
-                                    <button type="button" data-contract="alternance"
-                                        class="contract-filter flex-1 text-sm font-medium py-2 text-slate-600 hover:text-slate-800">
-                                        Alternance
-                                    </button>
-                                </div>
-                            </fieldset>
+                    <fieldset class="mb-6">
+                        <legend class="text-sm font-semibold mb-3">Mode de travail</legend>
+                        <select name="workMode" onchange="this.form.submit()"
+                            class="w-full bg-slate-100 rounded-xl py-2 px-3 text-sm">
+                            <option value="">Tous</option>
+                            <option value="presentiel" <%= filters.workMode === 'presentiel' ? 'selected' : '' %>>Présentiel</option>
+                            <option value="hybride" <%= filters.workMode === 'hybride' ? 'selected' : '' %>>Hybride</option>
+                            <option value="remote" <%= filters.workMode === 'remote' ? 'selected' : '' %>>Télétravail 100%</option>
+                        </select>
+                    </fieldset>
 
-                            <fieldset class="mb-6">
-                                <legend class="text-sm font-semibold mb-3">Mode de travail</legend>
-                                <div id="work-mode-filters" class="space-y-4">
-                                    <label class="flex items-center justify-between cursor-pointer group">
-                                        <div class="flex items-center gap-3">
-                                            <input type="checkbox" data-work-mode="hybride"
-                                                class="work-mode-filter w-5 h-5 text-blue-700 bg-white border-slate-300 rounded focus:ring-blue-700 focus:ring-2 accent-blue-700">
-                                            <span class="text-sm text-slate-700">Hybride</span>
-                                        </div>
-                                    </label>
-                                    <label class="flex items-center justify-between cursor-pointer group">
-                                        <div class="flex items-center gap-3">
-                                            <input type="checkbox" data-work-mode="remote"
-                                                class="work-mode-filter w-5 h-5 text-blue-700 bg-white border-slate-300 rounded focus:ring-blue-700 focus:ring-2 accent-blue-700">
-                                            <span class="text-sm text-slate-700">Télétravail 100%</span>
-                                        </div>
-                                    </label>
-                                    <label class="flex items-center justify-between cursor-pointer group">
-                                        <div class="flex items-center gap-3">
-                                            <input type="checkbox" data-work-mode="presentiel"
-                                                class="work-mode-filter w-5 h-5 text-blue-700 bg-white border-slate-300 rounded focus:ring-blue-700 focus:ring-2 accent-blue-700">
-                                            <span class="text-sm text-slate-700">Présentiel</span>
-                                        </div>
-                                    </label>
-                                </div>
-                            </fieldset>
+                    <fieldset>
+                        <legend class="text-sm font-semibold mb-3">Technologie</legend>
+                        <select name="technology" onchange="this.form.submit()"
+                            class="w-full bg-slate-100 rounded-xl py-2 px-3 text-sm">
+                            <option value="">Toutes</option>
+                            <% technologies.forEach(technology => { %>
+                                <option value="<%= technology %>" <%= filters.technology === technology ? 'selected' : '' %>>
+                                    <%= technology %>
+                                </option>
+                            <% }) %>
+                        </select>
+                    </fieldset>
 
-                            <fieldset class="mb-6">
-                                <div class="flex items-center justify-between mb-3">
-                                    <legend class="text-sm font-semibold">Technologies</legend>
-                                    <span class="text-xs text-slate-500">Top sélections</span>
-                                </div>
-                                <div id="technology-filters" class="grid grid-cols-2 gap-y-4 gap-x-2">
-                                    <% technologies.forEach(technology => { %>
-                                    <label class="flex items-center gap-2 cursor-pointer">
-                                        <input type="checkbox" value="<%= technology %>" class="technology-filter">
-                                        <span class="text-sm text-slate-700"><%= technology %></span>
-                                    </label>
-                                    <% }) %>
-                                </div>
-                            </fieldset>
-
-                            <button type="reset"
-                                class="reset-filters w-full flex items-center justify-center gap-2 py-3 bg-blue-50 text-blue-700 font-bold text-sm rounded-xl hover:bg-blue-100 transition-colors">
-                                Effacer les filtres
-                            </button>
-                        </form>
-                    </div>
                 </div>
             </aside>
 
-            <section class="lg:col-span-9 flex flex-col">
+            <!-- Offers -->
+            <section class="lg:col-span-9">
 
-                <header
-                    class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
-                    <h2 class="text-slate-600 flex items-center flex-wrap gap-1">
-                        <strong id="results-count" class="text-2xl text-slate-800 font-bold mr-1"><%= offers.length %></strong>
-                        <span class="text-sm font-medium">offres de stages & alternances trouvées</span>
+                <header class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
+                    <h2 class="text-slate-600">
+                        <strong class="text-2xl text-slate-800"><%= offers.length %></strong>
+                        <span class="text-sm font-medium">offres trouvées</span>
                     </h2>
-                    <div class="flex items-center gap-2 self-start sm:self-auto">
-                        <label class="text-sm font-bold text-slate-700 whitespace-nowrap">Trier par :</label>
-                        <select id="sort-select"
-                            class="bg-slate-100 border-none text-sm font-semibold text-slate-800 rounded-xl py-2 pl-3 pr-8 focus:ring-0 cursor-pointer appearance-none">
+
+                    <div class="flex items-center gap-2">
+                        <label class="text-sm font-bold text-slate-700">Trier par :</label>
+                        <select name="sort" onchange="this.form.submit()"
+                            class="bg-slate-100 text-sm font-semibold rounded-xl py-2 px-3">
                             <option value="recent">Les plus récentes</option>
-                            <option value="oldest">Les plus anciennes</option>
+                            <option value="oldest" <%= filters.sort === 'oldest' ? 'selected' : '' %>>Les plus anciennes</option>
                         </select>
                     </div>
                 </header>
 
-                <div id="Offers_List" class="space-y-4 mb-8">
-                    <% offers.forEach(offer => {
-                        const skills = Array.isArray(offer.skills)
-                            ? offer.skills
-                            : (offer.skills ? String(offer.skills).split(',').map(s => s.trim()).filter(Boolean) : []);
-                        const startDate = offer.date_debut ? new Date(offer.date_debut).toLocaleDateString('fr-FR') : '';
-                        const initial = offer.entreprise_nom ? offer.entreprise_nom.charAt(0).toUpperCase() : '?';
-                    %>
-                    <article class="bg-white p-5 md:p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 transition-all"
-                        data-work-mode="<%= offer.mode_travail || '' %>">
-                        <div class="flex flex-col sm:flex-row items-start gap-4">
+                <div class="space-y-4 mb-8">
+                    <% offers.forEach(offer => { %>
 
-                            <div class="w-14 h-14 rounded-xl bg-blue-700 text-white flex items-center justify-center font-bold text-xl flex-shrink-0">
-                                <%= initial %>
-                            </div>
+                        <article class="bg-white p-5 md:p-6 rounded-2xl shadow-sm border border-slate-200">
+                            <div class="flex items-start gap-4">
 
-                            <div class="flex-1 w-full min-w-0">
+                                <div class="w-14 h-14 rounded-xl bg-blue-700 text-white flex items-center justify-center font-bold text-xl flex-shrink-0">
+                                    <%= offer.entreprise_nom.charAt(0).toUpperCase() %>
+                                </div>
 
-                                <div class="flex items-start justify-between gap-4">
-                                    <div>
-                                        <h2 class="text-lg md:text-xl font-bold text-slate-800 leading-tight mb-2"><%= offer.titre %></h2>
-
-                                        <div class="flex items-center gap-2 mb-2">
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-start justify-between gap-4">
+                                        <div>
+                                            <h2 class="text-lg md:text-xl font-bold text-slate-800 mb-2"><%= offer.titre %></h2>
                                             <span class="bg-blue-100 text-blue-900 text-xs font-bold px-3 py-1 rounded-full"><%= offer.type_contrat %></span>
+                                            <p class="mt-2 text-sm text-slate-700">
+                                                <%= offer.entreprise_nom %> - <%= offer.ville %>
+                                                - Début le <%= offer.date_debut.toLocaleDateString('fr-FR') %>
+                                            </p>
                                         </div>
 
-                                        <div class="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm font-medium text-slate-700">
-                                            <span><%= offer.entreprise_nom %></span>
-                                            <span class="w-1 h-1 rounded-full bg-slate-400"></span>
-                                            <span class="text-slate-500"><%= offer.ville %></span>
-                                            <% if (startDate) { %>
-                                            <span class="hidden sm:inline w-1 h-1 rounded-full bg-slate-400"></span>
-                                            <span class="text-slate-500 hidden sm:inline">Début le <%= startDate %></span>
+                                        <!-- Follow button (used by followBtn.js) -->
+                                        <button type="button" data-offer-id="<%= offer.id %>"
+                                            class="text-slate-300 hover:text-slate-500 p-1 flex-shrink-0">
+                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+
+                                    <p class="mt-4 text-sm text-slate-600 line-clamp-2"><%= offer.presentation_entreprise %></p>
+
+                                    <div class="mt-5 flex flex-col md:flex-row md:items-center justify-between gap-4 pt-5 border-t border-slate-100">
+
+                                        <div class="flex flex-wrap gap-2">
+                                            <% if (offer.skills) { %>
+                                                <% offer.skills.split(',').forEach(skill => { %>
+                                                    <span class="bg-slate-100 text-slate-600 text-xs font-semibold px-3 py-1.5 rounded-lg"><%= skill %></span>
+                                                <% }) %>
                                             <% } %>
                                         </div>
+
+                                        <a href="/offer-details.html?id=<%= offer.id %>"
+                                            class="bg-blue-700 hover:bg-blue-900 text-white text-sm font-medium px-5 py-2.5 rounded-xl text-center">
+                                            Voir l'offre
+                                        </a>
                                     </div>
-
-                                    <button type="button" data-offer-id="<%= offer.id %>"
-                                        class="text-slate-300 hover:text-slate-500 transition-colors p-1 flex-shrink-0">
-                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path>
-                                        </svg>
-                                    </button>
                                 </div>
-
-                                <% if (offer.description) { %>
-                                <p class="mt-4 text-sm text-slate-600 line-clamp-2 leading-relaxed"><%= offer.description %></p>
-                                <% } %>
-
-                                <div class="mt-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 pt-5 border-t border-slate-100">
-
-                                    <div class="flex flex-wrap gap-2">
-                                        <% skills.forEach(skill => { %>
-                                        <span class="bg-slate-100 text-slate-600 text-xs font-semibold px-3 py-1.5 rounded-lg"><%= skill %></span>
-                                        <% }) %>
-                                    </div>
-
-                  <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 w-full md:w-auto justify-between md:justify-end">
-    <% if (offer.salaire) { %>
-        <span class="text-sm font-bold text-blue-700">
-            <%= offer.salaire %>
-        </span>
-    <% } %>
-
-    <a
-        href="/offer-details.html?id=<%= offer.id %>"
-        class="w-full sm:w-auto bg-blue-700 hover:bg-blue-900 text-white text-sm font-medium px-5 py-2.5 rounded-xl flex items-center justify-center gap-2 transition-colors"
-    >
-        Voir l'offre
-
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M14 5l7 7m0 0l-7 7m7-7H3"
-            ></path>
-        </svg>
-    </a>
-</div>
-                                </div>
-
                             </div>
-                        </div>
-                    </article>
+                        </article>
+
                     <% }) %>
                 </div>
 
-                <div id="no-results" class="<%= offers.length ? 'hidden' : '' %> text-center py-10">
-                    <p class="text-lg font-semibold text-slate-700">Aucune offre trouvée</p>
-                    <p class="text-sm text-slate-500 mt-2">Essayez de modifier vos critères de recherche.</p>
-                </div>
-
-                <nav aria-label="Pagination" class="flex items-center justify-between pt-4 mt-auto">
-                    <div id="div_contain_number_page"
-                        class="flex items-center gap-1 flex-nowrap overflow-x-auto max-w-full"></div>
-                </nav>
+                <% if (offers.length === 0) { %>
+                    <div class="text-center py-10">
+                        <p class="text-lg font-semibold text-slate-700">Aucune offre trouvée</p>
+                        <p class="text-sm text-slate-500 mt-2">Essayez de modifier vos critères de recherche.</p>
+                    </div>
+                <% } %>
 
             </section>
         </div>
-    </main>
+    </form>
+</main>
 
-    <script type="module" src="/js/followBtn.js"></script>
-
+<script type="module" src="/js/followBtn.js"></script>
 
 <%- include('../partials/footer') %>

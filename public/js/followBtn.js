@@ -9,7 +9,7 @@ function setState(button, followed) {
   button.classList.toggle("hover:text-slate-500", !followed);
 }
 
-document.querySelectorAll("#Offers_List button[data-offer-id]").forEach((button) => {
+document.querySelectorAll("button[data-offer-id]").forEach((button) => {
   const id = Number(button.dataset.offerId);
 
   setState(button, getFollowedOffers().includes(id));

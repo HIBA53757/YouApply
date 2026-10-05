@@ -1,348 +1,76 @@
 <%- include('../partials/header', { title: 'YouApply - Administration', active: 'administration' }) %>
 
-    <main class="max-w-[1400px] mx-auto px-4 md:px-6 lg:px-8 py-6 md:py-8 flex-grow w-full">
+<main class="max-w-[1400px] mx-auto px-4 md:px-6 lg:px-8 py-6 md:py-8 flex-grow w-full">
 
-        <section class="page-hero mb-6 md:mb-8" aria-labelledby="page-title">
-            <div class="page-hero__content">
-                <p class="page-hero__eyebrow">Back-office</p>
-                <h1 id="page-title" class="page-hero__title">Administration des offres</h1>
-                <p class="page-hero__description">Suivez les annonces et gérez les opportunités proposées aux étudiants.
-                </p>
-            </div>
-            <span class="page-hero__badge">Gestion des offres</span>
-        </section>
-
-        <div class="flex justify-end mb-6 md:mb-8">
-            <div class="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
-
-                <a href="deposer-offer.html"
-                    class="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium text-white bg-blue-700 rounded-xl hover:bg-blue-900 transition-colors shadow-sm">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                    </svg>
-                    Ajouter une offre manuellement
-                </a>
-            </div>
+    <section class="page-hero mb-6 md:mb-8">
+        <div class="page-hero__content">
+            <p class="page-hero__eyebrow">Back-office</p>
+            <h1 class="page-hero__title">Administration des offres</h1>
+            <p class="page-hero__description">Gérez les opportunités proposées aux étudiants.</p>
         </div>
+        <span class="page-hero__badge">Gestion des offres</span>
+    </section>
 
-        <section class="mb-8">
+    <div class="flex justify-end mb-6">
+        <a href="/deposer-offer.html"
+            class="px-4 py-2.5 text-sm font-medium text-white bg-blue-700 rounded-xl hover:bg-blue-900">
+            + Ajouter une offre
+        </a>
+    </div>
 
-            <div class="bg-transparent lg:bg-white lg:border lg:border-slate-200 lg:border-t-0 lg:shadow-sm">
+    <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-x-auto">
+        <table class="w-full text-left text-sm">
+            <thead class="bg-slate-50 text-xs font-semibold text-slate-500 uppercase">
+                <tr>
+                    <th class="px-6 py-4">Poste</th>
+                    <th class="px-6 py-4">Entreprise & Ville</th>
+                    <th class="px-6 py-4">Type</th>
+                    <th class="px-6 py-4">Date de publication</th>
+                    <th class="px-6 py-4 text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
 
-                <table class="w-full text-left border-collapse">
+                <% offers.forEach(offer => { %>
+                    <tr>
+                        <td class="px-6 py-4 font-bold text-slate-800"><%= offer.titre %></td>
+                        <td class="px-6 py-4">
+                            <div class="font-bold text-slate-700"><%= offer.entreprise_nom %></div>
+                            <div class="text-xs text-slate-500"><%= offer.ville %></div>
+                        </td>
+                        <td class="px-6 py-4"><%= offer.type_contrat %></td>
+                        <td class="px-6 py-4"><%= offer.date_publication.toLocaleDateString('fr-FR') %></td>
+                        <td class="px-6 py-4">
+                            <div class="flex items-center justify-end gap-2">
 
-                    <thead
-                        class="hidden lg:table-header-group bg-slate-50/80 text-xs font-semibold text-slate-500 uppercase tracking-wider border-b border-slate-200">
-                        <tr>
-                            <th scope="col" class="px-6 py-4">Intitulé du
-                                poste & Référence</th>
-                            <th scope="col" class="px-6 py-4">Entreprise &
-                                Ville</th>
-                            <th scope="col" class="px-6 py-4">Type</th>
-                            <th scope="col" class="px-6 py-4">Date de
-                                soumission</th>
-                            <th scope="col" class="px-6 py-4">Statut</th>
-                            <th scope="col" class="px-6 py-4 text-right">Actions
-                                rapides</th>
-                        </tr>
-                    </thead>
+                                <a href="/offer-edit.html?id=<%= offer.id %>"
+                                    class="px-3 py-1.5 text-blue-700 bg-blue-50 rounded-lg hover:bg-blue-100">
+                                    Éditer
+                                </a>
 
-                    <tbody
-                        class="flex flex-col gap-4 lg:table-row-group lg:gap-0 lg:divide-y lg:divide-slate-100 text-sm">
+                                <form action="/offres/<%= offer.id %>/delete" method="post"
+                                    onsubmit="return confirm('Supprimer cette offre ?')">
+                                    <button type="submit"
+                                        class="px-3 py-1.5 text-red-600 bg-red-50 rounded-lg hover:bg-red-100">
+                                        Supprimer
+                                    </button>
+                                </form>
 
-                        <tr
-                            class="flex flex-col lg:table-row bg-white border border-slate-200 lg:border-none rounded-2xl lg:rounded-none p-4 lg:p-0 shadow-sm lg:shadow-none hover:bg-slate-50 transition-colors group">
+                            </div>
+                        </td>
+                    </tr>
+                <% }) %>
 
-                            <td class="block lg:table-cell lg:px-6 lg:py-4 mb-3 lg:mb-0">
-                                <div class="flex items-start justify-between">
-                                    <div>
-                                        <div class="font-bold text-slate-800 text-base md:text-sm pr-4">Développeur
-                                            Full-Stack React / Node.js</div>
-                                        <div class="text-[11px] text-slate-400 font-bold uppercase mt-1 tracking-wider">
-                                            REF
-                                            : OFF-2025-084</div>
-                                    </div>
-                                    <div class="lg:hidden flex-shrink-0">
-                                        <span
-                                            class="inline-flex items-center gap-1 bg-emerald-50 text-emerald-700 px-2 py-1 rounded-lg text-[10px] font-bold border border-emerald-100">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Publiée
-                                        </span>
-                                    </div>
-                                </div>
-                            </td>
+                <% if (offers.length === 0) { %>
+                    <tr>
+                        <td colspan="5" class="px-6 py-10 text-center text-slate-500">Aucune offre.</td>
+                    </tr>
+                <% } %>
 
-                            <td class="block lg:table-cell lg:px-6 lg:py-4 mb-4 lg:mb-0">
-                                <div class="flex items-center justify-between lg:block">
-                                    <div>
-                                        <div class="font-bold text-slate-700">Kardio
-                                            Tech SAS</div>
-                                        <div class="text-xs text-slate-500 flex items-center gap-1 mt-0.5">
-                                            <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor"
-                                                viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
-                                                </path>
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                            </svg>
-                                            Paris (75011)
-                                        </div>
-                                    </div>
-                                    <div class="lg:hidden">
-                                        <span
-                                            class="bg-teal-100 text-teal-700 text-[10px] font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider">Alternance</span>
-                                    </div>
-                                </div>
-                            </td>
+            </tbody>
+        </table>
+    </div>
 
-                            <td class="hidden lg:table-cell px-6 py-4 whitespace-nowrap">
-                                <span
-                                    class="bg-teal-100 text-teal-700 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Alternance</span>
-                            </td>
-                            <td class="hidden lg:table-cell px-6 py-4 whitespace-nowrap">
-                                <div class="font-semibold text-slate-700">18
-                                    Mai 2025</div>
-                                <div class="text-xs text-slate-400 mt-0.5">il
-                                    y a 2 jours</div>
-                            </td>
-                            <td class="hidden lg:table-cell px-6 py-4 whitespace-nowrap">
-                                <span
-                                    class="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-full text-xs font-bold border border-emerald-100">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                                    Publiée
-                                </span>
-                            </td>
-
-                            <td
-                                class="block lg:table-cell lg:px-6 lg:py-4 pt-3 lg:pt-4 border-t border-slate-100 lg:border-0 text-right">
-                                <div class="flex items-center justify-between lg:justify-end gap-2">
-                                    <div class="text-xs text-slate-400 font-medium lg:hidden">
-                                        Soumis le 18 Mai
-                                    </div>
-                                    <div class="flex items-center gap-1 text-slate-400">
-                                        <button
-                                            class="p-1.5 lg:p-2 hover:text-blue-900 hover:bg-blue-50 rounded-lg transition-colors"
-                                            title="Éditer"><svg class="w-4 h-4 lg:w-5 lg:h-5" fill="none"
-                                                stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z">
-                                                </path>
-                                            </svg></button>
-                                        <button
-                                            class="p-1.5 lg:p-2 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors"
-                                            title="Masquer/Bloquer"><svg class="w-4 h-4 lg:w-5 lg:h-5" fill="none"
-                                                stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636">
-                                                </path>
-                                            </svg></button>
-                                        <button
-                                            class="p-1.5 lg:p-2 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                                            title="Supprimer"><svg class="w-4 h-4 lg:w-5 lg:h-5" fill="none"
-                                                stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
-                                                </path>
-                                            </svg></button>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr
-                            class="flex flex-col lg:table-row bg-white border border-slate-200 lg:border-none rounded-2xl lg:rounded-none p-4 lg:p-0 shadow-sm lg:shadow-none hover:bg-slate-50 transition-colors group">
-                            <td class="block lg:table-cell lg:px-6 lg:py-4 mb-3 lg:mb-0">
-                                <div class="flex items-start justify-between">
-                                    <div>
-                                        <div class="font-bold text-slate-800 text-base md:text-sm pr-4">UX
-                                            / UI Designer Junior (Design
-                                            System)</div>
-                                        <div class="text-[11px] text-slate-400 font-bold uppercase mt-1 tracking-wider">
-                                            REF
-                                            : OFF-2025-083</div>
-                                    </div>
-                                    <div class="lg:hidden flex-shrink-0">
-                                        <span
-                                            class="inline-flex items-center gap-1 bg-emerald-50 text-emerald-700 px-2 py-1 rounded-lg text-[10px] font-bold border border-emerald-100">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Publiée
-                                        </span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="block lg:table-cell lg:px-6 lg:py-4 mb-4 lg:mb-0">
-                                <div class="flex items-center justify-between lg:block">
-                                    <div>
-                                        <div class="font-bold text-slate-700">Atelier
-                                            Digital</div>
-                                        <div class="text-xs text-slate-500 flex items-center gap-1 mt-0.5">
-                                            <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor"
-                                                viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
-                                                </path>
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                            </svg>
-                                            Lyon (69002)
-                                        </div>
-                                    </div>
-                                    <div class="lg:hidden">
-                                        <span
-                                            class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider">Stage</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="hidden lg:table-cell px-6 py-4 whitespace-nowrap">
-                                <span
-                                    class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Stage</span>
-                            </td>
-                            <td class="hidden lg:table-cell px-6 py-4 whitespace-nowrap">
-                                <div class="font-semibold text-slate-700">17
-                                    Mai 2025</div>
-                                <div class="text-xs text-slate-400 mt-0.5">il
-                                    y a 3 jours</div>
-                            </td>
-                            <td class="hidden lg:table-cell px-6 py-4 whitespace-nowrap">
-                                <span
-                                    class="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-full text-xs font-bold border border-emerald-100">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Publiée
-                                </span>
-                            </td>
-                            <td
-                                class="block lg:table-cell lg:px-6 lg:py-4 pt-3 lg:pt-4 border-t border-slate-100 lg:border-0 text-right">
-                                <div class="flex items-center justify-between lg:justify-end gap-2">
-                                    <div class="text-xs text-slate-400 font-medium lg:hidden">Soumis
-                                        le 17 Mai</div>
-                                    <div class="flex items-center gap-1 text-slate-400">
-                                        <button
-                                            class="p-1.5 lg:p-2 hover:text-blue-900 hover:bg-blue-50 rounded-lg transition-colors"
-                                            title="Éditer"><svg class="w-4 h-4 lg:w-5 lg:h-5" fill="none"
-                                                stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z">
-                                                </path>
-                                            </svg></button>
-                                        <button
-                                            class="p-1.5 lg:p-2 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors"
-                                            title="Masquer/Bloquer"><svg class="w-4 h-4 lg:w-5 lg:h-5" fill="none"
-                                                stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636">
-                                                </path>
-                                            </svg></button>
-                                        <button
-                                            class="p-1.5 lg:p-2 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                                            title="Supprimer"><svg class="w-4 h-4 lg:w-5 lg:h-5" fill="none"
-                                                stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
-                                                </path>
-                                            </svg></button>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr
-                            class="flex flex-col lg:table-row bg-white border border-slate-200 lg:border-none rounded-2xl lg:rounded-none p-4 lg:p-0 shadow-sm lg:shadow-none hover:bg-slate-50 transition-colors group">
-                            <td class="block lg:table-cell lg:px-6 lg:py-4 mb-3 lg:mb-0">
-                                <div class="flex items-start justify-between">
-                                    <div>
-                                        <div class="font-bold text-slate-800 text-base md:text-sm pr-4">Data
-                                            Analyst / Business
-                                            Intelligence</div>
-                                        <div class="text-[11px] text-slate-400 font-bold uppercase mt-1 tracking-wider">
-                                            REF
-                                            : OFF-2025-082</div>
-                                    </div>
-                                    <div class="lg:hidden flex-shrink-0">
-                                        <span
-                                            class="inline-flex items-center gap-1 bg-amber-50 text-amber-700 px-2 py-1 rounded-lg text-[10px] font-bold border border-amber-100">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>Brouillon
-                                        </span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="block lg:table-cell lg:px-6 lg:py-4 mb-4 lg:mb-0">
-                                <div class="flex items-center justify-between lg:block">
-                                    <div>
-                                        <div class="font-bold text-slate-700">Novafinance
-                                            Groupe</div>
-                                        <div class="text-xs text-slate-500 flex items-center gap-1 mt-0.5">
-                                            <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor"
-                                                viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
-                                                </path>
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                            </svg>
-                                            Nantes (44000)
-                                        </div>
-                                    </div>
-                                    <div class="lg:hidden">
-                                        <span
-                                            class="bg-teal-100 text-teal-700 text-[10px] font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider">Alternance</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="hidden lg:table-cell px-6 py-4 whitespace-nowrap">
-                                <span
-                                    class="bg-teal-100 text-teal-700 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Alternance</span>
-                            </td>
-                            <td class="hidden lg:table-cell px-6 py-4 whitespace-nowrap">
-                                <div class="font-semibold text-slate-700">16
-                                    Mai 2025</div>
-                                <div class="text-xs text-slate-400 mt-0.5">il
-                                    y a 4 jours</div>
-                            </td>
-                            <td class="hidden lg:table-cell px-6 py-4 whitespace-nowrap">
-                                <span
-                                    class="inline-flex items-center gap-1.5 bg-amber-50 text-amber-700 px-2.5 py-1 rounded-full text-xs font-bold border border-amber-100">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>Brouillon
-                                </span>
-                            </td>
-                            <td
-                                class="block lg:table-cell lg:px-6 lg:py-4 pt-3 lg:pt-4 border-t border-slate-100 lg:border-0 text-right">
-                                <div class="flex items-center justify-between lg:justify-end gap-2">
-
-                                    <div class="flex items-center gap-1 text-slate-400">
-                                        <button
-                                            class="p-1.5 lg:p-2 hover:text-blue-900 hover:bg-blue-50 rounded-lg transition-colors"
-                                            title="Éditer"><svg class="w-4 h-4 lg:w-5 lg:h-5" fill="none"
-                                                stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z">
-                                                </path>
-                                            </svg></button>
-                                        <button
-                                            class="p-1.5 lg:p-2 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors"
-                                            title="Publier"><svg class="w-4 h-4 lg:w-5 lg:h-5" fill="none"
-                                                stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12">
-                                                </path>
-                                            </svg></button>
-                                        <button
-                                            class="p-1.5 lg:p-2 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                                            title="Supprimer"><svg class="w-4 h-4 lg:w-5 lg:h-5" fill="none"
-                                                stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
-                                                </path>
-                                            </svg></button>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-    </main>
-
-    <script type="module" src="/js/app.js"></script>
+</main>
 
 <%- include('../partials/footer') %>
